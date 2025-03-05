@@ -3,7 +3,7 @@ public class Main {
         MCD f = new MCD();
         int a[]=new int[4];
         a[0]=4;a[1]=4;a[2]=4;a[3]=4;
-        System.out.println(f.pal("aaaaaaaa"));
+        System.out.println(Estudiante.cantidad("reinier mendoza"));
     }
 }
 
