@@ -52,7 +52,8 @@ TPAR = {"saldo":1000,"interes":0.08}
 print(importe(**TPAR))
 
 #notar como se usan * y **
+#Las llamadas dinamicas son aquellas en las q no se sabe si existen las funciones
 
-"""
-Las llamadas dinamicas
-"""
+def llamada_de_retorno(function):
+    """Ejemplo de llamada dinamica"""
+    return globals()[function]()
