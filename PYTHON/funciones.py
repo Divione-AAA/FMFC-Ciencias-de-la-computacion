@@ -57,3 +57,24 @@ print(importe(**TPAR))
 def llamada_de_retorno(function):
     """Ejemplo de llamada dinamica"""
     return globals()[function]()
+
+#un ejemplo mas obvio
+NOMBREFUNCION = "saludo"
+
+print(locals()[NOMBREFUNCION]("Maria","Elena"))
+
+#saber si una funcion existe y puede ser llamada
+#para saber si existe
+if NOMBREFUNCION in locals():
+    #para saber si es llamable
+    if callable(locals()[NOMBREFUNCION]):
+        print(locals()[NOMBREFUNCION]("Lalisa","Manoban"))
+
+#recursividad
+
+def mcd(a,b):
+    """la clasica"""
+    #al parecer no existen los ternarios clasicos
+    return a if b==0 else mcd(b,a%b)
+
+print(mcd(10,3))
