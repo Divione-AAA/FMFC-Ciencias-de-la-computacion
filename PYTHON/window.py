@@ -1,5 +1,8 @@
+"""
+Ventanas en python, programacion visual
+"""
 import tkinter as tk
 ventana = tk.Tk()
 ventana.title("Hola")
-ventana.geometry("400x300")
+ventana.attributes("-fullscreen",True)
 ventana.mainloop()
