@@ -21,6 +21,15 @@ def guardad_datos():
     if not nombre or not edad or not email or not telefono or not direccion:
         messagebox.showwarning("Advertencia", "todos los campos deben estar llenos")
         return
+    try:
+        edad = int(edad)
+        telefono = int(telefono)
+    except ValueError:
+        messagebox.showwarning("Advertencia", "los campos telefono y edad deben ser numeros")
+        return
+    ws.append([nombre,edad,email,telefono,direccion])
+    wb.save("dato.xlsx")
+
 
 
 root = tk.Tk()
