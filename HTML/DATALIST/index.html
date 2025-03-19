@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h3>Elige la comida</h3>
+    <!--Los datalist funcionan como complemento de input y son una clase hija de list-->
+    <input list="comida" id="comida-choice" name="comida-choice" >
+
+    <datalist id="comida">
+        <option>Pizza</option>
+        <option>Yogurt</option>
+        <option>Cangrejitos</option>
+        <option>Mantecadito</option>
+        <option>Helado</option>
+        <option>Zuko</option>
+    </datalist>
+
+    <h3>Elige la fecha</h3>
+    <input type="time" list="hora" id="hora-choice" name="hora-choice" >
+
+    <datalist id="hora">
+        <option value="02:00"></option>
+    </datalist>
+    
+</body>
+</html>

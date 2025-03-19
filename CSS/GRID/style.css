@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.grid{
+    outline: 2px solid #000;
+    width: 90%;
+    height: 500px;
+    margin: 20px auto;
+    display: grid;
+}
+
+.grid_item{
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.item_1{
+    background: orangered;
+}
+
+.item_2{
+    background: yellow;
+}
+
+.item_3{
+    background: red;
+}
+
+.item_4{
+    background: yellowgreen;
+}
