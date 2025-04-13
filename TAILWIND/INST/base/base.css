@@ -1,0 +1,7 @@
+@layer base{
+    body{
+        background-image: url("../images/ico.jpg");
+        background-repeat: repeat;
+        background-position: center center;
+    }
+}
