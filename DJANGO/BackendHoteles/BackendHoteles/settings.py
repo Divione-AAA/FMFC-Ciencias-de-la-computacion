@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Hoteles',
+    'Valoraciones',
     'rest_framework',
     'corsheaders',
 ]
