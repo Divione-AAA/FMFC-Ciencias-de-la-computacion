@@ -1,10 +1,11 @@
-package UI;
+package UI.GestionUsuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
 import GestionUsuario.Login; // Importamos la clase Login
+import UI.DashboardFrame;
 
 public class LoginUI extends JFrame {
     private JTextField usuarioField;
@@ -82,13 +83,14 @@ public class LoginUI extends JFrame {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:usuarios.db")) {
             // Llamamos al método de Login para validar las credenciales
             boolean esValido = Login.login(conn, usuario, clave);
+            String rol = Login.obtenerRol(conn,usuario,clave);
 
             if (esValido) {
                 // Si el login es exitoso
                 JOptionPane.showMessageDialog(this, "¡Bienvenido, " + usuario + "!");
                 this.dispose(); // Cierra la ventana de login
                 // Abre el panel principal (Dashboard)
-                new DashboardFrame(usuario).setVisible(true);
+                new DashboardFrame(usuario,rol,conn).setVisible(true);
             } else {
                 // Si el login falla
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");

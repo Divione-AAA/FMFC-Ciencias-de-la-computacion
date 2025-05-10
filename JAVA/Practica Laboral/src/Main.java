@@ -1,13 +1,12 @@
+import UI.GestionUsuario.LoginUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import GestionUsuario.*;
-import UI.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) {
-
+    public static void main(String[] args){
         try {
             FlatLightLaf.setup();
             Connection conn = DriverManager.getConnection("jdbc:sqlite:usuarios.db");

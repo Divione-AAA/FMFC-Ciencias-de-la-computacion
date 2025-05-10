@@ -1,6 +1,11 @@
 package UI;
+import UI.GestionUsuario.LoginUI;
+import UI.GestionUsuario.PanelUsuarios;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class DashboardFrame extends JFrame {
@@ -8,7 +13,7 @@ public class DashboardFrame extends JFrame {
     private JPanel mainPanel;
     private HashMap<String, JPanel> paneles;
 
-    public DashboardFrame(String usuario) {
+    public DashboardFrame(String usuario, String rol, Connection conn) throws SQLException {
         setTitle("Panel de Control - Bienvenido " + usuario);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1080, 720);
@@ -21,9 +26,9 @@ public class DashboardFrame extends JFrame {
         paneles = new HashMap<>();
 
         // Crear formularios y agregarlos
-        addFormPanel("Usuarios", new PanelUsuarios("Gestión de usuarios"));
-        addFormPanel("Añadir", new PanelAddUsers("Formulario para añadir"));
-        addFormPanel("Eliminar", new PanelDelUser("Formulario para eliminar"));
+        addFormPanel("Usuarios", new PanelUsuarios("Gestión de usuarios",rol,conn,usuario));
+        addFormPanel("Añadir", new PanelAddSensor("Formulario para añadir"));
+        addFormPanel("Eliminar", new PanelDelSensor("Formulario para eliminar"));
         addFormPanel("Gestionar", new PanelGestion("Formulario para gestionar"));
         addFormPanel("Método de Alerta", new PanelMetodo("Método de alerta configurado"));
         addFormPanel("Datos por sensor", new PanelPorSensor("Datos por sensor"));
