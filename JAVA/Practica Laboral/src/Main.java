@@ -2,6 +2,8 @@ import UI.GestionUsuario.LoginUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import GestionUsuario.Crearuser;
 
+//las declaro en la otra clase por lo q aqui no lo use
+
 import java.sql.*;
 
 public class Main {
@@ -28,22 +30,36 @@ public class Main {
                         FOREIGN KEY(sensor_id) REFERENCES sensores(id) ON DELETE CASCADE
                     );
                 """;
+                String alertasSql = """
+                    DROP TABLE IF EXISTS alertas;
+                    CREATE TABLE alertas (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        nombre TEXT NOT NULL,
+                        sensor_id INTEGER NOT NULL,
+                        tipo TEXT NOT NULL,
+                        limite REAL NOT NULL,
+                        FOREIGN KEY(sensor_id) REFERENCES sensores(id) ON DELETE CASCADE
+                    );
+
+
+               \s""";
+                conn.createStatement().executeUpdate(alertasSql);
                 conn.createStatement().executeUpdate(valoresSql);
-                System.out.println("✅ Tabla 'valores_sensor' verificada o creada correctamente.");
+                //System.out.println("✅ Tabla 'valores_sensor' verificada o creada correctamente.");
 
             }
 
             // Verificar existencia de tabla
-            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:data.db")) {
+            /*try (Connection conn = DriverManager.getConnection("jdbc:sqlite:data.db")) {
                 ResultSet rs = conn.getMetaData().getTables(null, null, "sensores", null);
                 System.out.println(rs.next() ? "✅ La tabla 'sensores' existe." : "❌ La tabla 'sensores' NO existe.");
-            }
+            }*/
 
-            // Crear usuario admin
+            /*// Crear usuario admin
             FlatLightLaf.setup();
             try (Connection conn = DriverManager.getConnection("jdbc:sqlite:usuarios.db")) {
                 Crearuser.crearUsuario(conn, "Admin", "1234", "admin");
-            }
+            }*/
 
             // Iniciar Login
             LoginUI.main(args);

@@ -1,4 +1,5 @@
 package UI;
+
 import UI.AddSensor.PanelAddSensor;
 import UI.Ayuda.PanelAbout;
 import UI.Ayuda.PanelWellcome;
@@ -6,7 +7,6 @@ import UI.DelSensor.PanelDelSensor;
 import UI.GestionSensores.PanelGestion;
 import UI.GestionUsuario.LoginUI;
 import UI.GestionUsuario.PanelUsuarios;
-
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
@@ -38,7 +38,7 @@ public class DashboardFrame extends JFrame {
         addFormPanel("Método de Alerta", new PanelMetodo("Método de alerta configurado"));
         addFormPanel("Datos por sensor", new PanelPorSensor("Datos por sensor"));
         addFormPanel("Entorno", new PanelEntorno("Datos por Entorno"));
-        addFormPanel("Alertas", new PanelEntorno("Alertas"));
+        addFormPanel("Alertas", new PanelAlertas("Alertas"));
         addFormPanel("Bienvenido", new PanelWellcome("¡Bienvenido al sistema!"));
         addFormPanel("Acerca de", new PanelAbout("¡Bienvenido"));
 
