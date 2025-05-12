@@ -1,4 +1,9 @@
 package UI;
+import UI.AddSensor.PanelAddSensor;
+import UI.Ayuda.PanelAbout;
+import UI.Ayuda.PanelWellcome;
+import UI.DelSensor.PanelDelSensor;
+import UI.GestionSensores.PanelGestion;
 import UI.GestionUsuario.LoginUI;
 import UI.GestionUsuario.PanelUsuarios;
 
@@ -25,10 +30,10 @@ public class DashboardFrame extends JFrame {
         mainPanel = new JPanel(cardLayout);
         paneles = new HashMap<>();
 
-        // Crear formularios y agregarlos
+        // Crear formularios y agregarlo
         addFormPanel("Usuarios", new PanelUsuarios("Gestión de usuarios",rol,conn,usuario));
         addFormPanel("Añadir", new PanelAddSensor("Formulario para añadir"));
-        addFormPanel("Eliminar", new PanelDelSensor("Formulario para eliminar"));
+        addFormPanel("Eliminar", new PanelDelSensor(rol));
         addFormPanel("Gestionar", new PanelGestion("Formulario para gestionar"));
         addFormPanel("Método de Alerta", new PanelMetodo("Método de alerta configurado"));
         addFormPanel("Datos por sensor", new PanelPorSensor("Datos por sensor"));
