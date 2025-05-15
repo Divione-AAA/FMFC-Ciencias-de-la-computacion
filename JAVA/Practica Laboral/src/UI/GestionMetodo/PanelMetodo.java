@@ -1,4 +1,4 @@
-package UI;
+package UI.GestionMetodo;
 
 import Modelos.Alerta;
 import Sensores.SensorService;

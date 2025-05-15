@@ -1,9 +1,10 @@
-package UI;
+package UI.VerEntorno;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelPorSensor extends JPanel {
-    public PanelPorSensor(String s) {
+public class PanelEntorno extends JPanel {
+    public PanelEntorno(String s) {
         setLayout(new BorderLayout());
         add(new JLabel(s), BorderLayout.CENTER);
     }

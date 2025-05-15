@@ -1,4 +1,4 @@
-package UI;
+package UI.VerAlertas;
 
 import Modelos.Alerta;
 import Servicios.AlertaService;
