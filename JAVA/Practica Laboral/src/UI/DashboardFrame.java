@@ -63,6 +63,7 @@ public class DashboardFrame extends JFrame {
     }
 
     private JMenuBar crearMenuBar() {
+
         JMenuBar menuBar = new JMenuBar();
 
         // Inicio

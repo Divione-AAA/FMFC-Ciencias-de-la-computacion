@@ -13,5 +13,4 @@ public class EscribirLista {
         fw.write(text);
         fw.close();
     }
-
 }
