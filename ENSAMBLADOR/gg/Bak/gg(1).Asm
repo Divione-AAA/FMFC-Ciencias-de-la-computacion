@@ -1,23 +1,15 @@
 .386
 .model flat, stdcall
-option casemap:none
+include kernel32.inc
+includelib kernel32.lib
 
-include \masm32\include\windows.inc
-include \masm32\include\user32.inc
-include \masm32\include\kernel32.inc
-
-includelib \masm32\lib\user32.lib
-includelib \masm32\lib\kernel32.lib
-
+.stack
 .data
-    AppName db "Sumadora MASM32 (Sin Consola)",0
-
+	x  word  1A5Fh  
+	y  word    0100h  
+	z  dword  0 
 .code
-WinMain proc
-    invoke MessageBox, 0, addr AppName, addr AppName, MB_OK
-    invoke ExitProcess, 0
-WinMain endp
 
-start:
-    call WinMain
-end start
+inicio:
+	mov AX,-5
+end inicio

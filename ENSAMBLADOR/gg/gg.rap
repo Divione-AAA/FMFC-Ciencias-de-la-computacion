@@ -52,7 +52,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=15
+MilestoneOnDateDate=22
 MilestoneOnDateTimeYear=2025
 MilestoneOnDateTimeMonth=5
 MilestoneOnDateTimeDate=15
@@ -87,7 +87,7 @@ ProductVer4Range=0
 [Collapse]
 1=
 [Size]
-1=0,0,0,0,3605
+1=0,0,0,0,135
 [BookMark]
 0=
 1=

@@ -2,27 +2,22 @@
 .model flat, stdcall
 option casemap:none
 
-; Incluir las bibliotecas necesarias
 include \masm32\include\windows.inc
+include \masm32\include\user32.inc
 include \masm32\include\kernel32.inc
 
+includelib \masm32\lib\user32.lib
 includelib \masm32\lib\kernel32.lib
 
 .data
-    holaMundo db "Hola Mundo!", 13, 10  ; Texto con retorno de carro y nueva línea
-    holaLen dd $-holaMundo              ; Longitud del texto
-    stdout dd ?                          ; Handle para salida estándar
+    AppName db "Sumadora MASM32 (Sin Consola)",0
 
 .code
-start:
-    ; Obtener el handle de salida estándar
-    invoke GetStdHandle, STD_OUTPUT_HANDLE
-    mov stdout, eax
-    
-    ; Escribir en la consola
-    invoke WriteConsole, stdout, addr holaMundo, holaLen, 0, 0
-    
-    ; Salir del programa
+WinMain proc
+    invoke MessageBox, 0, addr AppName, addr AppName, MB_OK
     invoke ExitProcess, 0
-    
+WinMain endp
+
+start:
+    call WinMain
 end start
