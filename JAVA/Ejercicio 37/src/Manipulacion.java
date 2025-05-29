@@ -41,6 +41,7 @@ public class Manipulacion {
 
     public static void escribirResultadosOrdenados(Map<Integer, Integer> mapa, String rutaSalida) throws IOException {
 
+        //Los convierto a una lista y los ordeno
         List<Map.Entry<Integer, Integer>> listaOrdenada = mapa.entrySet()
                 .stream()
                 .sorted((e1, e2) -> {
@@ -49,11 +50,15 @@ public class Manipulacion {
                 })
                 .collect(Collectors.toList());
 
+        //crea el archivo
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaSalida))) {
-            for (Map.Entry<Integer, Integer> entrada : listaOrdenada) {
-                bw.write(entrada.getKey() + " " + entrada.getValue());
-                bw.newLine();
+            for (Map.Entry<Integer, Integer> entrada : listaOrdenada) {// for each
+                bw.write(entrada.getKey() + " " + entrada.getValue());//los escribe
+                bw.newLine();//salta de linea
             }
         }
+
+        //lanza la Excepcion
+
     }
 }
