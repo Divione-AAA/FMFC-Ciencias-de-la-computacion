@@ -11,7 +11,7 @@ public class Manipulacion {
             String linea;
             int control=0; //para controlar el orden ascendente
             while ((linea = br.readLine()) != null) {
-                linea = linea.trim();
+                linea = linea.trim();//elimina los espacios en blanco
                 if (!linea.isEmpty()) {
                     String[] partes = linea.split(" ");
                     int numero = Integer.parseInt(partes[0]);
