@@ -55,11 +55,11 @@ public class Main {
                 System.out.println(rs.next() ? "✅ La tabla 'sensores' existe." : "❌ La tabla 'sensores' NO existe.");
             }*/
 
-            /*// Crear usuario admin
+            // Crear usuario admin
             FlatLightLaf.setup();
             try (Connection conn = DriverManager.getConnection("jdbc:sqlite:usuarios.db")) {
-                Crearuser.crearUsuario(conn, "Admin", "1234", "admin");
-            }*/
+                Crearuser.crearUsuario(conn, "Otro", "1234", "admin");
+            }
 
             // Iniciar Login
             LoginUI.main(args);

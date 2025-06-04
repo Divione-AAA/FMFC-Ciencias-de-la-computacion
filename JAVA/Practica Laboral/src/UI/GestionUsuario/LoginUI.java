@@ -5,7 +5,7 @@ import java.awt.*;
 import java.sql.*;
 
 import GestionUsuario.Login; // Importamos la clase Login
-import UI.DashboardFrame;
+
 
 public class LoginUI extends JFrame {
     private JTextField usuarioField;
