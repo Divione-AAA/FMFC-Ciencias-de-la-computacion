@@ -1,4 +1,4 @@
-package UI.GestionUsuario;
+package UI.Main;
 
 import UI.AddSensor.PanelAddSensor;
 import UI.Ayuda.PanelAbout;
@@ -6,6 +6,7 @@ import UI.Ayuda.PanelWellcome;
 import UI.DelSensor.PanelDelSensor;
 import UI.GestionMetodo.PanelMetodo;
 import UI.GestionSensores.PanelGestion;
+import UI.GestionUsuario.PanelUsuarios;
 import UI.VerAlertas.PanelAlertas;
 import UI.VerEntorno.PanelEntorno;
 import UI.VerSensor.PanelPorSensor;

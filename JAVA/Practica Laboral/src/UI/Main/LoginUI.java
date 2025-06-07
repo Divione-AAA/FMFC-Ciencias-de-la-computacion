@@ -1,4 +1,4 @@
-package UI.GestionUsuario;
+package UI.Main;
 
 import javax.swing.*;
 import java.awt.*;
