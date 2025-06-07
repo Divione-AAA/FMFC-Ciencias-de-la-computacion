@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "MASM Build", // Nombre de la tarea
+            "type": "shell",
+            "command": "ml /c /coff \"${file}\"", // Ensambla el archivo actual (.asm)
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "MASM Link", // Tarea para enlazar
+            "type": "shell",
+            "command": "link /subsystem:windows \"${fileBasenameNoExtension}.obj\"", // Enlaza el .obj creado
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": "$msCompile",
+            "dependsOn": ["MASM Build"] // Depende de que la tarea de ensamblado se complete primero
+        },
+        {
+            "label": "MASM Run", // Tarea para ejecutar el programa
+            "type": "shell",
+            "command": ".\\${fileBasenameNoExtension}.exe", // Ejecuta el .exe
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
