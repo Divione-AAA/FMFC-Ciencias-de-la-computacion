@@ -48,6 +48,7 @@ start:              ; Punto de entrada del programa
 
     ; Corregido: El procedimiento 'mostrarMensaje' ahora está correctamente definido.
     call mostrarMensaje
+    invoke Sleep, 3000 ;
     invoke ExitProcess, NULL ; Corregido: NULL (mayúsculas)
-
+    
 end start           ; Marca el final del código fuente y el punto de entrada
