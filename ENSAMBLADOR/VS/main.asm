@@ -4,21 +4,20 @@
 option casemap :none ; No distinguir mayúsculas/minúsculas en nombres
 
 include \masm32\include\windows.inc
-include \masm32\include\user32.inc
 include \masm32\include\kernel32.inc
+include \masm32\include\masm32.inc   ; <--- Asegúrate de incluir esta línea
 
-includelib \masm32\lib\user32.lib
 includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
 
 .data               ; Sección de datos inicializados
-    szCaption db "MASM 32-bit",0  ; Título de la ventana
-    szText    db "Hola Mundo desde VS Code y MASM!",0 ; Mensaje
+    szText db "Hola Mundo desde VS Code y MASM!",0
 
 .code               ; Sección de código
 
 start:              ; Punto de entrada del programa
 
-    invoke MessageBox, NULL, addr szText, addr szCaption, MB_OK
-    invoke ExitProcess, NULL
+    invoke StdOut, addr szText      ; Imprime en consola
+    invoke ExitProcess, 0
 
 end start

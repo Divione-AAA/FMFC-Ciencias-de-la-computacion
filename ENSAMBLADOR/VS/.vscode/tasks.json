@@ -2,41 +2,62 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "MASM Build", // Nombre de la tarea
+            "label": "MASM Build",
             "type": "shell",
-            "command": "ml /c /coff \"${file}\"", // Ensambla el archivo actual (.asm)
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "command": "\"C:\\MASM32\\BIN\\ml.exe\" /c /coff \"${file}\"",
+            // Opcional: Quita "isDefault": true si solo quieres usar la tarea combinada
+            // "group": {
+            //     "kind": "build",
+            //     // "isDefault": true
+            // },
             "presentation": {
-                "reveal": "always",
-                "panel": "new"
+                "reveal": "silent", // Opcional: Mantiene la terminal limpia a menos que haya errores
+                "panel": "shared"   // Para que usen la misma terminal si es posible
             },
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "MASM Link", // Tarea para enlazar
+            "label": "MASM Link",
             "type": "shell",
-            "command": "link /subsystem:windows \"${fileBasenameNoExtension}.obj\"", // Enlaza el .obj creado
-            "group": "build",
+            "command": "\"C:\\MASM32\\BIN\\link.exe\" /subsystem:console /LIBPATH:\"C:\\MASM32\\LIB\" \"${fileBasenameNoExtension}.obj\"",
+            // Opcional: Quita "isDefault": true si solo quieres usar la tarea combinada
+            // "group": "build",
             "presentation": {
-                "reveal": "always",
-                "panel": "new"
+                "reveal": "silent", // Opcional: Mantiene la terminal limpia a menos que haya errores
+                "panel": "shared"
             },
             "problemMatcher": "$msCompile",
-            "dependsOn": ["MASM Build"] // Depende de que la tarea de ensamblado se complete primero
+            "dependsOn": ["MASM Build"] // Asegura que "Build" se ejecute primero
         },
         {
-            "label": "MASM Run", // Tarea para ejecutar el programa
+            "label": "MASM Run",
             "type": "shell",
-            "command": ".\\${fileBasenameNoExtension}.exe", // Ejecuta el .exe
+            "command": ".\\${fileBasenameNoExtension}.exe",
             "group": "test",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
             },
             "problemMatcher": []
+        },
+        // --- NUEVA TAREA COMBINADA ---
+        {
+            "label": "MASM Build & Run",
+            "type": "shell",
+            "command": ".\\${fileBasenameNoExtension}.exe", // Comando para ejecutar el EXE
+            "group": {
+                "kind": "build",
+                "isDefault": true // ¡Esta es la tarea de compilación por defecto ahora!
+            },
+            "presentation": {
+                "reveal": "always", // Mostrar la terminal siempre para ver la salida
+                "panel": "new"      // Abrir un nuevo panel para esta ejecución
+            },
+            "problemMatcher": "$msCompile", // Para capturar errores de build/link
+            "dependsOn": [
+                "MASM Build", // Primero compila
+                "MASM Link"   // Luego enlaza
+            ]
         }
     ]
 }
