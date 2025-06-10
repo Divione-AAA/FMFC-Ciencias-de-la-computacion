@@ -27,5 +27,15 @@ start:
     sub k,bx
     mov cx,k
     mov i,cx
+    ;multiplicacion de dos numeros de 32 bits
+    movsx eax,i
+    mul j
+    movsx edx,j
+    mov x,edx
+    ;dividir dos numeros de 32 bits
+    mov ax,k
+    cwd
+    idiv j
+    mov i,ax
     invoke ExitProcess, 0
 end start
