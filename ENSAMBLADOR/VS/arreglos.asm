@@ -8,16 +8,12 @@ includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\masm32.lib 
 .stack
 .data
+    arreglo dd 1,2,3,4,5
+    buffer dd 100 dup(?)
+    arregloSignado sdword 50 dup(?)
 .code
 start:
-    ;para su simplicidad se siguen usando las macrodefiniciones
-    mov eax,0
-    .while eax<5
-    inc eax
-    .endw
-    mov eax,0
-    .repeat
-    inc eax
-    .until eax == 5
-    invoke ExitProcess, 0
+;modo de direccionamiento indexado o basado indexado
+
+invoke ExitProcess, 0
 end start
