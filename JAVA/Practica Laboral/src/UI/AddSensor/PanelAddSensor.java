@@ -15,11 +15,21 @@ public class PanelAddSensor extends JPanel {
     public PanelAddSensor(String titulo) {
         setLayout(new BorderLayout());
 
+        // Verificación de rol desde el título (hack simple, puedes pasar el rol como argumento si prefieres)
+        if (!titulo.toLowerCase().contains("admin")) {
+            JLabel accesoDenegado = new JLabel("Acceso denegado. Solo para administradores.", SwingConstants.CENTER);
+            accesoDenegado.setFont(new Font("Segoe UI", Font.BOLD, 18));
+            add(accesoDenegado, BorderLayout.CENTER);
+            campoUbicacion = null;
+            comboTipoSensor = null;
+            comboEntorno = null;
+            return;
+        }
+
         JLabel etiquetaTitulo = new JLabel(titulo, SwingConstants.CENTER);
         etiquetaTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
         etiquetaTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         etiquetaTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 10));
-        //add(etiquetaTitulo, BorderLayout.NORTH);
 
         JPanel panelCentro = new JPanel();
         panelCentro.setLayout(new BoxLayout(panelCentro, BoxLayout.Y_AXIS));
@@ -100,6 +110,8 @@ public class PanelAddSensor extends JPanel {
     }
 
     private void guardarSensor() {
+        if (comboTipoSensor == null || campoUbicacion == null || comboEntorno == null) return;
+
         String tipo = (String) comboTipoSensor.getSelectedItem();
         String ubicacion = campoUbicacion.getText().trim();
         String entorno = (String) comboEntorno.getSelectedItem();

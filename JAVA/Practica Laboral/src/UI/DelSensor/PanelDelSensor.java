@@ -10,14 +10,22 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PanelDelSensor extends JPanel {
-    private final JComboBox<String> comboTipos;
-    private final DefaultListModel<String> modeloSensores;
-    private final JList<String> listaSensores;
-    private final SensorService sensorService;
+    private  JComboBox<String> comboTipos;
+    private  DefaultListModel<String> modeloSensores;
+    private  JList<String> listaSensores;
+    private  SensorService sensorService;
 
     public PanelDelSensor(String rol) throws SQLException {
         setLayout(new BorderLayout(20, 20));
         setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+
+        if (!"admin".equalsIgnoreCase(rol)) {
+            // Mostrar mensaje de acceso denegado si no es admin
+            JLabel mensaje = new JLabel("Acceso denegado. Solo los administradores pueden eliminar sensores.", SwingConstants.CENTER);
+            mensaje.setFont(new Font("Segoe UI", Font.BOLD, 18));
+            add(mensaje, BorderLayout.CENTER);
+            return;
+        }
 
         sensorService = new SensorService(ConnectionDB.getConnection());
 
@@ -26,7 +34,6 @@ public class PanelDelSensor extends JPanel {
         etiquetaTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(etiquetaTitulo, BorderLayout.NORTH);
 
-        // Panel izquierdo con combo y lista
         JPanel panelIzquierdo = new JPanel();
         panelIzquierdo.setLayout(new BoxLayout(panelIzquierdo, BoxLayout.Y_AXIS));
         panelIzquierdo.setBackground(Color.WHITE);
@@ -53,20 +60,17 @@ public class PanelDelSensor extends JPanel {
         panelIzquierdo.add(Box.createVerticalStrut(15));
         panelIzquierdo.add(scrollPane);
 
-        // Panel con los dos botones centrados
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 0));
         panelBotones.setOpaque(false);
 
-        // Botón Eliminar
         JButton botonEliminar = new JButton("Eliminar");
         botonEliminar.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        botonEliminar.setPreferredSize(new Dimension(250, 60)); // Botón más grande
+        botonEliminar.setPreferredSize(new Dimension(250, 60));
         botonEliminar.putClientProperty("JButton.arc", 20);
         botonEliminar.putClientProperty("JButton.buttonType", "roundRect");
 
         try {
-            // Usando getClass().getResource para cargar la imagen
             ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/resources/delete.png"));
             Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             botonEliminar.setIcon(new ImageIcon(imagenEscalada));
@@ -82,15 +86,13 @@ public class PanelDelSensor extends JPanel {
             }
         });
 
-        // Botón Refrescar
         JButton botonRefrescar = new JButton("Refrescar");
         botonRefrescar.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        botonRefrescar.setPreferredSize(new Dimension(250, 60)); // Botón más grande
+        botonRefrescar.setPreferredSize(new Dimension(250, 60));
         botonRefrescar.putClientProperty("JButton.arc", 20);
         botonRefrescar.putClientProperty("JButton.buttonType", "roundRect");
 
         try {
-            // Usando getClass().getResource para cargar la imagen
             ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/resources/refresh.png"));
             Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
             botonRefrescar.setIcon(new ImageIcon(imagenEscalada));
@@ -100,11 +102,9 @@ public class PanelDelSensor extends JPanel {
 
         botonRefrescar.addActionListener(e -> refrescarSensores());
 
-        // Añadir los botones al panel de botones
         panelBotones.add(botonEliminar);
         panelBotones.add(botonRefrescar);
 
-        // Panel contenedor central (izquierda y derecha)
         JPanel contenedorCentro = new JPanel(new BorderLayout(30, 0));
         contenedorCentro.setOpaque(false);
         contenedorCentro.add(panelIzquierdo, BorderLayout.WEST);
@@ -112,7 +112,7 @@ public class PanelDelSensor extends JPanel {
 
         add(contenedorCentro, BorderLayout.CENTER);
 
-        refrescarSensores(); // Inicial
+        refrescarSensores();
     }
 
     private void refrescarSensores() {

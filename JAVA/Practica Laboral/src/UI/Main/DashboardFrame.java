@@ -24,6 +24,7 @@ public class DashboardFrame extends JFrame {
 
     public DashboardFrame(String usuario, String rol, Connection conn) throws SQLException {
         setTitle("Panel de Control - Bienvenido " + usuario);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginUI.class.getResource("/resources/icon.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1080, 720);
         setLocationRelativeTo(null);
@@ -36,10 +37,10 @@ public class DashboardFrame extends JFrame {
 
         // Crear formularios y agregarlo
         addFormPanel("Usuarios", new PanelUsuarios("Gestión de usuarios",rol,conn,usuario));
-        addFormPanel("Añadir", new PanelAddSensor("Formulario para añadir"));
+        addFormPanel("Añadir", new PanelAddSensor(rol));
         addFormPanel("Eliminar", new PanelDelSensor(rol));
-        addFormPanel("Gestionar", new PanelGestion("Formulario para gestionar"));
-        addFormPanel("Método de Alerta", new PanelMetodo("Método de alerta configurado"));
+        addFormPanel("Gestionar", new PanelGestion(rol));
+        addFormPanel("Método de Alerta", new PanelMetodo(rol));
         addFormPanel("Datos por sensor", new PanelPorSensor("Datos por sensor"));
         addFormPanel("Entorno", new PanelEntorno("Datos por Entorno"));
         addFormPanel("Alertas", new PanelAlertas("Alertas"));

@@ -23,14 +23,31 @@ public class PanelMetodo extends JPanel {
     private final AlertaService alertaService;
     private final SensorService sensorService;
 
-    public PanelMetodo(String s) throws SQLException {
+    public PanelMetodo(String rol) throws SQLException {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createTitledBorder("Gestión de Alertas"));
+
+        // Verificación de rol
+        if (!"admin".equalsIgnoreCase(rol)) {
+            JLabel mensaje = new JLabel("Acceso denegado. Solo disponible para administradores.", SwingConstants.CENTER);
+            mensaje.setFont(new Font("Segoe UI", Font.BOLD, 18));
+            add(mensaje, BorderLayout.CENTER);
+            // Inicializamos las variables a null o vacías para evitar errores posteriores
+            comboTipos = null;
+            listaSensores = null;
+            modeloSensores = null;
+            modeloAlertas = null;
+            listaAlertas = null;
+            campoLimite = null;
+            botonGuardar = null;
+            alertaService = null;
+            sensorService = null;
+            return;
+        }
 
         alertaService = new AlertaService();
         sensorService = new SensorService(Database.ConnectionDB.getConnection());
 
-        // Panel izquierdo: tipos + sensores
         comboTipos = new JComboBox<>(new String[]{
                 "Termómetro", "Higrómetro", "Calidad del aire", "Sonómetro", "Radiómetro", "Pluviómetro"
         });
@@ -47,14 +64,12 @@ public class PanelMetodo extends JPanel {
         panelIzquierda.add(comboTipos, BorderLayout.NORTH);
         panelIzquierda.add(new JScrollPane(listaSensores), BorderLayout.CENTER);
 
-        // Panel central: lista de alertas
         modeloAlertas = new DefaultListModel<>();
         listaAlertas = new JList<>(modeloAlertas);
         JPanel panelCentro = new JPanel(new BorderLayout(5, 5));
         panelCentro.setBorder(BorderFactory.createTitledBorder("Alertas configuradas"));
         panelCentro.add(new JScrollPane(listaAlertas), BorderLayout.CENTER);
 
-        // Panel derecha: campo + botón
         campoLimite = new JTextField();
         botonGuardar = new JButton("Guardar Alerta");
         botonGuardar.addActionListener(e -> guardarAlerta());
@@ -65,7 +80,6 @@ public class PanelMetodo extends JPanel {
         panelDerecha.add(campoLimite);
         panelDerecha.add(botonGuardar);
 
-        // Unión de todo en un layout horizontal
         JPanel panelContenido = new JPanel(new GridLayout(1, 3, 10, 10));
         panelContenido.add(panelIzquierda);
         panelContenido.add(panelCentro);
@@ -73,10 +87,12 @@ public class PanelMetodo extends JPanel {
 
         add(panelContenido, BorderLayout.CENTER);
 
-        cargarSensores(); // inicial
+        cargarSensores();
     }
 
     private void cargarSensores() {
+        if (comboTipos == null || modeloSensores == null) return;
+
         try {
             modeloSensores.clear();
             List<String> sensores = sensorService.obtenerSensoresPorTipo((String) comboTipos.getSelectedItem());
@@ -87,6 +103,8 @@ public class PanelMetodo extends JPanel {
     }
 
     private void cargarAlertasSensor() {
+        if (listaSensores == null || modeloAlertas == null) return;
+
         modeloAlertas.clear();
         String seleccionado = listaSensores.getSelectedValue();
         if (seleccionado == null) return;
@@ -103,6 +121,8 @@ public class PanelMetodo extends JPanel {
     }
 
     private void guardarAlerta() {
+        if (listaSensores == null || campoLimite == null || comboTipos == null) return;
+
         String seleccionado = listaSensores.getSelectedValue();
         if (seleccionado == null || campoLimite.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Selecciona un sensor y escribe un límite.");
@@ -113,7 +133,7 @@ public class PanelMetodo extends JPanel {
             int sensorId = Integer.parseInt(seleccionado.split(" ")[0]);
             double limite = Double.parseDouble(campoLimite.getText());
             String tipo = (String) comboTipos.getSelectedItem();
-            String nombreAlerta = tipo + " - Alerta"; // o usa un campo extra si quieres nombre personalizado
+            String nombreAlerta = tipo + " - Alerta";
             Alerta alerta = new Alerta(sensorId, tipo, limite, nombreAlerta);
             alertaService.guardarAlerta(alerta);
             JOptionPane.showMessageDialog(this, "Alerta guardada correctamente.");

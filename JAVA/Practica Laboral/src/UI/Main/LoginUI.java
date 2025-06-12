@@ -14,6 +14,7 @@ public class LoginUI extends JFrame {
     public LoginUI() {
         // Configuración de la ventana
         setTitle("Inicio de sesión");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginUI.class.getResource("/resources/icon.png")));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 250); // Ajustamos el tamaño de la ventana
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
@@ -103,7 +104,7 @@ public class LoginUI extends JFrame {
 
     // Punto de entrada para ejecutar la interfaz
     public static void main(String[] args) {
-        // Inicializa el look-and-feel moderno (FlatLaf)
+        // Inicializa el look-and-feel moderno (Main.FlatLaf)
         try {
             UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
         } catch (UnsupportedLookAndFeelException e) {

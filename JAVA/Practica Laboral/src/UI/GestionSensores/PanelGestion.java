@@ -1,7 +1,5 @@
 package UI.GestionSensores;
 
-import UI.GestionSensores.*;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +7,14 @@ public class PanelGestion extends JPanel {
     public PanelGestion(String rol) {
         setLayout(new BorderLayout(15, 15));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Comprobación de acceso
+        if (!"admin".equalsIgnoreCase(rol)) {
+            JLabel mensaje = new JLabel("Acceso denegado. Solo disponible para administradores.", SwingConstants.CENTER);
+            mensaje.setFont(new Font("Segoe UI", Font.BOLD, 18));
+            add(mensaje, BorderLayout.CENTER);
+            return;
+        }
 
         try {
             PanelSelectorSensor selector = new PanelSelectorSensor();

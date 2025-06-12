@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Practica Laboral:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Practica_Laboral_jar</output-path>
+    <root id="archive" name="Practica Laboral.jar">
+      <element id="module-output" name="Practica Laboral" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/Compressed/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/flatlaf-3.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/sqlite-jdbc-3.49.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/Compressed/jcommon-1.0.23.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

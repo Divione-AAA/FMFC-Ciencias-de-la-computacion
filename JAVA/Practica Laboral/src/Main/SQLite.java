@@ -1,3 +1,5 @@
+package Main;
+
 import java.sql.*;
 
 public class SQLite {
@@ -20,7 +22,7 @@ public class SQLite {
     public static void main(String[] args) throws SQLException {
         String url = "jdbc:sqlite:data.db"; // esto crea el archivo si no existe
         try (Connection conn = DriverManager.getConnection(url)) {
-            System.out.println("Conectado a SQLite!");
+            System.out.println("Conectado a Main.SQLite!");
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }

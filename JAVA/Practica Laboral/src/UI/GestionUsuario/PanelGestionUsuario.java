@@ -80,7 +80,7 @@ public class PanelGestionUsuario extends JPanel {
         boton.setForeground(UIManager.getColor("Button.foreground"));
         boton.setBorder(BorderFactory.createLineBorder(new Color(0, 120, 215), 1));
 
-        // 🟦 Estilo FlatLaf: bordes redondeados
+        // 🟦 Estilo Main.FlatLaf: bordes redondeados
         boton.putClientProperty("JComponent.roundRect", true);
         boton.putClientProperty("Component.arc", 20); // más redondeado
 
