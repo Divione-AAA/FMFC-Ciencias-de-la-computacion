@@ -9,8 +9,8 @@ includelib \masm32\lib\masm32.lib
 .stack
 .data
     flag BYTE 0
-    arreglo dw 1,2,3,4,5
-    target dw 5
+    arreglo dd 1,2,3,4,5
+    target dd 5
 .code
 start:
     xor eax,eax
@@ -20,7 +20,7 @@ start:
     mov ebx, ecx
     add ebx, edx
     shr ebx, 1
-    mov ax,arreglo[ebx*2]
+    mov ax,arreglo[ebx*4]
     .if ax==target
     mov flag,1
     .elseif ax<target

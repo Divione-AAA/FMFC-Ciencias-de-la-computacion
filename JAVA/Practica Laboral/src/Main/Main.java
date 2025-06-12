@@ -59,9 +59,9 @@ public class Main {
 
             // Crear usuario admin
             FlatLightLaf.setup();
-            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:usuarios.db")) {
+            /*try (Connection conn = DriverManager.getConnection("jdbc:sqlite:usuarios.db")) {
                 Crearuser.crearUsuario(conn, "Otro", "1234", "admin");
-            }
+            }*/
 
             // Iniciar Login
             LoginUI.main(args);

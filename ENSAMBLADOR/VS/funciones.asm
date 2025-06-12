@@ -8,7 +8,14 @@ includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\masm32.lib 
 .stack
 .data
+num dd 45
 .code
+
+nombreProcedimiento proc uses eax, n:dword
+
+ret
+nombreProcedimiento endp
+
 start:
 invoke ExitProcess, 0
 end start
