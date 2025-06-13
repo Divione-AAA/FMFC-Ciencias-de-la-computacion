@@ -8,13 +8,13 @@ includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\masm32.lib 
 .stack
 .data
-array dd 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+array dd -1,-2,-3,4,5,6,7,8,9,10,11,12,13,14,15
 r1 db ?
 r2 db ?
 r3 dd ?
 .code
 
-menor proc uses edi eax, arr:dword, tam:dword
+menor proc uses edi eax, arr:sdword, tam:sdword
 
 xor eax,eax
 .repeat

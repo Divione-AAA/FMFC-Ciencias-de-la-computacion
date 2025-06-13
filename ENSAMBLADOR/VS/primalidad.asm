@@ -31,7 +31,7 @@ primo proc uses eax tam:dword, arr:dword
     xor esi,esi
     .repeat
     invoke esprimo, arr[esi*4], arr
-    mov origen[esi*4],ecx
+    mov destino[esi*4],ecx
     inc esi
     .until esi == tam
     ret

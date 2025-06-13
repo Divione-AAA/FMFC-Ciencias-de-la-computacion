@@ -11,7 +11,26 @@ includelib \masm32\lib\masm32.lib
     arreglo dd 1,2,3,4,5
     v1 dd 100 dup(?)
     arregloSignado sdword 50 dup(?)
+    bufferin dd 100 dup(?)
 .code
+
+entrar proc
+
+entrar endp
+
+leer proc uses eax v:dword, tam:dword
+
+xor ebx,ebx
+mov esi,v
+.repeat
+    invoke StdIn, addr bufferin, sizeof bufferin
+    invoke atodw, addr bufferin
+    mov [esi+ebx*4],eax
+    inc ebx
+.until ebx == tam
+
+leer endp
+
 start:
 ;modo de direccionamiento indexado o basado indexado
     xor ebx,ebx ;pone el registro ebx en cero
@@ -20,5 +39,6 @@ start:
         ;*4 dd *2 dw *1 db 32 16 8 bits => 4 2 1 bytes
         inc ebx; incrementa en uno
     .until ebx == lengthof arreglo;hasta que sea igual al tamano
+    
 invoke ExitProcess, 0
 end start

@@ -8,28 +8,31 @@ includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\masm32.lib 
 .stack
 .data
-    arreglo dd "hola mundo",0
+    arreglo dd "hola"
     destino dd 10 dup(?)
 .code
 
-Mayusculas uses eax ebx, arr:dword
+mayusculas proc uses eax ecx edx arr:dword, tam:dword
     xor eax,eax
-    mov ebx,lengthof arreglo
     .repeat
     mov ecx,arr[eax*4]
     .if ecx >=97 && ecx <=122
+    sub ecx,32
+    mov arr[eax*4],ecx
+    .endif
     inc eax
-    .until eax == lengthof arr
+    .until eax == tam
+    mov edx,arr
+    ret
+mayusculas endp
 
-ret
-Mayusculas endp
-
-CopyCadena  arr:dword, arr1:dword
-
-ret
-end CopyCadena
+CopyCadena  proc arr:dword, arr1:dword
+    invoke mayusculas, arr, lengthof arr
+    mov arr1,edx
+    ret
+CopyCadena endp
 
 start:
-
-invoke ExitProcess, 0
+    invoke CopyCadena, addr arreglo, addr destino
+    invoke ExitProcess, 0
 end start
