@@ -10,7 +10,5 @@ public class Main {
         t.add(t1);
         t.add(t2);
         FileHandler.write("file",t);
-        FileHandler tt = new FileHandler();
-        t.indexOf(t1);
     }
 }
