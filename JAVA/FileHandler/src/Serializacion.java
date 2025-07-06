@@ -10,12 +10,4 @@ public class Serializacion {
             e.printStackTrace();
         }
     }
-    //este metodo lo lee el arraylist serializado y lo pone en otro, esto es deserializacion, no lo piden
-    public void read() throws Exception {
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("text.bin"))){
-            ArrayList<Objeto> t = (ArrayList<Objeto>) ois.readObject();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 }
