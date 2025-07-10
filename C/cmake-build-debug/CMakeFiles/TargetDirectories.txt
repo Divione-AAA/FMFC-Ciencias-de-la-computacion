@@ -1,0 +1,3 @@
+C:/Users/vpn/Documents/GitHub/FMFC-Ciencias-de-la-computacion/C/cmake-build-debug/CMakeFiles/C.dir
+C:/Users/vpn/Documents/GitHub/FMFC-Ciencias-de-la-computacion/C/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/vpn/Documents/GitHub/FMFC-Ciencias-de-la-computacion/C/cmake-build-debug/CMakeFiles/rebuild_cache.dir
