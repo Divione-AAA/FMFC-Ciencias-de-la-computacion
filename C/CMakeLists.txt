@@ -3,4 +3,10 @@ project(C)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(C main.cpp)
+add_executable(C main.cpp
+        Arrays.cpp
+        CadeaChar.cpp
+        Parcial1/a.cpp
+        Parcial1/b.cpp
+        "struct and files.cpp"
+)

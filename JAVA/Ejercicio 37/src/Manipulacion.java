@@ -4,9 +4,11 @@ import java.util.stream.Collectors;
 
 public class Manipulacion {
 
-    public static Map<Integer, Integer> leerYSumarPuntajes(String ruta) throws IOException {
+    public static Map<Integer, Integer> leerYSumarPuntajes(String ruta) throws Exception {
         Map<Integer, Integer> mapaPuntajes = new HashMap<>();
-
+        if(true){
+            throw new LimiteException("hh");
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
             String linea;
             int control=0; //para controlar el orden ascendente
@@ -20,7 +22,7 @@ public class Manipulacion {
                         throw new LimiteException("Los valores van de 1 a 10");
                     }
                     if(control!=numero-1){
-                        throw new AscendenteException("La entrada debe ser ascendente");
+                        throw new AscendenteException();
                     }
 
                     //aqui anade a el numero en cuestion los puntos
