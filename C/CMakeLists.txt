@@ -9,4 +9,5 @@ add_executable(C main.cpp
         Parcial1/a.cpp
         Parcial1/b.cpp
         "struct and files.cpp"
+        binarios.cpp
 )

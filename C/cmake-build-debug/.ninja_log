@@ -1,9 +1,8 @@
 # ninja log v6
-12	77	7738746439989750	CMakeFiles/C.dir/Parcial1/a.cpp.obj	594cdfae8f47b6c0
+29	140	7738784713508731	CMakeFiles/C.dir/Parcial1/a.cpp.obj	594cdfae8f47b6c0
 15	3030	7738745629882735	CMakeFiles/C.dir/CadeaChar.cpp.obj	5e81fc2971dc31d7
 3	3033	7738745629763652	CMakeFiles/C.dir/main.cpp.obj	a8eebeece47fd6b4
 9	3050	7738745629828384	CMakeFiles/C.dir/Arrays.cpp.obj	fa1dd2128fd174eb
-11	321	7738784712395857	build.ninja	88967c49df0c4aef
-29	140	7738784713508731	CMakeFiles/C.dir/Parcial1/a.cpp.obj	594cdfae8f47b6c0
-33	143	7738784713548737	CMakeFiles/C.dir/Parcial1/b.cpp.obj	335c057c4f91d6a3
 37	2939	7738784713588740	CMakeFiles/C.dir/struct_and_files.cpp.obj	aeb2ba2e827a5738
+11	321	7740239648754752	build.ninja	88967c49df0c4aef
+33	143	7738784713548737	CMakeFiles/C.dir/Parcial1/b.cpp.obj	335c057c4f91d6a3
