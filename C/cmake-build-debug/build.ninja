@@ -91,6 +91,24 @@ build CMakeFiles/C.dir/binarios.cpp.obj: CXX_COMPILER__C_unscanned_Debug C$:/Use
   OBJECT_DIR = CMakeFiles\C.dir
   OBJECT_FILE_DIR = CMakeFiles\C.dir
 
+build CMakeFiles/C.dir/Convalidacion/uno.cpp.obj: CXX_COMPILER__C_unscanned_Debug C$:/Users/vpn/Documents/GitHub/FMFC-Ciencias-de-la-computacion/C/Convalidacion/uno.cpp || cmake_object_order_depends_target_C
+  DEP_FILE = CMakeFiles\C.dir\Convalidacion\uno.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\C.dir
+  OBJECT_FILE_DIR = CMakeFiles\C.dir\Convalidacion
+
+build CMakeFiles/C.dir/Arreglos/3.cpp.obj: CXX_COMPILER__C_unscanned_Debug C$:/Users/vpn/Documents/GitHub/FMFC-Ciencias-de-la-computacion/C/Arreglos/3.cpp || cmake_object_order_depends_target_C
+  DEP_FILE = CMakeFiles\C.dir\Arreglos\3.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\C.dir
+  OBJECT_FILE_DIR = CMakeFiles\C.dir\Arreglos
+
+build CMakeFiles/C.dir/Arreglos/7.cpp.obj: CXX_COMPILER__C_unscanned_Debug C$:/Users/vpn/Documents/GitHub/FMFC-Ciencias-de-la-computacion/C/Arreglos/7.cpp || cmake_object_order_depends_target_C
+  DEP_FILE = CMakeFiles\C.dir\Arreglos\7.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\C.dir
+  OBJECT_FILE_DIR = CMakeFiles\C.dir\Arreglos
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target C
@@ -99,7 +117,7 @@ build CMakeFiles/C.dir/binarios.cpp.obj: CXX_COMPILER__C_unscanned_Debug C$:/Use
 #############################################
 # Link the executable C.exe
 
-build C.exe: CXX_EXECUTABLE_LINKER__C_Debug CMakeFiles/C.dir/main.cpp.obj CMakeFiles/C.dir/Arrays.cpp.obj CMakeFiles/C.dir/CadeaChar.cpp.obj CMakeFiles/C.dir/Parcial1/a.cpp.obj CMakeFiles/C.dir/Parcial1/b.cpp.obj CMakeFiles/C.dir/struct_and_files.cpp.obj CMakeFiles/C.dir/binarios.cpp.obj
+build C.exe: CXX_EXECUTABLE_LINKER__C_Debug CMakeFiles/C.dir/main.cpp.obj CMakeFiles/C.dir/Arrays.cpp.obj CMakeFiles/C.dir/CadeaChar.cpp.obj CMakeFiles/C.dir/Parcial1/a.cpp.obj CMakeFiles/C.dir/Parcial1/b.cpp.obj CMakeFiles/C.dir/struct_and_files.cpp.obj CMakeFiles/C.dir/binarios.cpp.obj CMakeFiles/C.dir/Convalidacion/uno.cpp.obj CMakeFiles/C.dir/Arreglos/3.cpp.obj CMakeFiles/C.dir/Arreglos/7.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\C.dir
