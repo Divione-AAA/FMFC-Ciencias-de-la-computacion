@@ -13,4 +13,5 @@ add_executable(C main.cpp
         Convalidacion/uno.cpp
         Arreglos/3.cpp
         Arreglos/7.cpp
+        pointers.cpp
 )
