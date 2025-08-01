@@ -24,9 +24,7 @@ CREATE TABLE Pedidos (
 
 INSERT INTO Clientes (ClienteID, Nombre, Email) VALUES (1, 'David', 'david@email.com');
 
-
 INSERT INTO Productos (ProductoID, Nombre, Precio) VALUES (1, 'Laptop', 800.00);
-
 
 INSERT INTO Pedidos (PedidoID, ClienteID, ProductoID, Cantidad, FechaPedido) 
 VALUES (1, 1, 1, 2, '2025-04-04');
