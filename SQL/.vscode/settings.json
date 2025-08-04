@@ -9,10 +9,10 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "test",
-            "database": "t1",
-            "username": "Usuario",
-            "password": ""
+            "name": "david",
+            "password": "12345",
+            "username": "david",
+            "database": "david_db"
         }
     ]
 }
