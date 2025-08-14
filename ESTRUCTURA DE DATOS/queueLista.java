@@ -1,0 +1,58 @@
+class Node<E>{
+    E value;
+    Node next;
+
+    Node(E v){
+        this.value = v;
+        this.next = null;
+    }
+}
+
+public class queueLista<E>{
+    private Node<E> front, back; 
+    private int size;
+    
+    public queueLista(){
+        front = back = null;
+        size = 0;
+    }
+
+    public void pushback(E e){
+        Node newNode = new Node<>(e);
+
+        if(back != null){
+            back.next = newNode;
+        }
+
+        back = newNode;
+
+        if(front == null){
+            front = newNode;
+        }
+
+        size++;
+    }
+
+    public boolean isempty(){
+        return front == null;
+    }
+
+    public E popfront()throws Exception{
+        
+        if(isempty()){
+            throw new Exception("Esta vacia");
+        }
+
+        E t = front.value;
+        
+        front = front.next;
+        
+        if(front == null){
+            back = null;
+        }
+        
+        size--;
+        
+        return t;
+    }
+}
