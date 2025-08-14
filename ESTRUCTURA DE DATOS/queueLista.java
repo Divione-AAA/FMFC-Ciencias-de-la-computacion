@@ -1,6 +1,6 @@
 class Node<E>{
     E value;
-    Node next;
+    Node<E> next;
 
     Node(E v){
         this.value = v;
@@ -18,7 +18,7 @@ public class queueLista<E>{
     }
 
     public void pushback(E e){
-        Node newNode = new Node<>(e);
+        Node<E> newNode = new Node<>(e);
 
         if(back != null){
             back.next = newNode;

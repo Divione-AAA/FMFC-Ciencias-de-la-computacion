@@ -1,6 +1,6 @@
 public class Node<E> {
     E value;
-    Node next;
+    Node<E> next;
 
     Node(E v){
         this.value = v;

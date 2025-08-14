@@ -1,6 +1,6 @@
 class Node<E>{
     E value;
-    Node next;
+    Node<E> next;
 
     Node(E v){
         this.value = v;
@@ -18,17 +18,17 @@ public class Lista<E>{
     }
 
     public void addFirst(E e){
-        Node newNode = new Node(e);
+        Node<E> newNode = new Node<>(e);
         newNode.next = head;
         head = newNode;
         size++;
     }
 
     public void addLast(E e){
-        Node newNode = new Node(e);
+        Node<E> newNode = new Node<>(e);
         if(head == null) head = newNode;
         else{
-            Node t =  head;
+            Node<E> t =  head;
             while(t.next != null){
                 t = t.next;
             }

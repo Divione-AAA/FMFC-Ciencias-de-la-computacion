@@ -19,15 +19,15 @@ public class pilaLista<E>{
     }
 
     public void push(E e){
-        Node t = new Node<>(e);
-        Node<E> t2;
+        Node<E> t = new Node<>(e);
+        Node<E> temporal;
         if(node == null){
             node = t;
         }else{
             node.next = t;
-            t2 = node;
+            temporal = node;
             node = t;
-            node.prev = t2;
+            node.prev = temporal;
             
         }
         size++;
