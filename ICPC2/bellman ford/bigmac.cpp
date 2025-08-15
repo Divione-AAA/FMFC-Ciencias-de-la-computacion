@@ -41,6 +41,7 @@ double bellman(){
                 d[e.v] = d[e.u] + e.w;
         }
     }
+
     return d[b];
 }
 
