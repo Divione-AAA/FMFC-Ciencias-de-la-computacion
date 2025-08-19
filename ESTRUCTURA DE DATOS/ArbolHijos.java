@@ -10,7 +10,6 @@ class Node<E> {
     }
 }
 
-
 public class ArbolHijos<E>{
 
     Node<E> root;
@@ -58,4 +57,21 @@ public class ArbolHijos<E>{
         }
     }
 
+    public void preorden(Node<E> node){
+        if(node == null) return;
+        System.out.println(node.value + " ");
+        for(Node<E> i: node.child){
+            preorden(i);
+        }
+    }
+
+    public void postorden(Node<E> node){
+        Queue<Node<E>> cola = new LinkedList<>();
+        cola.add(node);
+        while(!cola.isEmpty()){
+            Node<E> t = cola.poll();
+            System.out.println(t.value + " ");
+            cola.addAll(t.child); //adiciona todos los elementos de la lista
+        }
+    }
 }
