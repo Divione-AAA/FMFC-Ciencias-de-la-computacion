@@ -56,7 +56,6 @@ public class ArbolHijos<E>{
                 deleteOnCascade(child, valor);
             }
         }
-
     }
 
 }
