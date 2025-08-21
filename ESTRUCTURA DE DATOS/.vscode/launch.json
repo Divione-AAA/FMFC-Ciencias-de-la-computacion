@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ArbolHijos",
+      "request": "launch",
+      "mainClass": "ArbolHijos",
+      "projectName": "ESTRUCTURA DE DATOS_d3fed557"
+    },
+    {
+      "type": "java",
       "name": "busqueda",
       "request": "launch",
       "mainClass": "busqueda",

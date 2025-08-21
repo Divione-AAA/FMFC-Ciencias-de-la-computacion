@@ -15,13 +15,13 @@ public class ArbolHijos<E>{
     Node<E> root;
 
     public ArbolHijos(E e) {
-        root = new Node<E>(e);
+        root = new Node<>(e);
     }
 
     public void insertar(E padre, E valor){
         Node<E> f = find(root,padre);
         if(padre != null){
-            f.child.add(new Node<E>(valor));
+            f.child.add(new Node<>(valor));
         }
     }
     
@@ -57,7 +57,7 @@ public class ArbolHijos<E>{
         }
     }
 
-    public void preorden(Node<E> node){
+    private  void preorden(Node<E> node){
         if(node == null) return;
         System.out.println(node.value + " ");
         for(Node<E> i: node.child){
@@ -65,7 +65,7 @@ public class ArbolHijos<E>{
         }
     }
 
-    public void postorden(Node<E> node){
+    private void postorden(Node<E> node){
         Queue<Node<E>> cola = new LinkedList<>();
         cola.add(node);
         while(!cola.isEmpty()){
@@ -73,5 +73,10 @@ public class ArbolHijos<E>{
             System.out.println(t.value + " ");
             cola.addAll(t.child); //adiciona todos los elementos de la lista
         }
+    }
+    
+    public void main(String[] args) {
+        preorden(root);
+        postorden(root);
     }
 }
