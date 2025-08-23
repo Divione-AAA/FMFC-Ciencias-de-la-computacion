@@ -30,7 +30,7 @@ public class ArbolAdyacencia<E>{
         while(!cola.isEmpty()){
             root = cola.peek();
             for(Node<E> i : root.hijos){
-                if(i.value == nodo){
+                if(i.value.equals(nodo)){ 
                     return root.value;
                 }else{
                     cola.add(i);
@@ -48,7 +48,7 @@ public class ArbolAdyacencia<E>{
         while(!cola.isEmpty()){
             root = cola.peek();
             for(Node<E> i : root.hijos){
-                if(i.value == elemento){
+                if(i.value.equals(elemento)){
                     return i.hijos.get(0).value;
                 }else{
                     cola.add(i);
@@ -68,7 +68,7 @@ public class ArbolAdyacencia<E>{
             root = cola.peek();
             for(Node<E> i : root.hijos){
                 if(flag) return i.value;
-                if(i.value == elemento){
+                if(i.value.equals(elemento)){
                     flag = true;
                 }else{
                     cola.add(i);
@@ -86,7 +86,7 @@ public class ArbolAdyacencia<E>{
         while(!cola.isEmpty()){
             root = cola.peek();
             for(Node<E> i : root.hijos){
-                if(i.value == padre){
+                if(i.value.equals(padre)){
                     Node<E> t = new Node<>();
                     t.value = elemento;
                     i.hijos.add(t);
@@ -106,7 +106,7 @@ public class ArbolAdyacencia<E>{
         while(!cola.isEmpty()){
             root = cola.peek();
             for(Node<E> i : root.hijos){
-                if(i.value == hermano){
+                if(i.value.equals(hermano)){
                     Node<E> t = new Node<>();
                     t.value = elemento;
                     root.hijos.add(t);
@@ -128,7 +128,7 @@ public class ArbolAdyacencia<E>{
         while(!cola.isEmpty()){
             root = cola.peek();
             for(Node<E> i : root.hijos){
-                if(i.value == elemento && !flag){
+                if(i.value.equals(elemento) && !flag){
                     cola.clear();
                     flag = true;
                 }              
@@ -148,5 +148,4 @@ public class ArbolAdyacencia<E>{
     public void vaciar(){
         raiz = null;
     }
-
 }
