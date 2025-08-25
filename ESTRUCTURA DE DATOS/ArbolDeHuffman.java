@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Nodo implements Comparable<Nodo> {
+class Nodo implements Comparable<Nodo>{
     int frecuencia;
     String caracter;   // null si es un nodo interno
     Nodo izquierdo;
