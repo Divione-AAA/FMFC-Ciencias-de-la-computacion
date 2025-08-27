@@ -1,7 +1,5 @@
 import java.util.*;
-/**
- * AVL Tree - Árbol AVL genérico (clave comparable)
- */
+
 public class AVLTree<E extends Comparable<? super E>> {
 
     private static class Node<E> {
