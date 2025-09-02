@@ -1,15 +1,17 @@
 import java.util.*;
+import java.util.List;
+
 class Node<E>{
     E value;
     List<Node<E>> hijos;
 
     public Node(){
         value = null;
-        hijos = null;
+        hijos = new ArrayList<>();
     }
 }
 public class ArbolAdyacencia<E>{
-    
+
     Node<E> raiz = null;
 
     public ArbolAdyacencia(E valor){
@@ -28,9 +30,9 @@ public class ArbolAdyacencia<E>{
         Queue<Node<E>> cola = new LinkedList<>();
         cola.add(root);
         while(!cola.isEmpty()){
-            root = cola.peek();
+            root = cola.poll();
             for(Node<E> i : root.hijos){
-                if(i.value.equals(nodo)){ 
+                if(i.value.equals(nodo)){
                     return root.value;
                 }else{
                     cola.add(i);
@@ -46,7 +48,7 @@ public class ArbolAdyacencia<E>{
         Queue<Node<E>> cola = new LinkedList<>();
         cola.add(root);
         while(!cola.isEmpty()){
-            root = cola.peek();
+            root = cola.poll();
             for(Node<E> i : root.hijos){
                 if(i.value.equals(elemento)){
                     return i.hijos.get(0).value;
@@ -65,7 +67,7 @@ public class ArbolAdyacencia<E>{
         cola.add(root);
         boolean flag = false;
         while(!cola.isEmpty()){
-            root = cola.peek();
+            root = cola.poll();
             for(Node<E> i : root.hijos){
                 if(flag) return i.value;
                 if(i.value.equals(elemento)){
@@ -84,7 +86,7 @@ public class ArbolAdyacencia<E>{
         Queue<Node<E>> cola = new LinkedList<>();
         cola.add(root);
         while(!cola.isEmpty()){
-            root = cola.peek();
+            root = cola.poll();
             for(Node<E> i : root.hijos){
                 if(i.value.equals(padre)){
                     Node<E> t = new Node<>();
@@ -104,7 +106,7 @@ public class ArbolAdyacencia<E>{
         Queue<Node<E>> cola = new LinkedList<>();
         cola.add(root);
         while(!cola.isEmpty()){
-            root = cola.peek();
+            root = cola.poll();
             for(Node<E> i : root.hijos){
                 if(i.value.equals(hermano)){
                     Node<E> t = new Node<>();
@@ -126,12 +128,13 @@ public class ArbolAdyacencia<E>{
         cola.add(root);
         boolean flag = false;
         while(!cola.isEmpty()){
-            root = cola.peek();
+            root = cola.poll();
+            //cola.poll();
             for(Node<E> i : root.hijos){
                 if(i.value.equals(elemento) && !flag){
                     cola.clear();
                     flag = true;
-                }              
+                }
                 cola.add(i);
                 if(flag){
                     root.hijos.remove(i);
@@ -147,26 +150,5 @@ public class ArbolAdyacencia<E>{
 
     public void vaciar(){
         raiz = null;
-    }
-    public static void main(String[] args) throws Exception {
-        ArbolAdyacencia<Integer> arbol = new ArbolAdyacencia<>(1);
-        arbol.insertaHijo(1, 2);
-        arbol.insertaHijo(1, 3);
-        arbol.insertaHermano(2, 4);
-        System.out.println(arbol.primerHijo(1));
-        System.out.println(arbol.siguienHijo(1));
-        System.out.println(arbol.primerHijo(2));
-        System.out.println(arbol.siguienHijo(2));
-        System.out.println(arbol.primerHijo(3));
-        System.out.println(arbol.siguienHijo(3));
-        System.out.println(arbol.primerHijo(4));
-        System.out.println(arbol.siguienHijo(4));
-        arbol.eliminar(1);
-        System.out.println(arbol.raiz());
-        try {
-            System.out.println(arbol.padre(5));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 }

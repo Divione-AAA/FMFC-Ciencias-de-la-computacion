@@ -9,7 +9,6 @@ class Node<E>{
     public Node() {
         left = rigth = null;
     }
-    
 }
 
 public class ArbolBinario<E>{

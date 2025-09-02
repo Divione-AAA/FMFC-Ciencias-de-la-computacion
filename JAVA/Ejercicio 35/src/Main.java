@@ -16,7 +16,7 @@ public class Main {
         br.close();*/
 
         ListaPersona t = new ListaPersona();
-        t.addPersonas(new Persona("Maria","Helena",12));
+        t.addPersonas(new Persona("Maria", "Helena", 12));
         EscribirLista.escribirLista(t.getPersonas());
     }
 }
