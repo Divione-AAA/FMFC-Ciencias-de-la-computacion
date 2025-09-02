@@ -49,9 +49,12 @@ public class ArbolAdyacencia<E>{
         cola.add(root);
         while(!cola.isEmpty()){
             root = cola.poll();
+            if(root.value.equals(elemento)){
+                return root.hijos.getFirst().value;
+            }
             for(Node<E> i : root.hijos){
                 if(i.value.equals(elemento)){
-                    return i.hijos.get(0).value;
+                    return i.hijos.getFirst().value;
                 }else{
                     cola.add(i);
                 }
@@ -85,12 +88,19 @@ public class ArbolAdyacencia<E>{
         Node<E> root = raiz;
         Queue<Node<E>> cola = new LinkedList<>();
         cola.add(root);
+        Node<E> t = new Node<>();
+        t.value = elemento;
+
         while(!cola.isEmpty()){
             root = cola.poll();
+
+            if(root.value.equals(padre)){
+                root.hijos.add(t);
+                return;
+            }
+
             for(Node<E> i : root.hijos){
                 if(i.value.equals(padre)){
-                    Node<E> t = new Node<>();
-                    t.value = elemento;
                     i.hijos.add(t);
                     return;
                 }else{
@@ -100,6 +110,7 @@ public class ArbolAdyacencia<E>{
         }
         throw new Exception("Padre no encontrado");
     }
+
     public void insertaHermano(E hermano, E elemento)throws Exception{
         if(raiz == null) throw new Exception("Arbol vacio");
         Node<E> root = raiz;
@@ -122,25 +133,31 @@ public class ArbolAdyacencia<E>{
     }
 
     public void eliminar(E elemento)throws Exception{
-        if(raiz == null) throw new Exception("Arbol vacio");
-        Node<E> root = raiz;
+        if (raiz == null) throw new Exception("Árbol vacío");
+
+        if (raiz.value.equals(elemento)) {
+            raiz = null; // Caso especial: borrar raíz
+            return;
+        }
+
         Queue<Node<E>> cola = new LinkedList<>();
-        cola.add(root);
-        boolean flag = false;
-        while(!cola.isEmpty()){
-            root = cola.poll();
-            //cola.poll();
-            for(Node<E> i : root.hijos){
-                if(i.value.equals(elemento) && !flag){
-                    cola.clear();
-                    flag = true;
+        cola.add(raiz);
+
+        while (!cola.isEmpty()) {
+            Node<E> root = cola.poll();
+
+            // Usar un iterador para recorrer los hijos
+            Iterator<Node<E>> it = root.hijos.iterator();
+            while (it.hasNext()) {
+                Node<E> hijo = it.next();
+                if (hijo.value.equals(elemento)) {
+                    it.remove(); // ✅ eliminar seguro
+                    return;      // ✅ salir, ya se eliminó
                 }
-                cola.add(i);
-                if(flag){
-                    root.hijos.remove(i);
-                }
+                cola.add(hijo);
             }
         }
+
         throw new Exception("Elemento no encontrado");
     }
 
