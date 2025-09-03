@@ -15,4 +15,5 @@ add_executable(C main.cpp
         Arreglos/7.cpp
         pointers.cpp
         clases.cpp
+        "Conferencias/Conferencia 1.c"
 )

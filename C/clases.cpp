@@ -9,18 +9,18 @@ public:
         this->edad = _edad;
     }
 
-    void ladrar() {
+    static void ladrar() {
        cout<<"juau"<<endl;
     }
 
-    int getEdad() {
+    int getEdad() const {
         return edad;
     }
 
     bool operator<(const Perro &other) {
         return edad < other.edad;
     }
-    ~Perro(){}
+    ~Perro()= default;
 
 private:
     string nombre;

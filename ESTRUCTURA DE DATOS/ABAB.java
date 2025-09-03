@@ -10,8 +10,8 @@ class Nodo<E>{
     }
 
     public int factorDeBalanceo(){
-        int nodoDerech = derecho == null ? 0 : derecho.altura;
-        int nodoIzquierdo = izquierdo == null ? 0 : izquierdo.altura;
+        int nodoDerech = (derecho == null ? 0 : derecho.altura);
+        int nodoIzquierdo = (izquierdo == null ? 0 : izquierdo.altura);
         this.altura = Math.max(derecho.altura, izquierdo.altura) + 1;
         return nodoIzquierdo - nodoDerech;
     }
@@ -29,6 +29,7 @@ public class ABAB<E extends Comparable<E>>{
         }
         insertar(raiz,e);
     }
+
     private Nodo<E> insertar(Nodo<E> nodo, E e)throws Exception{
         if(nodo == null) return new Nodo<>(e);
 
@@ -69,6 +70,59 @@ public class ABAB<E extends Comparable<E>>{
 
     }
 
+    public void eliminar(E e)throws Exception{
+        if(raiz == null) return;
+        eliminar(raiz,e);
+    }
+
+    private Nodo<E> eliminar(Nodo<E> nodo, E e)throws Exception{
+        if(nodo == null) return null;
+        //eliminamos el subarbol
+
+        if (e.compareTo(nodo.valor) < 0) {
+            nodo.izquierdo = eliminar(nodo.izquierdo, e);
+        } else if (e.compareTo(nodo.valor) > 0) {
+            nodo.derecho = eliminar(nodo.derecho, e);
+        } else {
+            
+            if (nodo.izquierdo == null || nodo.derecho == null) {
+                nodo = (nodo.izquierdo != null) ? nodo.izquierdo : nodo.derecho;
+            } else {
+                Nodo<E> sucesor = minimo(nodo.derecho);
+                nodo.valor = sucesor.valor;
+                nodo.derecho = eliminar(nodo.derecho, sucesor.valor);
+            }
+        }
+
+        nodo.factorDeBalanceo();
+
+        //balanceamos
+
+        int balance = nodo.factorDeBalanceo();
+
+        //LL
+        if(balance > 1 && e.compareTo(nodo.izquierdo.valor) < 0){
+            rotacionDerecha(nodo);
+        }
+        //RR
+        if(balance < -1 && e.compareTo(nodo.derecho.valor) > 0){
+            rotacionDerecha(nodo);
+        }
+        //LR
+        if(balance > 1 && e.compareTo(nodo.izquierdo.valor) > 0){
+            nodo.izquierdo = rotacionIzquierda(nodo.izquierdo);
+            return rotacionDerecha(nodo);
+        }
+        //Rl
+        if(balance < -1 && e.compareTo(nodo.derecho.valor) < 0){
+            nodo.derecho = rotacionDerecha(nodo.derecho);
+            return rotacionIzquierda(nodo);
+        }
+        //retornar nodo ya balanceado
+        return nodo;
+    }
+
+
     private Nodo<E> rotacionDerecha(Nodo<E> y){
         Nodo<E> x = y.izquierdo;
         Nodo<E> t2 = x.derecho;
@@ -85,11 +139,16 @@ public class ABAB<E extends Comparable<E>>{
         Nodo<E> y = x.derecho;
         Nodo<E> t2 = y.izquierdo;
         //rotar
-        x.izquierdo = x;
-        y.derecho = t2;
+        y.izquierdo = x;
+        x.derecho = t2;
         //actualizar factor
         y.factorDeBalanceo();
         x.factorDeBalanceo();
         return y;
+    }
+
+    private Nodo<E> minimo(Nodo<E> nodo) {
+    while (nodo.izquierdo != null) nodo = nodo.izquierdo;
+    return nodo;
     }
 }
