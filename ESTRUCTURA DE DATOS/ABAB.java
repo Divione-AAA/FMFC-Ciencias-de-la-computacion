@@ -122,7 +122,6 @@ public class ABAB<E extends Comparable<E>>{
         return nodo;
     }
 
-
     private Nodo<E> rotacionDerecha(Nodo<E> y){
         Nodo<E> x = y.izquierdo;
         Nodo<E> t2 = x.derecho;
