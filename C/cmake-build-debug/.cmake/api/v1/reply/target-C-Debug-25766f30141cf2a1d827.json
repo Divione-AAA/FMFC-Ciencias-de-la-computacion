@@ -63,7 +63,8 @@
 				8,
 				9,
 				10,
-				11
+				11,
+				14
 			]
 		},
 		{
@@ -76,7 +77,8 @@
 			"language" : "C",
 			"sourceIndexes" : 
 			[
-				12
+				12,
+				13
 			]
 		}
 	],
@@ -125,7 +127,9 @@
 				9,
 				10,
 				11,
-				12
+				12,
+				13,
+				14
 			]
 		}
 	],
@@ -207,6 +211,18 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
 			"path" : "Conferencias/Conferencia 1.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "p11.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "primero.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

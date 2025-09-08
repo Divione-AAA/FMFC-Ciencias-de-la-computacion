@@ -16,4 +16,6 @@ add_executable(C main.cpp
         pointers.cpp
         clases.cpp
         "Conferencias/Conferencia 1.c"
+        p11.c
+        primero.cpp
 )
