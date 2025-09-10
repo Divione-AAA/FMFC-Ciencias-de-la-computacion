@@ -9,7 +9,7 @@ public:
         this->edad = _edad;
     }
 
-    static void ladrar() {
+    void ladrar() {
        cout<<"juau"<<endl;
     }
 
@@ -20,7 +20,7 @@ public:
     bool operator<(const Perro &other) {
         return edad < other.edad;
     }
-    ~Perro()= default;
+    ~Perro() = default;
 
 private:
     string nombre;
