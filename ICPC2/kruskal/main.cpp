@@ -53,7 +53,6 @@ void kurskal(){
     int cost = 0;
     parent.resize(n);
     _rank.resize(n);
-    //rank<int> t;
 
     for(int i=0;i<n;i++){
         _union(i);
