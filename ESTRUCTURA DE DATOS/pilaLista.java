@@ -1,6 +1,4 @@
-
 public class pilaLista<E>{
-
     private static class Nodo<E>{
         E value;
         Nodo<E> next,prev;

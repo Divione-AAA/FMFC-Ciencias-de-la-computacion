@@ -55,4 +55,11 @@ public class queueLista<E>{
         
         return t;
     }
+    public static void main(String[] args) {
+        queueLista<Integer> q = new queueLista<>();
+        q.pushback(54);
+        q.pushback(58);
+        q.pushback(57);
+        q.pushback(21);
+    }
 }
