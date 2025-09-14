@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class ArbolPair<E extends Comparable<E>>{
     private static class Pair<K,V>{
         K first;
@@ -38,15 +37,12 @@ public class ArbolPair<E extends Comparable<E>>{
     }
 
     public int buscar(E elemento)throws Exception {
-
         for(int i = 0; i < tam; i++){
             if(lista.get(i).first.compareTo(elemento) == 0){
                 return(lista.get(i).second);
             }
         }
-
         throw new Exception("No existe ese elemento");
-
     }
 
     public void insertarHermano(E padre, E hermano)throws Exception {
