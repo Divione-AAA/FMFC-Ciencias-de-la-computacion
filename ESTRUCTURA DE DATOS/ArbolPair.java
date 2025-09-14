@@ -10,7 +10,7 @@ public class ArbolPair<E extends Comparable<E>>{
         }
     }
 
-    private final ArrayList<Pair<E,Integer>> lista;
+    private ArrayList<Pair<E,Integer>> lista;
     private int tam;
 
     public ArbolPair(){
@@ -39,7 +39,7 @@ public class ArbolPair<E extends Comparable<E>>{
     public int buscar(E elemento)throws Exception {
         for(int i = 0; i < tam; i++){
             if(lista.get(i).first.compareTo(elemento) == 0){
-                return(lista.get(i).second);
+                return(lista.get(i).second);//padre
             }
         }
         throw new Exception("No existe ese elemento");
@@ -48,6 +48,39 @@ public class ArbolPair<E extends Comparable<E>>{
     public void insertarHermano(E padre, E hermano)throws Exception {
         int i = buscar(padre);
         lista.add(new Pair<>(hermano,i));
+    }
+    public void borrar(E elemento) throws Exception {
+        ArrayList<Integer> borrar = new ArrayList<>();
+        int indice = -1;
+
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).first.compareTo(elemento) == 0) {
+                indice = i;
+                break;
+            }
+        }
+
+        if (indice == -1) {
+            throw new Exception("No existe ese elemento");
+        }
+
+        recolectarDescendientes(indice, borrar);
+        borrar.add(indice);
+
+        borrar.sort((a, b) -> b - a);
+        for (int idx : borrar) {
+            lista.remove(idx);
+            tam--;
+        }
+    }
+
+    private void recolectarDescendientes(int padreIdx, ArrayList<Integer> acumulador) {
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).second == padreIdx) {
+                acumulador.add(i);
+                recolectarDescendientes(i, acumulador);
+            }
+        }
     }
 }
 
