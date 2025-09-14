@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ArbolLista",
+      "request": "launch",
+      "mainClass": "ArbolLista",
+      "projectName": "ESTRUCTURA DE DATOS_d3fed557"
+    },
+    {
+      "type": "java",
       "name": "queueLista",
       "request": "launch",
       "mainClass": "queueLista",
