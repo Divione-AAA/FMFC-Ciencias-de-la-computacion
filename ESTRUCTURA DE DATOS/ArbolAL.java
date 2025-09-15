@@ -114,45 +114,45 @@ public class ArbolAL<E extends Comparable<E>>{
     }
     
     public void elimina(E elElemento) throws Exception {
-    if (esVacio()) throw new Exception("Árbol vacío");
+        if (esVacio()) throw new Exception("Árbol vacío");
 
-    int idx = buscar(elElemento);
-    if (idx == -1) throw new Exception("Elemento no encontrado");
+        int idx = buscar(elElemento);
+        if (idx == -1) throw new Exception("Elemento no encontrado");
 
-    ArrayList<Integer> borrar = new ArrayList<>();
-    recolectarDescendientes(idx, borrar);
-    borrar.add(idx);
-    borrar.sort((a, b) -> b - a);
+        ArrayList<Integer> borrar = new ArrayList<>();
+        recolectarDescendientes(idx, borrar);
+        borrar.add(idx);
+        borrar.sort((a, b) -> b - a);
 
-    // Crear mapa de índices antes de eliminar
-    Map<Integer, E> valoresRestantes = new HashMap<>();
-    for (int i = 0; i < lista.size(); i++) {
-        if (!borrar.contains(i)) {
-            valoresRestantes.put(i, lista.get(i).first);
-        }
-    }
-
-    // Eliminar nodos
-    for (int i : borrar) lista.remove(i);
-
-    // Reconstruir índices
-    Map<E, Integer> nuevoIndice = new HashMap<>();
-    for (int i = 0; i < lista.size(); i++) {
-        nuevoIndice.put(lista.get(i).first, i);
-    }
-
-    // Actualizar listas de hijos
-    for (Pair<E, ArrayList<Integer>> par : lista) {
-        ArrayList<Integer> hijosActualizados = new ArrayList<>();
-        for (int h : par.second) {
-            E hijoValor = valoresRestantes.get(h);
-            if (hijoValor != null && nuevoIndice.containsKey(hijoValor)) {
-                hijosActualizados.add(nuevoIndice.get(hijoValor));
+        // Crear mapa de índices antes de eliminar
+        Map<Integer, E> valoresRestantes = new HashMap<>();
+        for (int i = 0; i < lista.size(); i++) {
+            if (!borrar.contains(i)) {
+                valoresRestantes.put(i, lista.get(i).first);
             }
         }
-        par.second = hijosActualizados;
+
+        // Eliminar nodos
+        for (int i : borrar) lista.remove(i);
+
+        // Reconstruir índices
+        Map<E, Integer> nuevoIndice = new HashMap<>();
+        for (int i = 0; i < lista.size(); i++) {
+            nuevoIndice.put(lista.get(i).first, i);
+        }
+
+        // Actualizar listas de hijos
+            for (Pair<E, ArrayList<Integer>> par : lista) {
+            ArrayList<Integer> hijosActualizados = new ArrayList<>();
+            for (int h : par.second) {
+                E hijoValor = valoresRestantes.get(h);
+                if (hijoValor != null && nuevoIndice.containsKey(hijoValor)) {
+                    hijosActualizados.add(nuevoIndice.get(hijoValor));
+                }
+            }
+            par.second = hijosActualizados;
+        }
     }
-}
 
     public void imprimir() {
         for (int i = 0; i < lista.size(); i++) {
