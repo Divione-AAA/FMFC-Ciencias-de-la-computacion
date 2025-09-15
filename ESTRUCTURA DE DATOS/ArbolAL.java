@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ArbolAL<E>{
+public class ArbolAL<E extends Comparable<E>>{
     private static class Pair<K, V> {
         K first;
         V second;
@@ -30,11 +30,11 @@ public class ArbolAL<E>{
         lista.clear();
     }
 
-    public int buscar(E elElemento) {
+    public int buscar(E elElemento)throws Exception {
         for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i).first.equals(elElemento)) return i;
+            if (lista.get(i).first.compareTo(elElemento) == 0) return i;
         }
-        return -1;
+        throw new Exception("Elemento no encontrado");
     }
 
     public E padre(E elElemento) throws Exception {
@@ -105,9 +105,6 @@ public class ArbolAL<E>{
 
         throw new Exception("No se encontró el padre del hermano");
     }
-
-
-
 
     private void recolectarDescendientes(int idx, ArrayList<Integer> acumulador) {
         for (int hijo : lista.get(idx).second) {
