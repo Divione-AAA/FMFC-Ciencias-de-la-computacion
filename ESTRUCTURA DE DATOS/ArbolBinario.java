@@ -66,4 +66,40 @@ public class ArbolBinario<E>{
             }
         }
     }
+
+    public void eliminar(E value) throws Exception{
+        if (root == null) throw new Exception("Árbol vacío");
+
+        // Si la raíz misma es el nodo a eliminar
+        if (root.value.equals(value)) {
+            root = null;
+            return;
+        }
+
+        Queue<Node<E>> cola = new LinkedList<>();
+        cola.add(root);
+
+        while (!cola.isEmpty()) {
+            Node<E> actual = cola.poll();
+
+            // Revisamos el hijo izquierdo
+            if (actual.left != null) {
+                if (actual.left.value.equals(value)) {
+                    actual.left = null;  // Desconectamos todo el subárbol izquierdo
+                    return;
+                }
+                cola.add(actual.left);
+            }
+
+            // Revisamos el hijo derecho
+            if (actual.rigth != null) {
+                if (actual.rigth.value.equals(value)) {
+                    actual.rigth = null; // Desconectamos todo el subárbol derecho
+                    return;
+                }
+                cola.add(actual.rigth);
+            }
+        }
+        throw new Exception("Nodo no encontrado");
+    }
 }
