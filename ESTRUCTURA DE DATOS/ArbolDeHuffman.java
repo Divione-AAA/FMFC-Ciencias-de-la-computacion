@@ -32,8 +32,8 @@ public class ArbolDeHuffman {
     final private String cadena;
     final private Map<Character, Integer> mapa = new HashMap<>();
     final private PriorityQueue<Nodo> cola = new PriorityQueue<>();
-    Nodo raiz;
-    Map<Character, String> codigos = new HashMap<>();
+    private Nodo raiz;
+    final private Map<Character, String> codigos = new HashMap<>();
 
     public ArbolDeHuffman(String s) {
         this.cadena = s;
@@ -92,6 +92,23 @@ public class ArbolDeHuffman {
         for (Map.Entry<Character, String> entry : codigos.entrySet()) {
             System.out.println(entry.getKey() + " → " + entry.getValue());
         }
+    }
+    public String decodificar(String codificado) {
+        StringBuilder resultado = new StringBuilder();
+        Nodo actual = raiz;
+
+        for (char bit : codificado.toCharArray()) {
+            if (bit == '0') {
+                actual = actual.izquierdo;
+            } else {
+                actual = actual.derecho;
+            }
+            if (actual.esHoja()) {
+                resultado.append(actual.caracter);
+                actual = raiz;
+            }
+        }
+        return resultado.toString();
     }
 
     // Método principal de prueba

@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ArbolDeHuffman",
+      "request": "launch",
+      "mainClass": "ArbolDeHuffman",
+      "projectName": "ESTRUCTURA DE DATOS_d3fed557"
+    },
+    {
+      "type": "java",
       "name": "ArbolAL",
       "request": "launch",
       "mainClass": "ArbolAL",
