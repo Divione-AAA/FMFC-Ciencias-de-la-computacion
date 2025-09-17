@@ -45,14 +45,14 @@ int32_t main(){
     for(int i=0;i<n;i++) cin>>a[i];
     cin>>p;
 
-    sortt(a);
+    //sortt(a);
     vector<int> b;
     for(int i=0;i<n;i++) 
         if(a[i]>=p){
             b.PB(a[i]);
         }
 
-    if(b.size()==0 || b.size()>k){
+    if(b.size()>k){
         cout<<"NO"<<endl;
         return 0;
     }
@@ -60,12 +60,11 @@ int32_t main(){
     int t=0;
 
     for(int i=0;i<b.size() && t<k;i++){
-        if(b[i]>=p){
-            while(b[i]>=p){
-                b[i]=((b[i]*(100-x))/100);
-                t++;
-            }
+        while(b[i]>=p){
+            b[i]=((b[i]*(100-x))/100);
+            t++;
         }
+        
     }
 
     over(i,b){
