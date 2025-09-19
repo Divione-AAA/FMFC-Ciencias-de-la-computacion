@@ -37,15 +37,14 @@ formula = (speed*(100-x)/100)
 int32_t main(){
 	
 	fast
-	//freopen("file.in", "r", stdin);freopen("file.out", "w", stdout);
+	freopen("file.in", "r", stdin);freopen("file.out", "w", stdout);
 
     cin>>n>>d>>k>>x;
 
     vector<int> a(n);
     for(int i=0;i<n;i++) cin>>a[i];
     cin>>p;
-
-    //sortt(a);
+    
     vector<int> b;
     for(int i=0;i<n;i++) 
         if(a[i]>=p){
@@ -58,13 +57,13 @@ int32_t main(){
     }
 
     int t=0;
+    int i=0;
 
-    for(int i=0;i<b.size() && t<k;i++){
+    for(i=0;i<b.size() && t<k;i++){
         while(b[i]>=p){
             b[i]=((b[i]*(100-x))/100);
             t++;
-        }
-        
+        }   
     }
 
     over(i,b){
