@@ -5,7 +5,7 @@ char l[50];
 FILE *m1r = fopen("m1.txt","r");
 FILE *m2r = fopen("m2.txt","r");
 FILE *m3r = fopen("m3.txt","w");
-double m1[][],m2[][];
+double m1[10000][10000],m2[10000][10000];
 int a,b;
 
 void getmn() {
