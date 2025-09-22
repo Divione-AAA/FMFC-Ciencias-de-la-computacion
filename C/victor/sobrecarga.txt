@@ -1,0 +1,114 @@
+✅ Operadores que se pueden sobrecargar en C++
+1. Aritméticos
+
++ (suma, unario y binario)
+
+- (resta, unario y binario)
+
+* (multiplicación o desreferencia)
+
+/ (división)
+
+% (módulo)
+
+++ (incremento, prefijo y sufijo)
+
+-- (decremento, prefijo y sufijo)
+
+2. De relación (comparación)
+
+== (igualdad)
+
+!= (diferente)
+
+< (menor que)
+
+> (mayor que)
+
+<= (menor o igual)
+
+>= (mayor o igual)
+
+3. Lógicos y bit a bit
+
+! (lógico NOT)
+
+&& (lógico AND)
+
+|| (lógico OR)
+
+~ (bitwise NOT)
+
+& (bitwise AND, también dirección de memoria si no se sobrecarga)
+
+| (bitwise OR)
+
+^ (bitwise XOR)
+
+<< (shift left o inserción en streams)
+
+>> (shift right o extracción en streams)
+
+4. Asignación (combinados)
+
+= (asignación)
+
++=
+
+-=
+
+*=
+
+/=
+
+%=
+
+&=
+
+|=
+
+^=
+
+<<=
+
+>>=
+
+5. Acceso y memoria
+
+[] (índice, como en arrays o std::vector)
+
+() (llamada a función → functor)
+
+-> (acceso a miembro a través de puntero)
+
+->* (acceso a puntero a miembro)
+
+* (desreferencia de puntero → puede redefinirse)
+
+& (dirección de un objeto → puede redefinirse)
+
+6. Entrada/Salida
+
+<< (usado con ostream, ej: cout << obj;)
+
+>> (usado con istream, ej: cin >> obj;)
+
+(Son los mismos operadores de desplazamiento, pero normalmente se sobrecargan como funciones globales no miembro).
+
+7. Gestión de memoria (pueden sobrecargarse estáticamente en clases)
+
+new
+
+new[]
+
+delete
+
+delete[]
+
+8. Otros operadores
+
+, (coma → evaluación secuencial)
+
+-> (acceso a miembro)
+
+->* (puntero a miembro)

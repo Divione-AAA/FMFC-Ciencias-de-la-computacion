@@ -19,4 +19,5 @@ add_executable(C main.cpp
         p11.c
         primero.cpp
         cp3p2.c
+        put.cpp
 )

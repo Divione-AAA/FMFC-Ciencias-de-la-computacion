@@ -1,19 +1,17 @@
 # ninja log v6
 29	140	7738784713508731	CMakeFiles/C.dir/Parcial1/a.cpp.obj	594cdfae8f47b6c0
+63	240	7799144821329034	CMakeFiles/C.dir/cp3p2.c.obj	bf1e8df7c61ab9b4
 15	3030	7738745629882735	CMakeFiles/C.dir/CadeaChar.cpp.obj	5e81fc2971dc31d7
 3	3033	7738745629763652	CMakeFiles/C.dir/main.cpp.obj	a8eebeece47fd6b4
 46	199	7790514246781526	CMakeFiles/C.dir/Conferencias/Conferencia_1.c.obj	6b8bf785d37d2805
 9	3050	7738745629828384	CMakeFiles/C.dir/Arrays.cpp.obj	fa1dd2128fd174eb
 38	7586	7785260622580414	CMakeFiles/C.dir/struct_and_files.cpp.obj	aeb2ba2e827a5738
-11	321	7799143495667691	build.ninja	88967c49df0c4aef
 80	7709	7785260623003273	CMakeFiles/C.dir/Arreglos/7.cpp.obj	28fcaea42815b8ed
+11	321	7802140081225937	build.ninja	88967c49df0c4aef
 33	143	7738784713548737	CMakeFiles/C.dir/Parcial1/b.cpp.obj	335c057c4f91d6a3
 72	7615	7785260622923277	CMakeFiles/C.dir/Arreglos/3.cpp.obj	7a5065bc875f903a
 93	7620	7785260623133270	CMakeFiles/C.dir/pointers.cpp.obj	b98489df3e4bf0ba
 51	7665	7785260622713266	CMakeFiles/C.dir/binarios.cpp.obj	c6583f83f836c9c4
-116	7711	7785260623363450	CMakeFiles/C.dir/clases.cpp.obj	3ef79952a7a1ef
-55	192	7790514246880210	CMakeFiles/C.dir/p11.c.obj	eae75e44c886658
-38	8364	7790517252665638	CMakeFiles/C.dir/primero.cpp.obj	abc2db16db70de5d
-63	240	7799144821329034	CMakeFiles/C.dir/cp3p2.c.obj	bf1e8df7c61ab9b4
-54	6415	7799144821234458	CMakeFiles/C.dir/primero.cpp.obj	abc2db16db70de5d
 45	6501	7799144821148624	CMakeFiles/C.dir/clases.cpp.obj	3ef79952a7a1ef
+55	192	7790514246880210	CMakeFiles/C.dir/p11.c.obj	eae75e44c886658
+54	6415	7799144821234458	CMakeFiles/C.dir/primero.cpp.obj	abc2db16db70de5d

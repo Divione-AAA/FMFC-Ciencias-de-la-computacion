@@ -1,14 +1,14 @@
 #include<stdio.h>
-
-struct vaca{
+typedef struct {
     //no perminten en c las sobrecargas de operadores
-};
+}vaca;
 
-void calculo(struct vaca *v){
+void calculo(vaca *v){
 
 }
 
 int main(){
-    struct vaca b;
+    vaca b;
+    vaca c;
     calculo(&b);
 return 0;}
