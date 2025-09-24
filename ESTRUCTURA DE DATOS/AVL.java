@@ -1,4 +1,4 @@
-class Nodo<E> {
+class Nodo<E>{
     E valor;
     int altura;
     Nodo<E> izquierdo, derecho;
@@ -25,7 +25,7 @@ public class AVL<E extends Comparable<E>> {
     }
 
     // Inserción pública
-    public void insertar(E e) throws Exception {
+    public void insertar(E e) throws Exception{
         raiz = insertar(raiz, e);
     }
 
@@ -63,7 +63,6 @@ public class AVL<E extends Comparable<E>> {
                 nodo.derecho = eliminar(nodo.derecho, sucesor.valor);
             }
         }
-        if (nodo == null) return null;
         return balancearNodo(nodo);
     }
 

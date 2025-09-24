@@ -9,7 +9,6 @@ class Nodo<E>{
         return izquierdo == null && derecho == null;
     }
 }
-
 class Comparador<E extends Comparable<E>>{
     public boolean compare(E a,E b){
         return a.compareTo(b) > 0;
