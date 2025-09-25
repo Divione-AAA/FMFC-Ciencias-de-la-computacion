@@ -9,7 +9,7 @@ class Nodo<E>{
         izquierdo = derecho = null;
     }
 
-    public int factorDeBalanceo() {
+    public int factorDeBalanceo(){
         int nodoDerecho = (derecho == null ? 0 : derecho.altura);
         int nodoIzquierdo = (izquierdo == null ? 0 : izquierdo.altura);
         this.altura = Math.max(nodoIzquierdo, nodoDerecho) + 1;
