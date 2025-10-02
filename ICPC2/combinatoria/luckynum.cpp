@@ -40,6 +40,7 @@ int32_t main(){
     cin>>n;
 
     //la logica es usar principio multiplicativo y de potencias
+    //longitud k para 2 posibles usos, 7 u 8
 
     cout<<ans()<<endl;
 
