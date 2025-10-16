@@ -149,10 +149,11 @@ int32_t main(){
     //creo una lista de Investigadores
     vector<Investigador*> lista;
     //anado un conjunto de estos
-    lista.PB(new Asociado(12,"Hector","68541",900));
+    Asociado *te = new Asociado(12, "Hector", "68541", 900);
+    lista.PB(te);
     lista.PB(new Senior("IA","David","987198",700));
-    lista.PB(new Becario({10,20},"George","651564",800));
-    //segun el id lo localizo y lo borro
+    lista.PB(new Becario({10,20},*te,"George","651564",800));
+    /*//segun el id lo localizo y lo borro
     string id;
     getline(cin,id);
     for (int i = 0;i<lista.size();i++) {
@@ -175,12 +176,12 @@ int32_t main(){
     loop(i,lista.size()) {
         ans+=lista[i]->calcularAC();
     }
-    cout<<"El aporte del grupo es de: "<<ans<<endl;
+    cout<<"El aporte del grupo es de: "<<ans<<endl;*/
 
     string inv;
     getline(cin, inv);
     cout<<"Los becarios con este investigador son: "<<endl;
-    loop(i,lista.size()) {
+    loop(i,lista.size()){
         if (lista[i]->getNombre().compare(inv)) {
             over(i,lista[i]->getBec()) {
                 cout<<i<<" ";
