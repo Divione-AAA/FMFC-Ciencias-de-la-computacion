@@ -1,10 +1,10 @@
 # FMFC — Ciencias de la Computación 🚀
 
-![banner](https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif)
+🎓 **Banner:** (GIFs externos eliminados porque el host `media.giphy.com` no está disponible). 🎨✨
 
 Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este repositorio reúne trabajos realizados durante la carrera: prácticas, resolución de problemas competitivos, estructuras de datos, proyectos web y experimentos en varios lenguajes.
 
-**Resumen visual**: ![coding](https://media.giphy.com/media/l0HlQ7LRalI9Yp2qM/giphy.gif) 🧠💻🎯
+**Resumen visual**: 🧠💻🎯 (GIFs externos eliminados — consulta abajo para restaurarlos)
 
 **Tabla de contenidos**
 - **`C/`** — Proyectos y ejercicios en C
@@ -33,43 +33,43 @@ Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este
 	- Contiene: ejercicios en C, prácticas de laboratorio y soluciones (p.ej. `main.cpp`, `p1.c`, `p11.c`).
 	- Habilidades: programación procedimental, manejo de memoria, punteros y archivos.
 	- Lenguajes / herramientas: `C`, `gcc`, `Make`/`CMake`.
-	- GIF: ![C gif](https://media.giphy.com/media/26xBwdIuRJiAIqHwA/giphy.gif)
+	- GIF: 🟦 (GIF eliminado — host no disponible)
 
 - **`C++/`** 🟦
 	- Contiene: `auction.cpp`, ejercicios para prácticas y estructuras de datos.
 	- Habilidades: programación orientada a objetos, STL, algoritmos y optimización.
 	- Paradigmas: OOP, genérico (templates) y algorítmico.
-	- GIF: ![C++ gif](https://media.giphy.com/media/3o6Zt6ML6BklcajjsA/giphy.gif)
+	- GIF: 🟦 (GIF eliminado — host no disponible)
 
 - **`JAVA/`** ☕
 	- Contiene múltiples ejercicios y proyectos (interfaces gráficas, estructuras, manejo de excepciones, proyectos Maven).
 	- Habilidades: OOP avanzado, estructuras de datos en Java, GUI básica, uso de `maven`.
-	- GIF: ![Java gif](https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif)
+	- GIF: ☕ (GIF eliminado — host no disponible)
 
 - **`PYTHON/`** 🐍
 	- Contiene: scripts, pruebas y pequeños proyectos. Ideal para prototipar ideas o automatizar tareas.
 	- Habilidades: scripting, manipulación de archivos, librerías comunes (si se usan), programación funcional y orientada a objetos.
-	- GIF: ![Python gif](https://media.giphy.com/media/l0MYA0w2wXw8gJZ6w/giphy.gif)
+	- GIF: 🐍 (GIF eliminado — host no disponible)
 
 - **`HTML/`, `CSS/`, `JAVASCRIPT/`, `TAILWIND/`** 🎨
 	- Contienen: ejemplos de interfaces, tablas, formularios y demostraciones de layouts (`GRID`, `ESPACIADO`, `DATALIST`).
 	- Habilidades: maquetación, responsive design, DOM, estilos con Tailwind/CSS puro.
-	- GIF: ![Web gif](https://media.giphy.com/media/3o7aCTfyhYawdOXcFW/giphy.gif)
+	- GIF: 🎨 (GIF eliminado — host no disponible)
 
 - **`DJANGO/``**, **`GRAPHQL/`** 🗄️
 	- Contienen: proyectos backend y experimentos con APIs (Django, GraphQL). Ideal para aprender arquitecturas cliente/servidor.
 	- Habilidades: REST/GraphQL, ORM, rutas, autenticación básica.
-	- GIF: ![backend gif](https://media.giphy.com/media/l0HlQ7LRalI9Yp2qM/giphy.gif)
+	- GIF: 🗄️ (GIF eliminado — host no disponible)
 
 - **`ESTRUCTURA DE DATOS/`** 🧾
 	- Implementaciones en Java: árboles, pilas, colas, tablas hash, AVL, B-tree y más.
 	- Habilidades: diseño de estructuras, complejidad temporal/espacial, implementación desde cero.
-	- GIF: ![ds gif](https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif)
+	- GIF: 🧾 (GIF eliminado — host no disponible)
 
 - **`ICPC2/`** 🏆
 	- Carpetas por técnica: `dijkstra/`, `kruskal/`, `backtracking/`, `greedy/`, etc.
 	- Habilidades: resolución de problemas, análisis de casos límite, programación competitiva.
-	- GIF: ![icpc gif](https://media.giphy.com/media/26tPoyDhjiJ2g7rEs/giphy.gif)
+	- GIF: 🏆 (GIF eliminado — host no disponible)
 
 - **`ENSAMBLADOR/`** ⚙️
 	- Ejercicios bajos niveles y prácticas de arquitectura.
@@ -115,6 +115,14 @@ python PYTHON/script.py
 - Repositorio: `FMFC-Ciencias-de-la-computacion`
 - Autor: compilación de ejercicios del curso y prácticas personales.
 
-![end gif](https://media.giphy.com/media/26gssIytJvy1b1THO/giphy.gif)
+🔚 (GIF final eliminado — host `media.giphy.com` no disponible)
+
+Nota: He retirado los GIFs que apuntaban a `media.giphy.com` porque, según indicas, ese host no está disponible. Puedo restaurar GIFs si prefieres alguna de estas opciones:
+
+- Subir los GIFs directamente a este repositorio (los añadiría en una carpeta `assets/gifs/`) y actualizar los enlaces para que siempre carguen desde GitHub.
+- Reemplazarlos por enlaces desde otro host público más fiable (por ejemplo, Tenor). Dime si prefieres Tenor y busco GIFs concretos.
+- Mantener solo emojis estáticos si prefieres evitar dependencias externas.
+
+Dime qué opción prefieres y lo hago ahora mismo.
 
 ¡Disfruta explorando el código! 😄📚
