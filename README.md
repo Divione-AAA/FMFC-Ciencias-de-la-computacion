@@ -1,10 +1,10 @@
 # FMFC — Ciencias de la Computación 🚀
 
-🎓 **Banner:** (GIFs externos eliminados porque el host `media.giphy.com` no está disponible). 🎨✨
+🎓 **Banner:** 🚀👩‍💻👨‍💻✨
 
 Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este repositorio reúne trabajos realizados durante la carrera: prácticas, resolución de problemas competitivos, estructuras de datos, proyectos web y experimentos en varios lenguajes.
 
-**Resumen visual**: 🧠💻🎯 (GIFs externos eliminados — consulta abajo para restaurarlos)
+**Resumen visual**: 🧠💻🎯
 
 **Tabla de contenidos**
 - **`C/`** — Proyectos y ejercicios en C
@@ -33,43 +33,43 @@ Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este
 	- Contiene: ejercicios en C, prácticas de laboratorio y soluciones (p.ej. `main.cpp`, `p1.c`, `p11.c`).
 	- Habilidades: programación procedimental, manejo de memoria, punteros y archivos.
 	- Lenguajes / herramientas: `C`, `gcc`, `Make`/`CMake`.
-	- GIF: 🟦 (GIF eliminado — host no disponible)
+	- Emoji: 🔧🧩
 
 - **`C++/`** 🟦
 	- Contiene: `auction.cpp`, ejercicios para prácticas y estructuras de datos.
 	- Habilidades: programación orientada a objetos, STL, algoritmos y optimización.
 	- Paradigmas: OOP, genérico (templates) y algorítmico.
-	- GIF: 🟦 (GIF eliminado — host no disponible)
+	- Emoji: 🧠⚙️
 
 - **`JAVA/`** ☕
 	- Contiene múltiples ejercicios y proyectos (interfaces gráficas, estructuras, manejo de excepciones, proyectos Maven).
 	- Habilidades: OOP avanzado, estructuras de datos en Java, GUI básica, uso de `maven`.
-	- GIF: ☕ (GIF eliminado — host no disponible)
+	- Emoji: ☕🧩
 
 - **`PYTHON/`** 🐍
 	- Contiene: scripts, pruebas y pequeños proyectos. Ideal para prototipar ideas o automatizar tareas.
 	- Habilidades: scripting, manipulación de archivos, librerías comunes (si se usan), programación funcional y orientada a objetos.
-	- GIF: 🐍 (GIF eliminado — host no disponible)
+	- Emoji: 🐍📜
 
 - **`HTML/`, `CSS/`, `JAVASCRIPT/`, `TAILWIND/`** 🎨
 	- Contienen: ejemplos de interfaces, tablas, formularios y demostraciones de layouts (`GRID`, `ESPACIADO`, `DATALIST`).
 	- Habilidades: maquetación, responsive design, DOM, estilos con Tailwind/CSS puro.
-	- GIF: 🎨 (GIF eliminado — host no disponible)
+	- Emoji: 🎨🖥️
 
 - **`DJANGO/``**, **`GRAPHQL/`** 🗄️
 	- Contienen: proyectos backend y experimentos con APIs (Django, GraphQL). Ideal para aprender arquitecturas cliente/servidor.
 	- Habilidades: REST/GraphQL, ORM, rutas, autenticación básica.
-	- GIF: 🗄️ (GIF eliminado — host no disponible)
+	- Emoji: 🗄️🔐
 
 - **`ESTRUCTURA DE DATOS/`** 🧾
 	- Implementaciones en Java: árboles, pilas, colas, tablas hash, AVL, B-tree y más.
 	- Habilidades: diseño de estructuras, complejidad temporal/espacial, implementación desde cero.
-	- GIF: 🧾 (GIF eliminado — host no disponible)
+	- Emoji: 🌳📊
 
 - **`ICPC2/`** 🏆
 	- Carpetas por técnica: `dijkstra/`, `kruskal/`, `backtracking/`, `greedy/`, etc.
 	- Habilidades: resolución de problemas, análisis de casos límite, programación competitiva.
-	- GIF: 🏆 (GIF eliminado — host no disponible)
+	- Emoji: 🏆⚡
 
 - **`ENSAMBLADOR/`** ⚙️
 	- Ejercicios bajos niveles y prácticas de arquitectura.
@@ -115,14 +115,8 @@ python PYTHON/script.py
 - Repositorio: `FMFC-Ciencias-de-la-computacion`
 - Autor: compilación de ejercicios del curso y prácticas personales.
 
-🔚 (GIF final eliminado — host `media.giphy.com` no disponible)
+🔚 ✅
 
-Nota: He retirado los GIFs que apuntaban a `media.giphy.com` porque, según indicas, ese host no está disponible. Puedo restaurar GIFs si prefieres alguna de estas opciones:
-
-- Subir los GIFs directamente a este repositorio (los añadiría en una carpeta `assets/gifs/`) y actualizar los enlaces para que siempre carguen desde GitHub.
-- Reemplazarlos por enlaces desde otro host público más fiable (por ejemplo, Tenor). Dime si prefieres Tenor y busco GIFs concretos.
-- Mantener solo emojis estáticos si prefieres evitar dependencias externas.
-
-Dime qué opción prefieres y lo hago ahora mismo.
+Se han eliminado los GIFs externos y se han sustituido por emojis relacionados con programación para evitar dependencias externas.
 
 ¡Disfruta explorando el código! 😄📚
