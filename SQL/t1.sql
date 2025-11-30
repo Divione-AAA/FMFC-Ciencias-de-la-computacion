@@ -9,6 +9,7 @@ CREATE TABLE Autores(
     estado VARCHAR(20) NOT NULL
 )
 
+
 -- Inserciones
 INSERT INTO Autores (nombre, apellidos, telefono, direccion, ciudad, estado)
 VALUES ('Juan', 'Pérez', '555-1234', 'Calle Falsa 123', 'Ciudad de México', 'CDMX');
