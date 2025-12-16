@@ -22,7 +22,6 @@ public class GrafoListaAdyacencia implements Grafo {
         vertices = new HashMap<>();
     }
 
-    // ========================= Manipulación del grafo =========================
     @Override
     public int insVertice(String nombre) {
         if (vertices.containsKey(nombre)) return -1; // ya existe
@@ -58,7 +57,6 @@ public class GrafoListaAdyacencia implements Grafo {
         }
     }
 
-    // ========================= Operaciones sobre grafos =========================
     @Override
     public int buscar(String nombre) {
         return vertices.containsKey(nombre) ? 1 : -1;
@@ -73,8 +71,7 @@ public class GrafoListaAdyacencia implements Grafo {
         return false;
     }
 
-    // ========================= Recorridos =========================
-    @Override
+   @Override
     public List<String> recorridoAmplitud(String verticeOrigen) {
         List<String> resultado = new ArrayList<>();
         if (!vertices.containsKey(verticeOrigen)) return resultado;
@@ -125,7 +122,6 @@ public class GrafoListaAdyacencia implements Grafo {
         return resultado;
     }
 
-    // ========================= Método para depuración =========================
     public void imprimirGrafo() {
         for (String vertice : vertices.keySet()) {
             System.out.print(vertice + " -> ");
