@@ -82,8 +82,7 @@ Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este
 - **`TYPESCRIPT/`** 🟪
 	- Ejercicios y proyectos escritos en TypeScript, orientados a la práctica de tipado estático sobre JavaScript y desarrollo moderno de aplicaciones web.
 	- Habilidades: tipado estático, desarrollo web, integración con frameworks modernos, buenas prácticas de JavaScript avanzado.
-	- Emoji: 🟪📘
-
+	
 - **`SQL/`** 🗃️
 	- Consultas, esquemas y prácticas para modelado relacional.
 
