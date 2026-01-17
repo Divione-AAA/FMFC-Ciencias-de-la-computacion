@@ -96,18 +96,18 @@ SELECT * FROM Authors; */
 
 -- Listar los autores ordenados por ciudad y estado
 SELECT *
-FROM Authors
-ORDER BY city, state;
+FROM Authors a
+ORDER BY a.city, a.state;
 
 -- Obtener tienda ordenadas por estado descendiente y ciudad ascendente
 SELECT *
-FROM Stores
-ORDER BY state DESC, city ASC;
+FROM Stores s
+ORDER BY s.state DESC, s.city ASC;
 
 -- Cuantos autores son de Seattle
 SELECT COUNT(*)
-FROM Authors
-WHERE city = 'Seattle';
+FROM Authors a
+WHERE a.city = 'Seattle';
 
 -- Títulos del año 2000 publicados por la editorial 1389, ordenados por título
 SELECT *

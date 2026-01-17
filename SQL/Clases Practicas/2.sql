@@ -95,8 +95,8 @@ SELECT a.au_fname, p.pub_name
 FROM authors a, Publisher p
 
 -- 3
-SELECT ytd_sales, ((ytd_sales*royalty)/100 ) AS debitoAutor,
-    (ytd_sales-((ytd_sales*royalty)/100)) AS debitoEditorial
+SELECT a.ytd_sales, ((a.ytd_sales*a.royalty)/100 ) AS debitoAutor,
+    (a.ytd_sales-((a.ytd_sales*a.royalty)/100)) AS debitoEditorial
 FROM Authors a
     JOIN TitleAuthor ta ON a.au_id = ta.au_id
     JOIN Titles t ON ta.title_id = t.title_id
@@ -120,3 +120,11 @@ WHERE t.title_id IS NULL;
 SELECT t.type
 FROM Titles t
 WHERE MAX(advance) > 2 * AVG(advance);
+
+-- 9
+SELECT ta.au_id
+FROM TitleAuthor ta
+JOIN Titles t ON ta.title_id = t.title_id
+JOIN Publisher p ON t.pub_id = p.pub_id
+GROUP BY ta.au_id
+HAVING COUNT(DISTINCT p.pub_id) = (SELECT COUNT(*) FROM Publisher);
