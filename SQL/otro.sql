@@ -21,7 +21,7 @@ CREATE TABLE Pedidos (
     FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
     FOREIGN KEY (ProductoID) REFERENCES Productos(ProductoID)
 );
-*/
+
 INSERT INTO Clientes (ClienteID, Nombre, Email) VALUES (1, 'David', 'david@email.com');
 
 INSERT INTO Productos (ProductoID, Nombre, Precio) VALUES (1, 'Laptop', 800.00);

@@ -84,7 +84,6 @@ CREATE TABLE Titles (
     FOREIGN KEY (pub_id) REFERENCES Publisher(pub_id)
 );
 
--- 🔗 Relaciones adicionales
 ALTER TABLE Employee
     ADD CONSTRAINT fk_employee_job FOREIGN KEY (job_id) REFERENCES Jobs(job_id);
 

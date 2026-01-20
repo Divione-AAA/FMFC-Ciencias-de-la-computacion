@@ -95,8 +95,8 @@ SELECT a.au_fname, p.pub_name
 FROM authors a, Publisher p
 
 -- 3
-SELECT a.ytd_sales, ((a.ytd_sales*a.royalty)/100 ) AS debitoAutor,
-    (a.ytd_sales-((a.ytd_sales*a.royalty)/100)) AS debitoEditorial
+SELECT  a.ytd_sales, ((a.ytd_sales*a.royalty)/100 ) AS debitoAutor,
+        (a.ytd_sales-((a.ytd_sales*a.royalty)/100)) AS debitoEditorial
 FROM Authors a
     JOIN TitleAuthor ta ON a.au_id = ta.au_id
     JOIN Titles t ON ta.title_id = t.title_id
