@@ -1,6 +1,6 @@
 # 📚 Estructura de Datos en Java
 
-Este repositorio contiene implementaciones de diversas estructuras de datos y algoritmos en Java, ideales para estudiantes y entusiastas de la informática. Cada clase está diseñada para ilustrar conceptos fundamentales y avanzados de la materia. A continuación se presenta un resumen de cada archivo/clase principal:
+Este repositorio contiene implementaciones de diversas estructuras de datos y algoritmos en Java .Cada clase está diseñada para ilustrar conceptos fundamentales y avanzados de la materia. 
 
 ## 📦 Clases y Archivos
 
