@@ -16,7 +16,7 @@ Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este
 - **`ESTRUCTURA DE DATOS/`** — Implementaciones en Java y material de teoría
 - **`ICPC2/`** — Carpetas de competiciones y algoritmos (dijkstra, kruskal, backtracking...)
 - **`ENSAMBLADOR/`, `DART/`, `SQL/`** — Otros lenguajes y prácticas
-- **`REACT.JS/`** — Practicas, hooks, props y otros conceptos
+- **`REACT.JS/`** — Prácticas, hooks, props y otros conceptos
 
 ---
 
