@@ -16,7 +16,6 @@ Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este
 - **`ESTRUCTURA DE DATOS/`** — Implementaciones en Java y material de teoría
 - **`ICPC2/`** — Carpetas de competiciones y algoritmos (dijkstra, kruskal, backtracking...)
 - **`ENSAMBLADOR/`, `DART/`, `SQL/`** — Otros lenguajes y prácticas
-- **`REACT.JS/`** — Prácticas, hooks, props y otros conceptos
 
 ---
 
@@ -76,6 +75,11 @@ Clases, ejercicios y proyectos personales organizados por lenguaje y área. Este
 	- Ejercicios bajos niveles y prácticas de arquitectura.
 	- Habilidades: comprensión de instrucciones, registros, memoria y optimización a bajo nivel.
 
+- **`POSTGRESQL/`** 🐘
+	- Scripts y prácticas de bases de datos en PostgreSQL: `HECTORDAP.sql`, `Backup.sql`, `BDavidBU.sql`, `EstHAP.sql`, `test.sql`.
+	- Habilidades: modelado relacional, creación de tablas, inserciones, consultas, vistas y reglas en SQL.
+	- Ejecución: abre los scripts en tu cliente PostgreSQL favorito (pgAdmin, DBeaver, psql) y sigue las instrucciones del README de la carpeta.
+	- Emoji: 🐘🗄️
 
 - **`DART/`** y otros 🧪
 	- Pequeños experimentos con Dart y otras tecnologías.
