@@ -34,7 +34,7 @@ int b(int i){
 }
 
 void binario(tstring i){
-    if(i.t.size()==5) return;
+    if(i.t.size()==6) return;
     cadenas.push_back(i);
     binario({i.t+'0'});
     binario({i.t+'1'});
