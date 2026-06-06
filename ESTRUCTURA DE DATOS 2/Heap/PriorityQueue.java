@@ -1,3 +1,5 @@
+package Heap;
+
 public interface PriorityQueue<E> {
 
     void insert(E element, double priority);
