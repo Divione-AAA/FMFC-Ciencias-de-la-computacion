@@ -1,0 +1,26 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package Grafos;
+import java.util.LinkedList;
+
+
+public class VerticeExt extends Vertice {
+    private LinkedList<Arista> lista;
+
+    public VerticeExt(String nombre) {
+        super(nombre);
+        lista = new LinkedList<>();
+    }
+
+     public LinkedList getLista() {
+        return lista;
+    }
+
+    public void setLista(LinkedList lista) {
+        this.lista=lista;
+    }
+
+}
