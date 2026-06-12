@@ -12,7 +12,7 @@ public class Laboratorio1TDAGrafo {
 
     public static void main(String[] args) throws Exception {
         // TODO Auto-generated method stub
-        /*
+        
         System.out.println("------> GRAFO MATRIZ DE ADYACENCIA <------");
         GrafoMatriz_Ady G1 = new GrafoMatriz_Ady();
         G1.insVertice("A");
@@ -102,8 +102,7 @@ public class Laboratorio1TDAGrafo {
         G2.elimArista("A", "F");
         System.out.println("");
         G2.imprimirGrafo();
-*/
-
+        /*
         //otro grafo,recordar q para estos recorridos no importa el peso de las aristas, ellos trabajan con sus adyacentes sin importar si el grafo es o no ponderado
         GrafoLista_Adyacencia G2 = new GrafoLista_Adyacencia();
         G2.insVertice("V0");
@@ -186,6 +185,7 @@ public class Laboratorio1TDAGrafo {
             System.out.print(iterador2_.next() + ", ");
         }
         System.out.println("\n");
+        */
     }
 
 }
