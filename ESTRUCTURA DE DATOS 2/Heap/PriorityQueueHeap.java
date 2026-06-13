@@ -1,5 +1,4 @@
 package Heap;
-
 import java.util.ArrayList;
 
 class HeapNode<E>{
@@ -17,7 +16,7 @@ class HeapNode<E>{
 public class PriorityQueueHeap<E> implements PriorityQueue<E>{
     
     /*Este es el arbol representado mediante una amtriz */
-    ArrayList<HeapNode<E>> heap;
+    private ArrayList<HeapNode<E>> heap;
 
     /*Constructor de la clase */
     public PriorityQueueHeap(){
@@ -25,35 +24,21 @@ public class PriorityQueueHeap<E> implements PriorityQueue<E>{
     }
 
     /*Operacion de intercambio interno, no es publica */
-    private void swap(int i, int padre){
-        HeapNode<E> nuevo = heap.get(i);
-        HeapNode<E> nuevo2 = heap.get(padre);
-        heap.set(padre, nuevo);
-        heap.set(i,nuevo2);
+    private void swap(int i, int j){
+        HeapNode<E> temp = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, temp);
     }
 
     /*Funcion de insertado */
     @Override
-    public void insert(E element, double priority){
+    public void insert(E element, double priority) {
 
-        HeapNode<E> nuevo = new HeapNode<>(element,priority);
-
+        HeapNode<E> nuevo = new HeapNode<>(element, priority); //nuevo elemento
         heap.add(nuevo);
-
-        int i = heap.size() - 1;
-
-        while(i > 0) {
-
-            int padre = (i - 1) / 2;
-
-            if(heap.get(i).priority > heap.get(padre).priority){
-                swap(i,padre);
-                i = padre;
-            }else{
-                break;
-            }
-        }
+        siftUp(heap.size() - 1);//al ponerse al final, se empieza a verificar su tam con el del padre
     }
+
     /* Extraccion del maximo balanceandolo*/
     @Override
     public E extractMax() throws EmptyPriorityQueueException {
@@ -75,6 +60,7 @@ public class PriorityQueueHeap<E> implements PriorityQueue<E>{
         return max;
     }
 
+    /* */
     private void siftDown(int i) {
 
         while(true) {
@@ -101,43 +87,63 @@ public class PriorityQueueHeap<E> implements PriorityQueue<E>{
         }
     }
 
+    /*Se ordena con siftup */
+    private void siftUp(int i) {
+        while (i > 0) {
+            // calcular padre
+            int padre = (i - 1) / 2;
+            // si el hijo tiene mayor prioridad
+            if (heap.get(i).priority > heap.get(padre).priority) {
+                // intercambiar
+                swap(i, padre);
+                // continuar desde arriba
+                i = padre;
+            }else{
+                // propiedad heap satisfecha
+                break;
+            }
+        }
+    }
+
     @Override
+    /*obtiene el mayor */
     public E getMax() throws EmptyPriorityQueueException{
-
         if(isEmpty()) throw new EmptyPriorityQueueException("El heap esta vacio");
-
         return heap.get(0).element;
     }
 
     @Override
+    /*...*/
     public boolean isEmpty() {
         return heap.isEmpty();
     }
 
+    /*...*/
     @Override
     public int size() {
         return heap.size();
     }
 
+    /*cambio de prioridad de un elemento */
     public void changePriority(E element, double newPriority) throws ElementNotFoundException{
 
         int index = -1;
 
-        for(int i=0;i<heap.size();i++) {
-
+        //busca el elemento
+        for(int i=0;i<heap.size();i++){
             if(heap.get(i).element.equals(element)) {
-
                 index = i;
                 break;
             }
         }
 
+        //eleva una excepcion si no existe
         if(index == -1) throw new ElementNotFoundException("Elemento no encontrado");
-
+        //obtiene la prioridad
         double oldPriority = heap.get(index).priority;
-
+        //lo modifica
         heap.get(index).priority = newPriority;
-
+        //dependiendo su tamano los reordena
         if(newPriority > oldPriority){
             siftUp(index);
         }else{

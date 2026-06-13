@@ -1,0 +1,13 @@
+CREATE DATABASE CP5
+
+--- crea un rol
+CREATE ROLE alumno
+LOGIN; --- inicia sesion
+
+ALTER ROLE alumno
+PASSWORD 'abc123';
+
+ALTER ROLE alumno
+LOGIN
+CREATEDB
+CREATEROLE;
