@@ -175,18 +175,72 @@ public class GrafoLista_Adyacencia implements Grafo {
     }
 
     public LinkedList<String> recorrido_amplitud(String VerticeOrigen) {
-        // Completar
+            limpiarDatos();
+            LinkedList<String> resultado = new LinkedList<String>();
+            int inicio = buscar(VerticeOrigen);
+            if (inicio == -1) {
+                return resultado;
+            }
+            Queue<Integer> q = new LinkedList<Integer>();
+            tabla[inicio].setExtra(1);
+            q.add(inicio);
+            while (!q.isEmpty()) {
+                int u = q.remove();
+                resultado.addLast(tabla[u].getNombre());
+                LinkedList<Arista> L = tabla[u].getLista();
+                for (int k = 0; k < L.size(); k++) {
+                    Arista a = L.get(k);
+                    int v = a.getDestino();
+                    if (tabla[v].getExtra() == 0) {
+                        tabla[v].setExtra(1);
+                        q.add(v);
+                    }
+                }
+            }
+            return resultado;
     }
 
     private LinkedList recorrido_profundidadR(String VerticeOrigen, LinkedList L) {
-        // Completar
+            int i = buscar(VerticeOrigen);
+            if (i == -1) {
+                return L;
+            }
+            tabla[i].setExtra(1);
+            L.addLast(tabla[i].getNombre());
+            LinkedList<Arista> lista = tabla[i].getLista();
+            for (int k = 0; k < lista.size(); k++) {
+                Arista a = lista.get(k);
+                int v = a.getDestino();
+                if (tabla[v].getExtra() == 0) {
+                    recorrido_profundidadR(tabla[v].getNombre(), L);
+                }
+            }
+            return L;
     }
  
     public LinkedList recorrido_profundidad(String VerticeOrig) {
-        // Completar    
+            limpiarDatos();
+            LinkedList<String> L = new LinkedList<String>();
+            int inicio = buscar(VerticeOrig);
+            if (inicio == -1) {
+                return L;
+            }
+            return recorrido_profundidadR(VerticeOrig, L);
+        
     }
 
     public void imprimirGrafo() {
-        // toString
+            for (int i = 0; i < numVertices; i++) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(tabla[i].getNombre()).append(": ");
+                LinkedList<Arista> L = tabla[i].getLista();
+                for (int k = 0; k < L.size(); k++) {
+                    Arista a = L.get(k);
+                    int dest = a.getDestino();
+                    sb.append("(").append(tabla[dest].getNombre()).append(", ").append(a.getCosto()).append(")");
+                    if (k < L.size() - 1) sb.append(" -> ");
+                }
+                System.out.println(sb.toString());
+            }
     }
 }
