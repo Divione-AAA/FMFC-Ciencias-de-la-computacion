@@ -3,29 +3,26 @@ import java.sql.*;
 public class Manipuladora {
 
     private Conexion c;
-    private PreparedStatement stmt;
-    private ResultSet rs;
+    private CallableStatement stmt;
 
     public Manipuladora(Conexion c) {
         this.c = c;
     }
 
     public Trabajador buscar(String id_trabajador) throws SQLException {
+        stmt = c.getConexion().prepareCall("{ call ObtNombre(?, ?) }");//llama al procedimiento almacenado
+        stmt.setString(1, id_trabajador);//pasa el valor de id_trabajador
+        stmt.registerOutParameter(2, Types.VARCHAR);//registra el valor de nombre
+        stmt.execute();//ejecuta el procedimiento
 
-        stmt = c.getConexion().prepareStatement("select * from ObtNombre(?)");
-        stmt.setString(1, id_trabajador);
-        rs = stmt.executeQuery();
-        rs.next();
-        String n = rs.getString(1);
-        String o = rs.getString(2);
-        Trabajador t = new Trabajador(id, n, 0, o, "");
-        return t;
+        String nombre = stmt.getString(2);//recupera el valor de nombre
+        return new Trabajador(id_trabajador, nombre, 0, "", "");//crea un objeto de tipo Trabajador con los valores recuperados
     }
-    public void cerrar() throws SQLException{
-        c.cerrarConexion();
-        if (stmt!=null)
+    //cerrar el objeto de tipo conexion
+    public void cerrar() throws SQLException {
+        if (stmt != null) {
             stmt.close();
-        if (rs!=null)
-            rs.close();
+        }
+        c.cerrarConexion();
     }
 }

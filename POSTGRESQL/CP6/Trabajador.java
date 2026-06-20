@@ -13,4 +13,8 @@ public class Trabajador {
         this.oficio = oficio;
         this.supervisor = supervisor;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }
