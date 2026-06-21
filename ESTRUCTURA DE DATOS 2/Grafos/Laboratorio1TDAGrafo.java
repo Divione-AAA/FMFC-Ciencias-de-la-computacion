@@ -4,106 +4,76 @@
  * and open the template in the editor.
  */
 package Grafos;
-import java.util.Iterator;
-import java.util.LinkedList;
 
+import java.util.LinkedList;
 
 public class Laboratorio1TDAGrafo {
 
     public static void main(String[] args) throws Exception {
-        // TODO Auto-generated method stub
-        
-        System.out.println("------> GRAFO MATRIZ DE ADYACENCIA <------");
-        GrafoMatriz_Ady G1 = new GrafoMatriz_Ady();
+
+        // 1) Grafo no ponderado usando GrafoLista_Adyacencia (G1)
+        // Este grafo corresponde al primer grafo solicitado en las orientaciones.
+        // Aquí se deben verificar adyacencias, eliminar vértices y aristas,
+        // e imprimir los recorridos desde A.
+        System.out.println("GRAFO LISTA DE ADYACENCIA (G1, no ponderado)");
+
+        GrafoLista_Adyacencia G1 = new GrafoLista_Adyacencia();
         G1.insVertice("A");
         G1.insVertice("B");
         G1.insVertice("C");
         G1.insVertice("D");
         G1.insVertice("E");
         G1.insVertice("F");
-        G1.insArista("A", "B");
+        G1.insVertice("G");
+
         G1.insArista("A", "D");
         G1.insArista("A", "F");
+        G1.insArista("A", "B");
         G1.insArista("B", "C");
         G1.insArista("B", "F");
         G1.insArista("C", "D");
-        G1.insArista("D", "B");
-        G1.insArista("E", "D");
-        G1.insArista("E", "F");
-        G1.insArista("F", "D");
+        G1.insArista("C", "F");
+        G1.insArista("C", "A");
+        G1.insArista("D", "E");
+        G1.insArista("F", "E");
+        G1.insArista("G", "E");
+
         G1.imprimirGrafo();
-        System.out.println("\n¿El vértice \"B\" es adyacente al vértice \"C\"? " + (G1.esAdyacente("B", "C") ? "Sí" : "No") + "\n");
-        System.out.println("Recorrido en amplitud:");
-        LinkedList<String> rec_amplitud = G1.recorrido_amplitud("A");
-        Iterator iterador = rec_amplitud.iterator();
 
-        while (iterador.hasNext()) {
-            System.out.print(iterador.next() + ", ");
-        }
-        System.out.println("\n");
-        System.out.println("Recorrido en profundidad:");
-        LinkedList<String> rec_profundidad = G1.recorrido_profundidad("A");
-        Iterator iterador2 = rec_profundidad.iterator();
+        // a) Verificar si B es adyacente a A
+        System.out.println("\n¿El vértice \"B\" es adyacente a \"A\"? " + (G1.esAdyacente("B", "A") ? "Sí" : "No"));
 
-        while (iterador2.hasNext()) {
-            System.out.print(iterador2.next() + ", ");
-        }
-        System.out.println("\n");
+        // b) Eliminar el vértice C e imprimir el orden
+        System.out.println("\nOrden de los vértices antes de eliminar C:");
+        G1.imprimirGrafo();
 
-        System.out.println("------> GRAFO LISTA DE ADYACENCIA <------");
-        GrafoLista_Adyacencia G2 = new GrafoLista_Adyacencia();
-        G2.insVertice("A");
-        G2.insVertice("B");
-        G2.insVertice("C");
-        G2.insVertice("D");
-        G2.insVertice("E");
-        G2.insVertice("F");
-        G2.insVertice("G");
-        G2.insArista("A", "D");
-        G2.insArista("A", "F");
-        G2.insArista("A", "B");
-        G2.insArista("B", "C");
-        G2.insArista("B", "F");
-        G2.insArista("C", "D");
-        G2.insArista("C", "F");
-        G2.insArista("C", "A");
-        G2.insArista("D", "E");
-        G2.insArista("F", "E");
-        G2.insArista("G", "E");
-        G2.imprimirGrafo();
-        System.out.println("\n¿El vértice \"B\" es adyacente al vértice \"A\"? " + (G2.esAdyacente("B", "A") ? "Sí" : "No") + "\n");
-        System.out.println("Recorrido en amplitud:");
-        LinkedList<String> rec_amplitud2 = G2.recorrido_amplitud("B");
-        Iterator iterador3 = rec_amplitud2.iterator();
+        System.out.println("\nEliminando el vértice C...");
+        G1.elimVertice("C");
 
-        while (iterador3.hasNext()) {
-            System.out.print(iterador3.next() + ", ");
-        }
-        System.out.println("\n");
-        System.out.println("Recorrido en profundidad:");
-        LinkedList<String> rec_profundidad2 = G2.recorrido_profundidad("B");
-        Iterator iterador4 = rec_profundidad2.iterator();
+        System.out.println("Orden de los vértices después de eliminar C:");
+        G1.imprimirGrafo();
 
-        while (iterador4.hasNext()) {
-            System.out.print(iterador4.next() + ", ");
-        }
-        System.out.println("");
+        // c) Eliminar la arista C -> D
+        System.out.println("\nEliminando la arista C -> D...");
+        G1.elimArista("C", "D");
 
-        System.out.println("\nOrden de los vértices antes de eliminar el vértice \"C\":");
-        G2.imprimirVerticesEnOrden();
-        System.out.println("\nEliminando el vértice \"C\" ...");
-        G2.elimVertice("C");
-        G2.imprimirVerticesEnOrden(); //el último vértice ahora toma el lugar de C
+        // d) Recorridos desde A
+        System.out.println("\nRecorrido en amplitud desde A:");
+        LinkedList<String> bfsG1 = G1.recorrido_amplitud("A");
+        for (String v : bfsG1) System.out.print(v + ", ");
+        System.out.println();
 
-        System.out.println("\nEliminando la arista \"C\"->\"D\" ...");
-        G2.elimArista("C", "D");
-                
-        System.out.println("\nEliminando la arista \"A\"->\"F\" ...");
-        G2.elimArista("A", "F");
-        System.out.println("");
-        G2.imprimirGrafo();
-        /*
-        //otro grafo,recordar q para estos recorridos no importa el peso de las aristas, ellos trabajan con sus adyacentes sin importar si el grafo es o no ponderado
+        System.out.println("\nRecorrido en profundidad desde A:");
+        LinkedList<String> dfsG1 = G1.recorrido_profundidad("A");
+        for (String v : dfsG1) System.out.print(v + ", ");
+        System.out.println();
+
+
+        // 2) Otro grafo no ponderado usando GrafoLista_Adyacencia (G2)
+        // Este es el grafo con vértices V0..V6. Aquí se deben imprimir los
+        // recorridos desde V0.
+        System.out.println("\n GRAFO LISTA DE ADYACENCIA (G2, no ponderado)");
+
         GrafoLista_Adyacencia G2 = new GrafoLista_Adyacencia();
         G2.insVertice("V0");
         G2.insVertice("V1");
@@ -112,40 +82,38 @@ public class Laboratorio1TDAGrafo {
         G2.insVertice("V4");
         G2.insVertice("V5");
         G2.insVertice("V6");
-        G2.insArista("V0", "V1", 0);
-        G2.insArista("V0", "V3", 0);
-        G2.insArista("V1", "V3", 0);
-        G2.insArista("V1", "V4", 0);
-        G2.insArista("V2", "V0", 0);
-        G2.insArista("V2", "V5", 0);
-        G2.insArista("V3", "V2", 0);
-        G2.insArista("V3", "V4", 0);
-        G2.insArista("V3", "V5", 0);
-        G2.insArista("V3", "V6", 0);
-        G2.insArista("V4", "V6", 0);
-        G2.insArista("V6", "V5", 0);
+
+        G2.insArista("V0", "V1");
+        G2.insArista("V0", "V3");
+        G2.insArista("V1", "V3");
+        G2.insArista("V1", "V4");
+        G2.insArista("V2", "V0");
+        G2.insArista("V2", "V5");
+        G2.insArista("V3", "V2");
+        G2.insArista("V3", "V4");
+        G2.insArista("V3", "V5");
+        G2.insArista("V3", "V6");
+        G2.insArista("V4", "V6");
+        G2.insArista("V6", "V5");
+
         G2.imprimirGrafo();
-        
-        
-        System.out.println("Recorrido en amplitud:");
-        LinkedList<String> rec_amplitud = G2.recorrido_amplitud("A");
-        Iterator iterador = rec_amplitud.iterator();
 
-        while (iterador.hasNext()) {
-            System.out.print(iterador.next() + ", ");
-        }
-        System.out.println("\n");
-        System.out.println("Recorrido en profundidad:");
-        LinkedList<String> rec_profundidad = G2.recorrido_profundidad("A");
-        Iterator iterador2 = rec_profundidad.iterator();
+        System.out.println("\nRecorrido en amplitud desde V0:");
+        LinkedList<String> bfsG2 = G2.recorrido_amplitud("V0");
+        for (String v : bfsG2) System.out.print(v + ", ");
+        System.out.println();
 
-        while (iterador2.hasNext()) {
-            System.out.print(iterador2.next() + ", ");
-        }
-        System.out.println("\n");
-//
-        //grafo ponderado,es el mismo grafo anterior G2 pero con pesos en sus aristas y los recorridos son los mismos porque no dependen del peso de aristas
-        System.out.println("");
+        System.out.println("\nRecorrido en profundidad desde V0:");
+        LinkedList<String> dfsG2 = G2.recorrido_profundidad("V0");
+        for (String v : dfsG2) System.out.print(v + ", ");
+        System.out.println();
+
+
+        // 3) Mismo grafo anterior pero ponderado usando GrafoMatriz_Ady (G3)
+        // Aquí se demuestra que los recorridos no cambian porque no dependen
+        // de los pesos de las aristas.
+        System.out.println("\nGRAFO MATRIZ DE ADYACENCIA (G3, ponderado)");
+
         GrafoMatriz_Ady G3 = new GrafoMatriz_Ady();
         G3.insVertice("V0");
         G3.insVertice("V1");
@@ -154,6 +122,7 @@ public class Laboratorio1TDAGrafo {
         G3.insVertice("V4");
         G3.insVertice("V5");
         G3.insVertice("V6");
+
         G3.insArista("V0", "V1", 2);
         G3.insArista("V0", "V3", 1);
         G3.insArista("V1", "V3", 3);
@@ -166,26 +135,73 @@ public class Laboratorio1TDAGrafo {
         G3.insArista("V3", "V6", 4);
         G3.insArista("V4", "V6", 6);
         G3.insArista("V6", "V5", 1);
+
         G3.imprimirGrafo();
-        
-        
-        System.out.println("Recorrido en amplitud:");
-        LinkedList<String> rec_amplitud_ = G3.recorrido_amplitud("A");
-        Iterator iterador_ = rec_amplitud_.iterator();
 
-        while (iterador_.hasNext()) {
-            System.out.print(iterador_.next() + ", ");
-        }
-        System.out.println("\n");
-        System.out.println("Recorrido en profundidad:");
-        LinkedList<String> rec_profundidad_ = G3.recorrido_profundidad("A");
-        Iterator iterador2_ = rec_profundidad_.iterator();
+        System.out.println("\nRecorrido en amplitud desde V0:");
+        LinkedList<String> bfsG3 = G3.recorrido_amplitud("V0");
+        for (String v : bfsG3) System.out.print(v + ", ");
+        System.out.println();
 
-        while (iterador2_.hasNext()) {
-            System.out.print(iterador2_.next() + ", ");
-        }
-        System.out.println("\n");
-        */
+        System.out.println("\nRecorrido en profundidad desde V0:");
+        LinkedList<String> dfsG3 = G3.recorrido_profundidad("V0");
+        for (String v : dfsG3) System.out.print(v + ", ");
+        System.out.println();
+
+        System.out.println("\nLos recorridos son iguales al grafo no ponderado porque los algoritmos");
+        System.out.println("de amplitud y profundidad no utilizan los pesos, solo las adyacencias.");
+
+
+        // 4) Repetir orientaciones usando GrafoMatriz_Ady (G4)
+        // Este grafo es equivalente al G1 pero usando matriz de adyacencia.
+        System.out.println("\nGRAFO MATRIZ DE ADYACENCIA (G4, no ponderado)");
+
+        GrafoMatriz_Ady G4 = new GrafoMatriz_Ady();
+        G4.insVertice("A");
+        G4.insVertice("B");
+        G4.insVertice("C");
+        G4.insVertice("D");
+        G4.insVertice("E");
+        G4.insVertice("F");
+        G4.insVertice("G");
+
+        G4.insArista("A", "D", 1);
+        G4.insArista("A", "F", 1);
+        G4.insArista("A", "B", 1);
+        G4.insArista("B", "C", 1);
+        G4.insArista("B", "F", 1);
+        G4.insArista("C", "D", 1);
+        G4.insArista("C", "F", 1);
+        G4.insArista("C", "A", 1);
+        G4.insArista("D", "E", 1);
+        G4.insArista("F", "E", 1);
+        G4.insArista("G", "E", 1);
+
+        G4.imprimirGrafo();
+
+        System.out.println("\n¿El vértice \"B\" es adyacente a \"A\"? "
+                + (G4.esAdyacente("B", "A") ? "Sí" : "No"));
+
+        System.out.println("\nOrden de los vértices antes de eliminar C:");
+        G4.imprimirGrafo();
+
+        System.out.println("\nEliminando el vértice C...");
+        G4.elimVertice("C");
+
+        System.out.println("Orden de los vértices después de eliminar C:");
+        G4.imprimirGrafo();
+
+        System.out.println("\nEliminando la arista C -> D...");
+        G4.elimArista("C", "D");
+
+        System.out.println("\nRecorrido en amplitud desde A:");
+        LinkedList<String> bfsG4 = G4.recorrido_amplitud("A");
+        for (String v : bfsG4) System.out.print(v + ", ");
+        System.out.println();
+
+        System.out.println("\nRecorrido en profundidad desde A:");
+        LinkedList<String> dfsG4 = G4.recorrido_profundidad("A");
+        for (String v : dfsG4) System.out.print(v + ", ");
+        System.out.println();
     }
-
 }
