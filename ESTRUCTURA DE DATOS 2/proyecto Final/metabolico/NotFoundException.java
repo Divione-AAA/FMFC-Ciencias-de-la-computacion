@@ -1,4 +1,4 @@
-package ed2.proyectofinal.metabolico;
+package metabolico;
 
 /**
  * Excepción lanzada cuando no se encuentra un elemento esperado en la red

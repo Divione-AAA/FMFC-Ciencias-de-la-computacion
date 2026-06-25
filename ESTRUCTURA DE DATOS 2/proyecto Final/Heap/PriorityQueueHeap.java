@@ -1,19 +1,17 @@
-package ed2.proyectofinal.heap;
+package Heap;
 
 import java.util.ArrayList;
 
 class HeapNode{
 
     /*
-    Clase que se usa para almacenar ruta + prioridad
+    Clase que almacena una ruta metabolica
     */
 
     MetabolicRoute route;
-    double priority;
 
-    public HeapNode(MetabolicRoute route,double priority){
+    public HeapNode(MetabolicRoute route){
         this.route=route;
-        this.priority=priority;
     }
 
 }
@@ -39,18 +37,20 @@ public class PriorityQueueHeap{
     */
 
     private void swap(int i,int j){
+
         HeapNode temp=heap.get(i);
+
         heap.set(i,heap.get(j));
+
         heap.set(j,temp);
+
     }
 
     /*
-    Comparacion adaptada al proyecto
+    Regla de prioridad
 
-    Mayor relevancia primero
-
-    En empate:
-    menor longitud
+    1) Mayor relevancia clinica
+    2) Menor numero de reacciones
     */
 
     private boolean higherPriority(
@@ -58,35 +58,44 @@ public class PriorityQueueHeap{
             HeapNode b
     ){
 
-        if(a.priority>b.priority){
+        if(
+                a.route.getClinicalRelevance()
+                        >
+                        b.route.getClinicalRelevance()
+        ){
+
             return true;
+
         }
 
-        if(a.priority==b.priority){
+        if(
+                a.route.getClinicalRelevance()
+                        ==
+                        b.route.getClinicalRelevance()
+        ){
 
             return
-            a.route.getLength()
-            <
-            b.route.getLength();
+                    a.route.getReactionCount()
+                            <
+                            b.route.getReactionCount();
 
         }
 
         return false;
+
     }
 
     /*
-    Funcion de insertado
+    Inserta una nueva ruta pendiente
     */
 
     public void insert(
-            MetabolicRoute route,
-            double priority
+            MetabolicRoute route
     ){
 
         HeapNode nuevo=
                 new HeapNode(
-                        route,
-                        priority
+                        route
                 );
 
         heap.add(nuevo);
@@ -98,7 +107,7 @@ public class PriorityQueueHeap{
     }
 
     /*
-    Extraccion del maximo balanceandolo
+    Extrae la ruta mas prioritaria
     */
 
     public MetabolicRoute extractMax()
@@ -106,7 +115,7 @@ public class PriorityQueueHeap{
 
         if(isEmpty())
             throw new EmptyPriorityQueueException(
-                    "El heap esta vacio"
+                    "La cola esta vacia"
             );
 
         MetabolicRoute max=
@@ -133,7 +142,7 @@ public class PriorityQueueHeap{
     }
 
     /*
-    Balanceo hacia abajo
+    Balanceo descendente
     */
 
     private void siftDown(int i){
@@ -148,11 +157,11 @@ public class PriorityQueueHeap{
 
             if(
                     left<heap.size()
-                    &&
-                    higherPriority(
-                            heap.get(left),
-                            heap.get(largest)
-                    )
+                            &&
+                            higherPriority(
+                                    heap.get(left),
+                                    heap.get(largest)
+                            )
             ){
 
                 largest=left;
@@ -161,11 +170,11 @@ public class PriorityQueueHeap{
 
             if(
                     right<heap.size()
-                    &&
-                    higherPriority(
-                            heap.get(right),
-                            heap.get(largest)
-                    )
+                            &&
+                            higherPriority(
+                                    heap.get(right),
+                                    heap.get(largest)
+                            )
             ){
 
                 largest=right;
@@ -175,7 +184,10 @@ public class PriorityQueueHeap{
             if(largest==i)
                 break;
 
-            swap(i,largest);
+            swap(
+                    i,
+                    largest
+            );
 
             i=largest;
 
@@ -184,7 +196,7 @@ public class PriorityQueueHeap{
     }
 
     /*
-    Se ordena con siftup
+    Balanceo ascendente
     */
 
     private void siftUp(int i){
@@ -219,7 +231,7 @@ public class PriorityQueueHeap{
     }
 
     /*
-    Obtiene el mayor
+    Obtiene la siguiente ruta
     */
 
     public MetabolicRoute getMax()
@@ -227,7 +239,7 @@ public class PriorityQueueHeap{
 
         if(isEmpty())
             throw new EmptyPriorityQueueException(
-                    "El heap esta vacio"
+                    "La cola esta vacia"
             );
 
         return heap.get(0).route;
@@ -239,73 +251,20 @@ public class PriorityQueueHeap{
     */
 
     public boolean isEmpty(){
+
         return heap.isEmpty();
+
     }
 
     /*
-    Devuelve tamaño
+    Cantidad de rutas
     */
 
     public int size(){
+
         return heap.size();
+
     }
 
-    /*
-    Cambio de prioridad
-    */
-
-    public void changePriority(
-            MetabolicRoute route,
-            double newPriority
-    )
-            throws ElementNotFoundException{
-
-        int index=-1;
-
-        for(int i=0;i<heap.size();i++){
-
-            if(
-                    heap
-                    .get(i)
-                    .route
-                    .equals(route)
-            ){
-
-                index=i;
-
-                break;
-
-            }
-
-        }
-
-        if(index==-1)
-            throw new ElementNotFoundException(
-                    "Ruta no encontrada"
-            );
-
-        double oldPriority=
-                heap
-                .get(index)
-                .priority;
-
-        heap
-                .get(index)
-                .priority=
-                newPriority;
-
-        if(
-                newPriority
-                >
-                oldPriority
-        ){
-
-            siftUp(index);
-
-        }else{
-
-            siftDown(index);
-
-        }
-    }
 }
+```

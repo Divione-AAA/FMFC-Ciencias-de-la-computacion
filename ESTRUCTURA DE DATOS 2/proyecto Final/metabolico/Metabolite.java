@@ -1,4 +1,4 @@
-package ed2.proyectofinal.metabolico;
+package metabolico;
 
 /**
  * Metabolite: representa un nodo en la red metabólica.

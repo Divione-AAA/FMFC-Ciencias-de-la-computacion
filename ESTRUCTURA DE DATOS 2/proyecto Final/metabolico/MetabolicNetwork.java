@@ -1,4 +1,4 @@
-package ed2.proyectofinal.metabolico;
+package metabolico;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,7 +79,7 @@ public class MetabolicNetwork {
      *
      * Complejidad: O(V + E)
      */
-    public void removeMetabolite(int id) throws Excpetion{
+    public void removeMetabolite(int id) throws Exception{
 
         int index = findIndex(id);
 
