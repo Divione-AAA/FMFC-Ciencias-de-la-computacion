@@ -1,6 +1,7 @@
 package Heap;
 
 import java.util.ArrayList;
+import metabolico.MetabolicRoute;
 
 class HeapNode{
 

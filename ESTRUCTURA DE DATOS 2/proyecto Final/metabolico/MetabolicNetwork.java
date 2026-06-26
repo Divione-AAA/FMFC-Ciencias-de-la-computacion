@@ -1,10 +1,16 @@
 package metabolico;
 
+import Heap.EmptyPriorityQueueException;
+import Heap.PriorityQueueHeap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * MetabolicNetwork ----------------- Implementa un grafo dirigido con pesos
@@ -45,7 +51,7 @@ public class MetabolicNetwork {
     private  List<List<Edge>> adj = new ArrayList<>();
     private  List<Edge> edges = new ArrayList<>();
     // Rutas objetivo que el sistema debe analizar
-    private  List<int[]> routes = new ArrayList<>();
+    private  List<MetabolicRoute> routes = new ArrayList<>();
 
     public MetabolicNetwork(){}
 
@@ -130,14 +136,121 @@ public class MetabolicNetwork {
     /**
      * Registra una ruta de interés.
      */
-    public void addRouteToAnalyze(int sourceId,int targetId)throws Exception{
-
+    public MetabolicRoute addRouteToAnalyze(int sourceId, int targetId, double clinicalRelevance) throws Exception {
         if (findIndex(sourceId) == -1 || findIndex(targetId) == -1) throw new NotFoundException("Ruta no existe");
-        routes.add( new int[]{sourceId, targetId});
+
+        List<Metabolite> shortestPath = shortestPath(sourceId, targetId);
+        int reactionCount;
+        if (sourceId == targetId) {
+            reactionCount = 0;
+        } else if (shortestPath.isEmpty()) {
+            reactionCount = Integer.MAX_VALUE;
+        } else {
+            reactionCount = Math.max(0, shortestPath.size() - 1);
+        }
+
+        MetabolicRoute route = new MetabolicRoute(sourceId, targetId, clinicalRelevance, reactionCount);
+        routes.add(route);
+        return route;
     }
 
-    public List<int[]> getRoutes() {
+    public MetabolicRoute addRouteToAnalyze(int sourceId, int targetId) throws Exception {
+        return addRouteToAnalyze(sourceId, targetId, 0.0);
+    }
+
+    public List<MetabolicRoute> getRoutes() {
         return Collections.unmodifiableList(routes);
+    }
+
+    public MetabolicRoute findRouteById(int routeId) {
+        for (MetabolicRoute route : routes) {
+            if (route.getId() == routeId) {
+                return route;
+            }
+        }
+        return null;
+    }
+
+    public void addRouteDependency(int routeId, int dependencyRouteId) throws Exception {
+        MetabolicRoute route = findRouteById(routeId);
+        MetabolicRoute dependency = findRouteById(dependencyRouteId);
+
+        if (route == null || dependency == null) {
+            throw new NotFoundException("Ruta o dependencia de ruta no encontrada");
+        }
+        if (routeId == dependencyRouteId) {
+            throw new IllegalArgumentException("Una ruta no puede depender de sí misma");
+        }
+
+        route.addDependency(dependencyRouteId);
+    }
+
+    private Map<Integer, MetabolicRoute> buildRouteMap() {
+        Map<Integer, MetabolicRoute> map = new HashMap<>();
+        for (MetabolicRoute route : routes) {
+            map.put(route.getId(), route);
+        }
+        return map;
+    }
+
+    public List<MetabolicRoute> computeAnalysisOrder() throws CircularDependencyException {
+        Map<Integer, MetabolicRoute> routeMap = buildRouteMap();
+        Map<Integer, Set<Integer>> dependents = new HashMap<>();
+        Map<Integer, Integer> indegree = new HashMap<>();
+
+        for (MetabolicRoute route : routes) {
+            indegree.put(route.getId(), 0);
+            dependents.put(route.getId(), new HashSet<>());
+        }
+
+        for (MetabolicRoute route : routes) {
+            for (int dependencyId : route.getDependencyIds()) {
+                if (!routeMap.containsKey(dependencyId)) {
+                    throw new CircularDependencyException("Dependencia de ruta desconocida: " + dependencyId);
+                }
+                dependents.get(dependencyId).add(route.getId());
+                indegree.put(route.getId(), indegree.get(route.getId()) + 1);
+            }
+        }
+
+        PriorityQueueHeap queue = new PriorityQueueHeap();
+        for (MetabolicRoute route : routes) {
+            if (indegree.get(route.getId()) == 0) {
+                queue.insert(route);
+            }
+        }
+
+        List<MetabolicRoute> orderedRoutes = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            try {
+                MetabolicRoute next = queue.extractMax();
+                orderedRoutes.add(next);
+                for (int dependentId : dependents.get(next.getId())) {
+                    int nextIndegree = indegree.get(dependentId) - 1;
+                    indegree.put(dependentId, nextIndegree);
+                    if (nextIndegree == 0) {
+                        queue.insert(routeMap.get(dependentId));
+                    }
+                }
+            } catch (EmptyPriorityQueueException e) {
+                break;
+            }
+        }
+
+        if (orderedRoutes.size() != routes.size()) {
+            throw new CircularDependencyException("Se detectó una dependencia circular entre rutas metabólicas");
+        }
+
+        return orderedRoutes;
+    }
+
+    public boolean hasCircularRouteDependencies() {
+        try {
+            computeAnalysisOrder();
+            return false;
+        } catch (CircularDependencyException e) {
+            return true;
+        }
     }
     /*
     *Clase que se usa para resultados de aplicar el bellman-ford
