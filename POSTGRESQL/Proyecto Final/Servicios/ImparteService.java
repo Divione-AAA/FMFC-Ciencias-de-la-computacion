@@ -10,35 +10,84 @@ public class ImparteService {
 
     private final ImparteDAO dao;
 
-    public ImparteService() {
+    public ImparteService(){
+
         dao =
                 new ImparteDAO();
+
     }
+
+    //ASIGNAR PROFESOR A GRUPO
 
     public void asignar(
-            Imparte i
-    ) throws SQLException {
+            Imparte imparte
+    ) throws SQLException{
 
-        dao.insertar(i);
+        dao.insertar(
+                imparte
+        );
+
     }
+
+    //OBTENER TODO
 
     public List<Imparte>
     obtenerTodo()
-            throws SQLException {
+            throws SQLException{
 
         return dao.obtenerTodos();
+
     }
 
-    public void eliminar(
-            String profesor,
-            int grupo,
-            int asignatura
-    ) throws SQLException {
+    //BUSCAR POR PROFESOR
 
-        dao.eliminar(
-                profesor,
-                grupo,
-                asignatura
+    public List<Imparte>
+    obtenerPorProfesor(
+            int idProfesor
+    )
+            throws SQLException{
+
+        return dao.obtenerPorProfesor(
+                idProfesor
         );
+
     }
+
+    //BUSCAR POR GRUPO
+
+    public List<Imparte>
+    obtenerPorGrupo(
+            int grupo
+    )
+            throws SQLException{
+
+        return dao.obtenerPorGrupo(
+                grupo
+        );
+
+    }
+
+    //ELIMINAR
+
+    public boolean eliminar(
+            int id
+    )
+            throws SQLException{
+
+        return dao.eliminar(
+                id
+        );
+
+    }
+
+    //CONSULTA COMPLETA
+
+    public List<String>
+    obtenerVistaCompleta()
+            throws SQLException{
+
+        return dao.obtenerVistaCompleta();
+
+    }
+
 }
