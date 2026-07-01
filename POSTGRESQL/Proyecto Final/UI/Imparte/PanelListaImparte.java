@@ -1,17 +1,16 @@
-package UI.Asignatura;
+package UI.Imparte;
 
-import DAO.AsignaturaDAO;
-import Modelos.Asignatura;
+import Servicios.ImparteService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class PanelListaAsignatura extends JPanel {
+public class PanelListaImparte extends JPanel {
 
     private final DefaultListModel<String> modelo;
 
-    public PanelListaAsignatura() {
+    public PanelListaImparte() {
 
         setLayout(
                 new BorderLayout(
@@ -22,7 +21,7 @@ public class PanelListaAsignatura extends JPanel {
 
         JLabel titulo =
                 new JLabel(
-                        "Listado de Asignaturas",
+                        "Asignaciones Registradas",
                         SwingConstants.CENTER
                 );
 
@@ -30,7 +29,7 @@ public class PanelListaAsignatura extends JPanel {
                 new Font(
                         "Segoe UI",
                         Font.BOLD,
-                        24
+                        22
                 )
         );
 
@@ -70,14 +69,6 @@ public class PanelListaAsignatura extends JPanel {
                         "Actualizar"
                 );
 
-        refrescar.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        15
-                )
-        );
-
         refrescar.putClientProperty(
                 "JButton.arc",
                 20
@@ -88,19 +79,20 @@ public class PanelListaAsignatura extends JPanel {
                         cargar()
         );
 
-        JPanel inferior =
+        JPanel abajo =
                 new JPanel();
 
-        inferior.add(
+        abajo.add(
                 refrescar
         );
 
         add(
-                inferior,
+                abajo,
                 BorderLayout.SOUTH
         );
 
         cargar();
+
     }
 
     private void cargar() {
@@ -109,41 +101,32 @@ public class PanelListaAsignatura extends JPanel {
 
             modelo.clear();
 
-            AsignaturaDAO dao =
-                    new AsignaturaDAO();
+            ImparteService service =
+                    new ImparteService();
 
-            List<Asignatura> lista =
-                    dao.obtenerTodas();
+            List<String> datos =
+                    service.obtenerVistaCompleta();
 
             if (
-                    lista.isEmpty()
+                    datos.isEmpty()
             ) {
 
                 modelo.addElement(
-                        "No existen asignaturas registradas."
+                        "No existen asignaciones."
                 );
 
                 return;
+
             }
 
             for (
-                    Asignatura a
+                    String fila
                     :
-                    lista
+                    datos
             ) {
 
                 modelo.addElement(
-                        "ID: "
-                                +
-                                a.getIdAsignatura()
-                                +
-                                " | "
-                                +
-                                a.getNombre()
-                                +
-                                " | "
-                                +
-                                a.getDescripcion()
+                        fila
                 );
 
             }
@@ -156,7 +139,7 @@ public class PanelListaAsignatura extends JPanel {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Error cargando asignaturas:\n"
+                    "Error cargando asignaciones:\n"
                             +
                             ex.getMessage()
             );

@@ -1,12 +1,12 @@
 package UI.Dashboard;
 
 import UI.Alumno.PanelAlumno;
-import UI.Profesor.PanelProfesor;
+import UI.Asignatura.PanelAsignatura;
 import UI.Escuela.PanelEscuela;
 import UI.Grupo.PanelGrupo;
-import UI.Asignatura.PanelAsignatura;
-import UI.Matricula.PanelMatricula;
 import UI.Imparte.PanelImparte;
+import UI.Matricula.PanelMatricula;
+import UI.Profesor.PanelProfesor;
 import UI.Reportes.PanelReportes;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class MenuLateral extends JPanel {
 
         setPreferredSize(
                 new Dimension(
-                        260,
+                        270,
                         0
                 )
         );
@@ -36,19 +36,12 @@ public class MenuLateral extends JPanel {
 
         setBorder(
                 BorderFactory.createEmptyBorder(
+                        20,
                         15,
-                        15,
-                        15,
+                        20,
                         15
                 )
         );
-
-        // BOTONES
-
-        JButton inicio =
-                crearBoton(
-                        "🏠 Inicio"
-                );
 
         JButton alumnos =
                 crearBoton(
@@ -70,14 +63,14 @@ public class MenuLateral extends JPanel {
                         "👥 Grupos"
                 );
 
-        JButton asignaturas =
-                crearBoton(
-                        "📚 Asignaturas"
-                );
-
         JButton matriculas =
                 crearBoton(
                         "📝 Matrículas"
+                );
+
+        JButton asignaturas =
+                crearBoton(
+                        "📚 Asignaturas"
                 );
 
         JButton imparte =
@@ -89,15 +82,6 @@ public class MenuLateral extends JPanel {
                 crearBoton(
                         "📊 Reportes"
                 );
-
-        // EVENTOS
-
-        inicio.addActionListener(
-                e ->
-                        dash.cambiarPanel(
-                                new HomePanel()
-                        )
-        );
 
         alumnos.addActionListener(
                 e ->
@@ -127,17 +111,17 @@ public class MenuLateral extends JPanel {
                         )
         );
 
-        asignaturas.addActionListener(
-                e ->
-                        dash.cambiarPanel(
-                                new PanelAsignatura()
-                        )
-        );
-
         matriculas.addActionListener(
                 e ->
                         dash.cambiarPanel(
                                 new PanelMatricula()
+                        )
+        );
+
+        asignaturas.addActionListener(
+                e ->
+                        dash.cambiarPanel(
+                                new PanelAsignatura()
                         )
         );
 
@@ -155,10 +139,6 @@ public class MenuLateral extends JPanel {
                         )
         );
 
-        // AÑADIR
-
-        add(inicio);
-
         add(alumnos);
 
         add(profesores);
@@ -167,25 +147,26 @@ public class MenuLateral extends JPanel {
 
         add(grupos);
 
-        add(asignaturas);
-
         add(matriculas);
+
+        add(asignaturas);
 
         add(imparte);
 
         add(reportes);
+
     }
 
     private JButton crearBoton(
             String texto
     ) {
 
-        JButton b =
+        JButton boton =
                 new JButton(
                         texto
                 );
 
-        b.setFont(
+        boton.setFont(
                 new Font(
                         "Segoe UI",
                         Font.BOLD,
@@ -193,16 +174,29 @@ public class MenuLateral extends JPanel {
                 )
         );
 
-        b.setFocusPainted(
+        boton.setFocusPainted(
                 false
         );
 
-        b.putClientProperty(
+        boton.setPreferredSize(
+                new Dimension(
+                        230,
+                        55
+                )
+        );
+
+        boton.putClientProperty(
                 "JButton.arc",
                 20
         );
 
-        return b;
+        boton.putClientProperty(
+                "JButton.buttonType",
+                "roundRect"
+        );
+
+        return boton;
+
     }
 
 }

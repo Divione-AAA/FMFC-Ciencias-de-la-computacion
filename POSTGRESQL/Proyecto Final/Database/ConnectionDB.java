@@ -6,17 +6,24 @@ import java.sql.SQLException;
 
 public class ConnectionDB {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/edja_camaguey";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "bloodlust";
+    private static final String URL =
+            "jdbc:postgresql://localhost:5432/edja_camaguey";
 
-    public static Connection getConnection() throws SQLException {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("Driver PostgreSQL no encontrado.");
-        }
+    private static final String USER =
+            "postgres";
 
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    private static final String PASSWORD =
+            "bloodlust";
+
+    public static Connection getConnection()
+            throws SQLException {
+
+        return DriverManager.getConnection(
+                URL,
+                USER,
+                PASSWORD
+        );
+
     }
+
 }
