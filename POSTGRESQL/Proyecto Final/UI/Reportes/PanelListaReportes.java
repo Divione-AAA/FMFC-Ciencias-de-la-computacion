@@ -1,7 +1,7 @@
 package UI.Reportes;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class PanelListaReportes extends JPanel {
 
@@ -17,8 +17,8 @@ public class PanelListaReportes extends JPanel {
         JPanel panelBotones =
                 new JPanel(
                         new GridLayout(
-                                3,
                                 1,
+                                3,
                                 20,
                                 20
                         )
@@ -91,13 +91,10 @@ public class PanelListaReportes extends JPanel {
                         texto
                 );
 
-        b.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        18
-                )
-        );
+        b.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        b.setPreferredSize(new Dimension(180, 120));
+        b.setMinimumSize(new Dimension(160, 110));
+        b.setMaximumSize(new Dimension(220, 140));
 
         b.putClientProperty(
                 "JButton.arc",

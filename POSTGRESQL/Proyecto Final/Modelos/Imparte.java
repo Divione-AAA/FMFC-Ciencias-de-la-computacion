@@ -3,11 +3,17 @@ package Modelos;
 public class Imparte {
 
     private int idImparte;
-    private int idProfesor;
+    private String idProfesor;
     private int idGrupo;
     private int idAsignatura;
 
-    public Imparte(int idImparte, int idProfesor, int idGrupo, int idAsignatura){
+    public Imparte(
+            int idImparte,
+            String idProfesor,
+            int idGrupo,
+            int idAsignatura
+    ) {
+
         this.idImparte = idImparte;
         this.idProfesor = idProfesor;
         this.idGrupo = idGrupo;
@@ -22,11 +28,11 @@ public class Imparte {
         this.idImparte = idImparte;
     }
 
-    public int getIdProfesor() {
+    public String getIdProfesor() {
         return idProfesor;
     }
 
-    public void setIdProfesor(int idProfesor) {
+    public void setIdProfesor(String idProfesor) {
         this.idProfesor = idProfesor;
     }
 
@@ -44,5 +50,15 @@ public class Imparte {
 
     public void setIdAsignatura(int idAsignatura) {
         this.idAsignatura = idAsignatura;
+    }
+
+    @Override
+    public String toString() {
+        return "Imparte{" +
+                "idImparte=" + idImparte +
+                ", idProfesor='" + idProfesor + '\'' +
+                ", idGrupo=" + idGrupo +
+                ", idAsignatura=" + idAsignatura +
+                '}';
     }
 }

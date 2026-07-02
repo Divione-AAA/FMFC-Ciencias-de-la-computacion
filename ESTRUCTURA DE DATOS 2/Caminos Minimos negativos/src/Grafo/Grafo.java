@@ -24,6 +24,8 @@ public interface Grafo {
     LinkedList recorrido_amplitud(String VerticeOrigen);
     LinkedList recorrido_profundidad(String VerticeOrig);
     LinkedList<String> ordenamientoTopologico();
+    LinkedList<String> getCamino(String verticeDestino);
+    void imprimirCamino(String verticeDestino);
     
     //caminos mínimos
     void caminoMSinPeso(String VerticeOrigen);

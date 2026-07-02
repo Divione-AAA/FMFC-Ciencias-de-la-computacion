@@ -17,15 +17,18 @@ public class Alumno {
     private String grado;
     private String regimen;
     private String sesion;
-    private String estadoAlumno;
+    private String estatusAlumno;
     private String especialidad;
     private String procedenciaSocialPadre;
     private String procedenciaSocialMadre;
     private String direccion;
     private String telefono;
-    private int codigoGrupo;
+    private int grupoId;
 
-    public Alumno(String ci,String nombre1,String nombre2,String apellido1,String apellido2,Date fechaNacimiento,String sexo,String colorPiel,String municipio,String consejoPopular,String grado,String regimen,String sesion,String estadoAlumno,String especialidad,String procedenciaSocialPadre,String procedenciaSocialMadre,String direccion,String telefono,int codigoGrupo){
+    public Alumno(String ci, String nombre1, String nombre2, String apellido1, String apellido2, Date fechaNacimiento,
+                  String sexo, String colorPiel, String municipio, String consejoPopular, String grado, String regimen,
+                  String sesion, String estatusAlumno, String especialidad, String procedenciaSocialPadre,
+                  String procedenciaSocialMadre, String direccion, String telefono, int grupoId) {
 
         this.ci = ci;
         this.nombre1 = nombre1;
@@ -40,13 +43,13 @@ public class Alumno {
         this.grado = grado;
         this.regimen = regimen;
         this.sesion = sesion;
-        this.estadoAlumno = estadoAlumno;
+        this.estatusAlumno = estatusAlumno;
         this.especialidad = especialidad;
         this.procedenciaSocialPadre = procedenciaSocialPadre;
         this.procedenciaSocialMadre = procedenciaSocialMadre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.codigoGrupo = codigoGrupo;
+        this.grupoId = grupoId;
     }
 
     public String getCi() {
@@ -101,8 +104,12 @@ public class Alumno {
         return sesion;
     }
 
+    public String getEstatusAlumno() {
+        return estatusAlumno;
+    }
+
     public String getEstadoAlumno() {
-        return estadoAlumno;
+        return estatusAlumno;
     }
 
     public String getEspecialidad() {
@@ -125,7 +132,11 @@ public class Alumno {
         return telefono;
     }
 
+    public int getGrupoId() {
+        return grupoId;
+    }
+
     public int getCodigoGrupo() {
-        return codigoGrupo;
+        return grupoId;
     }
 }

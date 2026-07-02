@@ -31,7 +31,6 @@ public class PanelAddProfesor extends JPanel {
     private final JTextField campoNivelEnsenanza = new JTextField();
     private final JCheckBox checkSeSupera = new JCheckBox("Sí");
     private final JTextField campoUltimaEvaluacion = new JTextField();
-    private final JTextField campoCodigoEscuela = new JTextField();
 
     public PanelAddProfesor() {
         setLayout(new BorderLayout());
@@ -68,7 +67,6 @@ public class PanelAddProfesor extends JPanel {
         formulario.add(crearFila("Nivel enseñanza:", campoNivelEnsenanza));
         formulario.add(crearFilaBoolean("Se supera:", checkSeSupera));
         formulario.add(crearFila("Última evaluación profesional:", campoUltimaEvaluacion));
-        formulario.add(crearFila("Código escuela:", campoCodigoEscuela));
 
         JButton guardar = new JButton("Guardar profesor");
         guardar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -128,8 +126,6 @@ public class PanelAddProfesor extends JPanel {
             String nivelEnsenanza = campoNivelEnsenanza.getText().trim();
             boolean seSupera = checkSeSupera.isSelected();
             String ultimaEvaluacion = campoUltimaEvaluacion.getText().trim();
-            int codigoEscuela = Integer.parseInt(campoCodigoEscuela.getText().trim());
-
             if (ci.isEmpty() || nombre1.isEmpty() || apellido1.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "CI, primer nombre y primer apellido son obligatorios.");
                 return;
@@ -159,8 +155,7 @@ public class PanelAddProfesor extends JPanel {
                     cargo,
                     nivelEnsenanza,
                     seSupera,
-                    ultimaEvaluacion,
-                    codigoEscuela
+                    ultimaEvaluacion
             );
 
             new ProfesorDAO().insertar(profesor);
@@ -198,6 +193,5 @@ public class PanelAddProfesor extends JPanel {
         campoNivelEnsenanza.setText("");
         checkSeSupera.setSelected(false);
         campoUltimaEvaluacion.setText("");
-        campoCodigoEscuela.setText("");
     }
 }

@@ -55,7 +55,7 @@ public class PanelAddAlumno extends JPanel {
         formulario.add(crearFila("Grado:", campoGrado));
         formulario.add(crearFila("Régimen:", campoRegimen));
         formulario.add(crearFila("Sesión:", campoSesion));
-        formulario.add(crearFila("Estado:", campoEstadoAlumno));
+        formulario.add(crearFila("Estatus:", campoEstadoAlumno));
         formulario.add(crearFila("Especialidad:", campoEspecialidad));
         formulario.add(crearFila("Procedencia padre:", campoProcedenciaPadre));
         formulario.add(crearFila("Procedencia madre:", campoProcedenciaMadre));

@@ -2,7 +2,6 @@ package Servicios;
 
 import DAO.ImparteDAO;
 import Modelos.Imparte;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -43,12 +42,12 @@ public class ImparteService {
 
     public List<Imparte>
     obtenerPorProfesor(
-            int idProfesor
+            String ciProfesor
     )
             throws SQLException{
 
         return dao.obtenerPorProfesor(
-                idProfesor
+                ciProfesor
         );
 
     }

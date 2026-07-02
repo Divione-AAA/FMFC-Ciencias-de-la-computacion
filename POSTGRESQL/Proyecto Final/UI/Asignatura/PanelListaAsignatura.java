@@ -2,10 +2,9 @@ package UI.Asignatura;
 
 import DAO.AsignaturaDAO;
 import Modelos.Asignatura;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
 
 public class PanelListaAsignatura extends JPanel {
 
@@ -140,10 +139,6 @@ public class PanelListaAsignatura extends JPanel {
                                 " | "
                                 +
                                 a.getNombre()
-                                +
-                                " | "
-                                +
-                                a.getDescripcion()
                 );
 
             }

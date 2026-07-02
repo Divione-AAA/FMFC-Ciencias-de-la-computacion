@@ -26,9 +26,13 @@ public class Profesor {
     private String nivelEnsenanza;
     private boolean seSupera;
     private String ultimaEvaluacionProfesional;
-    private int codigoEscuela;
 
-    public Profesor(String ci,String nombre1,String nombre2,String apellido1,String apellido2,int edad,String sexo, String colorPiel,String direccionParticular,String telefonoParticular,String municipio,String integracionPolitica,String centroGraduacion,int anioGraduacion,int anioInicioTrabajo,String procedencia,String categoriaDocente,String categoriaCientifica,boolean misionInternacionalista,boolean esCuadro,String cargo,String nivelEnsenanza,boolean seSupera,String ultimaEvaluacionProfesional,int codigoEscuela){
+    public Profesor(String ci, String nombre1, String nombre2, String apellido1, String apellido2, int edad,
+                    String sexo, String colorPiel, String direccionParticular, String telefonoParticular, String municipio,
+                    String integracionPolitica, String centroGraduacion, int anioGraduacion, int anioInicioTrabajo,
+                    String procedencia, String categoriaDocente, String categoriaCientifica, boolean misionInternacionalista,
+                    boolean esCuadro, String cargo, String nivelEnsenanza, boolean seSupera,
+                    String ultimaEvaluacionProfesional) {
         this.ci = ci;
         this.nombre1 = nombre1;
         this.nombre2 = nombre2;
@@ -53,7 +57,6 @@ public class Profesor {
         this.nivelEnsenanza = nivelEnsenanza;
         this.seSupera = seSupera;
         this.ultimaEvaluacionProfesional = ultimaEvaluacionProfesional;
-        this.codigoEscuela = codigoEscuela;
     }
 
     public String getCi() {
@@ -66,10 +69,6 @@ public class Profesor {
 
     public String getCategoriaDocente() {
         return categoriaDocente;
-    }
-
-    public int getCodigoEscuela() {
-        return codigoEscuela;
     }
 
     public String getNombre1() {

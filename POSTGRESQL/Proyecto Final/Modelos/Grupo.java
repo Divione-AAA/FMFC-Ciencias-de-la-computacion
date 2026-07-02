@@ -3,21 +3,15 @@ package Modelos;
 public class Grupo {
 
     private int idGrupo;
-    private String modalidad;
-    private String ambito;
-    private String nivel;
-    private String curso;
-    private String grupo;
-    private int codigoEscuela;
+    private String codigoGrupo;
+    private String nombre;
+    private int escuelaId;
 
-    public Grupo(int idGrupo,String modalidad,String ambito,String nivel,String curso,String grupo,int codigoEscuela){
+    public Grupo(int idGrupo, String codigoGrupo, String nombre, int escuelaId) {
         this.idGrupo = idGrupo;
-        this.modalidad = modalidad;
-        this.ambito = ambito;
-        this.nivel = nivel;
-        this.curso = curso;
-        this.grupo = grupo;
-        this.codigoEscuela = codigoEscuela;
+        this.codigoGrupo = codigoGrupo;
+        this.nombre = nombre;
+        this.escuelaId = escuelaId;
     }
 
     public int getIdGrupo() {
@@ -28,51 +22,35 @@ public class Grupo {
         this.idGrupo = idGrupo;
     }
 
-    public String getModalidad() {
-        return modalidad;
+    public String getCodigoGrupo() {
+        return codigoGrupo;
     }
 
-    public void setModalidad(String modalidad) {
-        this.modalidad = modalidad;
+    public void setCodigoGrupo(String codigoGrupo) {
+        this.codigoGrupo = codigoGrupo;
     }
 
-    public String getAmbito() {
-        return ambito;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setAmbito(String ambito) {
-        this.ambito = ambito;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNivel() {
-        return nivel;
+    public int getEscuelaId() {
+        return escuelaId;
     }
 
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
-    }
-
-    public String getCurso() {
-        return curso;
-    }
-
-    public void setCurso(String curso) {
-        this.curso = curso;
-    }
-
-    public String getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(String grupo) {
-        this.grupo = grupo;
+    public void setEscuelaId(int escuelaId) {
+        this.escuelaId = escuelaId;
     }
 
     public int getCodigoEscuela() {
-        return codigoEscuela;
+        return escuelaId;
     }
 
-    public void setCodigoEscuela(int codigoEscuela) {
-        this.codigoEscuela = codigoEscuela;
+    public void setCodigoEscuela(int escuelaId) {
+        this.escuelaId = escuelaId;
     }
 }

@@ -2,9 +2,8 @@ package UI.Imparte;
 
 import Modelos.Imparte;
 import Servicios.ImparteService;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class PanelAddImparte extends JPanel {
 
@@ -54,7 +53,7 @@ public class PanelAddImparte extends JPanel {
 
         panel.add(
                 new JLabel(
-                        "ID Profesor:"
+                        "CI Profesor:"
                 )
         );
 
@@ -122,20 +121,28 @@ public class PanelAddImparte extends JPanel {
 
         try {
 
-            int profesor =
-                    Integer.parseInt(
-                            campoProfesor.getText()
-                    );
+            String profesor =
+                    campoProfesor.getText().trim();
 
             int grupo =
                     Integer.parseInt(
-                            campoGrupo.getText()
+                            campoGrupo.getText().trim()
                     );
 
             int asignatura =
                     Integer.parseInt(
-                            campoAsignatura.getText()
+                            campoAsignatura.getText().trim()
                     );
+
+            if (profesor.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Debe introducir el CI del profesor."
+                );
+
+                return;
+            }
 
             Imparte nueva =
                     new Imparte(
@@ -171,7 +178,7 @@ public class PanelAddImparte extends JPanel {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Los IDs deben ser numéricos."
+                    "Los códigos de grupo y asignatura deben ser numéricos."
             );
 
         }

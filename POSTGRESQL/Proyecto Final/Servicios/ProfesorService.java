@@ -2,7 +2,6 @@ package Servicios;
 
 import DAO.ProfesorDAO;
 import Modelos.Profesor;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -95,17 +94,6 @@ public class ProfesorService {
 
             throw new Exception(
                     "Nombre obligatorio."
-            );
-
-        }
-
-        if (
-                profesor.getCodigoEscuela()
-                        <= 0
-        ) {
-
-            throw new Exception(
-                    "Debe asociarse a una escuela."
             );
 
         }

@@ -2,15 +2,14 @@ package UI.Asignatura;
 
 import DAO.AsignaturaDAO;
 import Modelos.Asignatura;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class PanelEditarAsignatura extends JPanel {
 
     private final JTextField campoId;
+    private final JTextField campoCodigoAsignatura;
     private final JTextField campoNombre;
-    private final JTextArea campoDescripcion;
 
     public PanelEditarAsignatura() {
 
@@ -62,23 +61,11 @@ public class PanelEditarAsignatura extends JPanel {
         campoId =
                 crearCampo();
 
-        campoNombre =
+        campoCodigoAsignatura =
                 crearCampo();
 
-        campoDescripcion =
-                new JTextArea(
-                        5,
-                        20
-                );
-
-        campoDescripcion.setLineWrap(
-                true
-        );
-
-        JScrollPane scroll =
-                new JScrollPane(
-                        campoDescripcion
-                );
+        campoNombre =
+                crearCampo();
 
         JButton buscar =
                 crearBoton(
@@ -128,12 +115,12 @@ public class PanelEditarAsignatura extends JPanel {
 
         centro.add(
                 etiqueta(
-                        "Nombre"
+                        "Código"
                 )
         );
 
         centro.add(
-                campoNombre
+                campoCodigoAsignatura
         );
 
         centro.add(
@@ -144,12 +131,12 @@ public class PanelEditarAsignatura extends JPanel {
 
         centro.add(
                 etiqueta(
-                        "Descripción"
+                        "Nombre"
                 )
         );
 
         centro.add(
-                scroll
+                campoNombre
         );
 
         centro.add(
@@ -239,13 +226,15 @@ public class PanelEditarAsignatura extends JPanel {
                 return;
             }
 
+            campoCodigoAsignatura.setText(
+                    a.getCodigoAsignatura()
+            );
+
             campoNombre.setText(
                     a.getNombre()
             );
 
-            campoDescripcion.setText(
-                    a.getDescripcion()
-            );
+
 
         }
 
@@ -271,8 +260,8 @@ public class PanelEditarAsignatura extends JPanel {
                             Integer.parseInt(
                                     campoId.getText()
                             ),
-                            campoNombre.getText(),
-                            campoDescripcion.getText()
+                            campoCodigoAsignatura.getText(),
+                            campoNombre.getText()
                     );
 
             AsignaturaDAO dao =

@@ -1,266 +1,148 @@
--- ==========================================
--- CREAR BASE DE DATOS
--- ==========================================
+-- ======================================================
+-- ELIMINAR TABLAS ANTERIORES SI EXISTEN (LIMPIEZA TOTAL)
+-- ======================================================
+DROP TABLE IF EXISTS imparte CASCADE;
+DROP TABLE IF EXISTS matricula CASCADE;
+DROP TABLE IF EXISTS alumno CASCADE;
+DROP TABLE IF EXISTS profesor CASCADE;
+DROP TABLE IF EXISTS asignatura CASCADE;
+DROP TABLE IF EXISTS grupo CASCADE;
+DROP TABLE IF EXISTS escuela CASCADE;
 
-CREATE DATABASE edja_camaguey;
-
--- ==========================================
--- TABLA ESCUELA
--- ==========================================
-
+-- ======================================================
+-- ENTIDAD: ESCUELA
+-- ======================================================
 CREATE TABLE escuela (
-    id SERIAL PRIMARY KEY,
-    codigo_escuela VARCHAR(20) UNIQUE NOT NULL,
-    nombre VARCHAR(150) NOT NULL,
-    direccion TEXT NOT NULL,
-    telefono VARCHAR(30),
-    tipo VARCHAR(80)
+    codigo_escuela SERIAL PRIMARY KEY,
+    nombre VARCHAR(120) NOT NULL,
+    direccion VARCHAR(200),
+    telefono VARCHAR(20),
+    tipo VARCHAR(60)
 );
 
-
-
--- ==========================================
--- TABLA GRUPO
--- ==========================================
-
+-- ======================================================
+-- ENTIDAD: GRUPO
+-- ======================================================
 CREATE TABLE grupo (
-
-    id SERIAL PRIMARY KEY,
-
-    codigo_grupo VARCHAR(20) UNIQUE NOT NULL,
-
-    nombre VARCHAR(100),
-
-    escuela_id INTEGER NOT NULL,
-
+    codigo_grupo SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL, -- Atributo explícito en el diagrama
+    
+    -- Relación PERTENECE (1,1) con Escuela
+    codigo_escuela INTEGER NOT NULL,
     CONSTRAINT fk_grupo_escuela
-        FOREIGN KEY (escuela_id)
-        REFERENCES escuela(id)
+        FOREIGN KEY (codigo_escuela)
+        REFERENCES escuela (codigo_escuela)
+        ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
 
-
-
--- ==========================================
--- TABLA ASIGNATURA
--- ==========================================
-
-CREATE TABLE asignatura (
-
-    id SERIAL PRIMARY KEY,
-
-    codigo_asignatura VARCHAR(20)
-        UNIQUE
-        NOT NULL,
-
-    nombre VARCHAR(120)
-        NOT NULL
-);
-
-
-
--- ==========================================
--- TABLA ALUMNO
--- ==========================================
-
+-- ======================================================
+-- ENTIDAD: ALUMNO
+-- ======================================================
 CREATE TABLE alumno (
-
-    id SERIAL PRIMARY KEY,
-
-    ci CHAR(11)
-        UNIQUE
-        NOT NULL,
-
-    nombre1 VARCHAR(50) NOT NULL,
-
-    nombre2 VARCHAR(50),
-
-    apellido1 VARCHAR(50) NOT NULL,
-
-    apellido2 VARCHAR(50),
-
+    ci VARCHAR(11) PRIMARY KEY,
+    nombre1ro VARCHAR(40) NOT NULL,
+    nombre2do VARCHAR(40),
+    apellido1ro VARCHAR(40) NOT NULL,
+    apellido2do VARCHAR(40),
     fecha_nacimiento DATE,
-
-    sexo VARCHAR(20),
-
-    color_piel VARCHAR(40),
-
-    municipio VARCHAR(100),
-
-    consejo_popular VARCHAR(100),
-
-    grado VARCHAR(50),
-
-    regimen VARCHAR(50),
-
-    sesion VARCHAR(50),
-
-    estatus_alumno VARCHAR(50),
-
-    especialidad VARCHAR(100),
-
-    procedencia_social_padre VARCHAR(100),
-
-    procedencia_social_madre VARCHAR(100),
-
-    direccion TEXT,
-
-    telefono VARCHAR(30),
-
-    grupo_id INTEGER NOT NULL,
-
+    sexo VARCHAR(15),
+    color_piel VARCHAR(30),
+    municipio VARCHAR(60),
+    consejo_popular VARCHAR(80),
+    grado VARCHAR(30),
+    regimen VARCHAR(30),
+    sesion VARCHAR(30),
+    estatus_alumno VARCHAR(50), -- Corregido según diagrama (antes estado_alumno)
+    especialidad VARCHAR(80),
+    procedencia_social_padre VARCHAR(80),
+    procedencia_social_madre VARCHAR(80),
+    direccion VARCHAR(200),
+    telefono VARCHAR(20),
+    
+    -- Relación INTEGRA (1,1) con Grupo
+    codigo_grupo INTEGER NOT NULL,
     CONSTRAINT fk_alumno_grupo
-        FOREIGN KEY (grupo_id)
-        REFERENCES grupo(id)
+        FOREIGN KEY (codigo_grupo)
+        REFERENCES grupo (codigo_grupo)
+        ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
 
-
-
--- ==========================================
--- TABLA PROFESOR
--- ==========================================
-
+-- ======================================================
+-- ENTIDAD: PROFESOR
+-- ======================================================
 CREATE TABLE profesor (
-
-    id SERIAL PRIMARY KEY,
-
-    ci CHAR(11)
-        UNIQUE
-        NOT NULL,
-
-    nombre1 VARCHAR(50),
-
-    nombre2 VARCHAR(50),
-
-    apellido1 VARCHAR(50),
-
-    apellido2 VARCHAR(50),
-
+    ci VARCHAR(11) PRIMARY KEY,
+    nombre1ro VARCHAR(40) NOT NULL,
+    nombre2do VARCHAR(40),
+    apellido1ro VARCHAR(40) NOT NULL,
+    apellido2do VARCHAR(40),
     edad INTEGER,
-
-    sexo VARCHAR(20),
-
-    color_piel VARCHAR(50),
-
-    direccion_particular TEXT,
-
-    telefono_particular VARCHAR(30),
-
-    municipio VARCHAR(100),
-
-    integracion_politica VARCHAR(80),
-
-    centro_graduacion VARCHAR(150),
-
+    sexo VARCHAR(15),
+    color_piel VARCHAR(30),
+    direccion_particular VARCHAR(200),
+    telefono_particular VARCHAR(20),
+    municipio VARCHAR(60),
+    integracion_politica VARCHAR(60),
+    centro_graduacion VARCHAR(120),
     anio_graduacion INTEGER,
-
     anio_inicio_trabajo INTEGER,
-
-    procedencia VARCHAR(100),
-
-    categoria_docente VARCHAR(100),
-
-    categoria_cientifica VARCHAR(100),
-
+    procedencia VARCHAR(120),
+    categoria_docente VARCHAR(60),
+    categoria_cientifica VARCHAR(60),
     mision_internacionalista BOOLEAN,
-
     es_cuadro BOOLEAN,
-
-    cargo VARCHAR(100),
-
-    nivel_ensenanza VARCHAR(100),
-
+    cargo VARCHAR(80),
+    nivel_ensenanza VARCHAR(60),
     se_supera BOOLEAN,
-
-    ultima_evaluacion_profesional VARCHAR(100),
-
-    escuela_id INTEGER NOT NULL,
-
-    CONSTRAINT fk_profesor_escuela
-        FOREIGN KEY (escuela_id)
-        REFERENCES escuela(id)
-        ON DELETE RESTRICT
+    ultima_evaluacion_profesional VARCHAR(80)
+    
+    -- Se elimina 'codigo_escuela' ya que PROFESOR no conecta directamente 
+    -- con ESCUELA en el diagrama de la imagen_34d9fe.jpg.
 );
 
+-- ======================================================
+-- ENTIDAD: ASIGNATURA
+-- ======================================================
+CREATE TABLE asignatura (
+    codigo_asignatura SERIAL PRIMARY KEY, -- Corregido según diagrama (antes id_asignatura)
+    nombre VARCHAR(100) NOT NULL UNIQUE
+);
 
-
--- ==========================================
--- INTERRELACION TERNARIA IMPARTE
--- ==========================================
-
+-- ======================================================
+-- RELACIÓN TERNARIA: IMPARTE (PROFESOR - GRUPO - ASIGNATURA)
+-- ======================================================
 CREATE TABLE imparte (
-
-    profesor_id INTEGER NOT NULL,
-
-    grupo_id INTEGER NOT NULL,
-
-    asignatura_id INTEGER NOT NULL,
-
-    PRIMARY KEY (
-        profesor_id,
-        grupo_id,
-        asignatura_id
-    ),
+    id_imparte SERIAL PRIMARY KEY,
+    id_profesor VARCHAR(11) NOT NULL,
+    id_grupo INTEGER NOT NULL,
+    codigo_asignatura INTEGER NOT NULL, -- Actualizado por el cambio en la tabla asignatura
 
     CONSTRAINT fk_imparte_profesor
-        FOREIGN KEY (profesor_id)
-        REFERENCES profesor(id)
+        FOREIGN KEY (id_profesor)
+        REFERENCES profesor (ci)
+        ON UPDATE CASCADE
         ON DELETE CASCADE,
 
     CONSTRAINT fk_imparte_grupo
-        FOREIGN KEY (grupo_id)
-        REFERENCES grupo(id)
+        FOREIGN KEY (id_grupo)
+        REFERENCES grupo (codigo_grupo)
+        ON UPDATE CASCADE
         ON DELETE CASCADE,
 
     CONSTRAINT fk_imparte_asignatura
-        FOREIGN KEY (asignatura_id)
-        REFERENCES asignatura(id)
+        FOREIGN KEY (codigo_asignatura)
+        REFERENCES asignatura (codigo_asignatura)
+        ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
-
-
--- ==========================================
--- INDICES
--- ==========================================
-
-CREATE INDEX idx_alumno_grupo
-ON alumno(grupo_id);
-
-CREATE INDEX idx_profesor_escuela
-ON profesor(escuela_id);
-
-CREATE INDEX idx_grupo_escuela
-ON grupo(escuela_id);
-
-CREATE INDEX idx_imparte_profesor
-ON imparte(profesor_id);
-
-CREATE INDEX idx_imparte_grupo
-ON imparte(grupo_id);
-
-CREATE INDEX idx_imparte_asignatura
-ON imparte(asignatura_id);
-
-
-
--- ==========================================
--- VALIDACIONES
--- ==========================================
-
-ALTER TABLE profesor
-ADD CONSTRAINT chk_edad
-CHECK (edad >= 18);
-
-ALTER TABLE profesor
-ADD CONSTRAINT chk_anio_graduacion
-CHECK (
-    anio_graduacion >= 1950
-);
-
-ALTER TABLE profesor
-ADD CONSTRAINT chk_inicio_trabajo
-CHECK (
-    anio_inicio_trabajo >= 1950
-);
+-- ======================================================
+-- ÍNDICES OPTIMIZADOS PARA LAS RELACIONES
+-- ======================================================
+CREATE INDEX idx_alumno_grupo ON alumno (codigo_grupo);
+CREATE INDEX idx_grupo_escuela ON grupo (codigo_escuela);
+CREATE INDEX idx_imparte_profesor ON imparte (id_profesor);
+CREATE INDEX idx_imparte_grupo ON imparte (id_grupo);
+CREATE INDEX idx_imparte_asignatura ON imparte (codigo_asignatura);

@@ -16,9 +16,9 @@ public class ImparteDAO {
                 """
                 INSERT INTO imparte
                 (
-                    id_profesor,
-                    id_grupo,
-                    id_asignatura
+                    profesor_id,
+                    grupo_id,
+                    asignatura_id
                 )
                 VALUES
                 (
@@ -29,7 +29,7 @@ public class ImparteDAO {
                 """;
 
         try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
-            stmt.setInt(1,imparte.getIdProfesor());
+            stmt.setString(1,imparte.getIdProfesor());
             stmt.setInt(2,imparte.getIdGrupo());
             stmt.setInt(3,imparte.getIdAsignatura());
             stmt.executeUpdate();
@@ -59,7 +59,7 @@ public class ImparteDAO {
 
         //BUSCAR PROFESOR
 
-    public List<Imparte> obtenerPorProfesor(int idProfesor) throws SQLException {
+    public List<Imparte> obtenerPorProfesor(String ciProfesor) throws SQLException {
 
         List<Imparte> lista =new ArrayList<>();
 
@@ -67,12 +67,12 @@ public class ImparteDAO {
                 """
                 SELECT *
                 FROM imparte
-                WHERE id_profesor=?
+                WHERE profesor_id=?
                 """;
 
         try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
 
-            stmt.setInt(1,idProfesor);
+            stmt.setString(1,ciProfesor);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -95,7 +95,7 @@ public class ImparteDAO {
                 """
                 SELECT *
                 FROM imparte
-                WHERE id_grupo=?
+                WHERE grupo_id=?
                 """;
 
         try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
@@ -118,7 +118,7 @@ public class ImparteDAO {
                 """
                 DELETE
                 FROM imparte
-                WHERE id_imparte=?
+                WHERE profesor_id=?
                 """;
 
         try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
@@ -137,17 +137,16 @@ public class ImparteDAO {
         String sql =
                 """
                 SELECT
-                p.nombres,
-                p.apellidos,
-                a.nombre AS asignatura,
-                g.grupo
+                    p.nombre1 || ' ' || p.apellido1 AS profesor,
+                    a.nombre AS asignatura,
+                    g.codigo_grupo AS grupo
                 FROM imparte i
                 JOIN profesor p
-                ON i.id_profesor=p.id_profesor
+                    ON i.profesor_id = p.id
                 JOIN asignatura a
-                ON i.id_asignatura=a.id_asignatura
+                    ON i.asignatura_id = a.id
                 JOIN grupo g
-                ON i.id_grupo=g.id_grupo
+                    ON i.grupo_id = g.id
                 """;
 
         try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql);ResultSet rs =stmt.executeQuery()
@@ -155,9 +154,7 @@ public class ImparteDAO {
 
             while (rs.next()) {
                 lista.add(
-                        rs.getString("nombres")
-                                + " "
-                                + rs.getString("apellidos")
+                        rs.getString("profesor")
                                 + " → "
                                 + rs.getString("asignatura")
                                 + " → Grupo "
@@ -172,10 +169,10 @@ public class ImparteDAO {
 
     private Imparte construir( ResultSet rs) throws SQLException {
         return new Imparte(
-                rs.getInt("id_imparte"),
-                rs.getInt("id_profesor"),
-                rs.getInt("id_grupo"),
-                rs.getInt("id_asignatura")
+                0,
+                rs.getString("profesor_id"),
+                rs.getInt("grupo_id"),
+                rs.getInt("asignatura_id")
         );
     }
 }

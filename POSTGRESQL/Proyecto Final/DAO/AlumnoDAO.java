@@ -2,7 +2,6 @@ package DAO;
 
 import Database.ConnectionDB;
 import Modelos.Alumno;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,13 +26,13 @@ public class AlumnoDAO {
                 grado,
                 regimen,
                 sesion,
-                estado_alumno,
+                estatus_alumno,
                 especialidad,
                 procedencia_social_padre,
                 procedencia_social_madre,
                 direccion,
                 telefono,
-                codigo_grupo
+                grupo_id
             )
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """;
@@ -71,7 +70,7 @@ public class AlumnoDAO {
 
             stmt.setString(13, alumno.getSesion());
 
-            stmt.setString(14, alumno.getEstadoAlumno());
+            stmt.setString(14, alumno.getEstatusAlumno());
 
             stmt.setString(15, alumno.getEspecialidad());
 
@@ -83,7 +82,7 @@ public class AlumnoDAO {
 
             stmt.setString(19, alumno.getTelefono());
 
-            stmt.setInt(20, alumno.getCodigoGrupo());
+            stmt.setInt(20, alumno.getGrupoId());
 
             stmt.executeUpdate();
 
@@ -215,7 +214,7 @@ public class AlumnoDAO {
 
                 rs.getString("sesion"),
 
-                rs.getString("estado_alumno"),
+                rs.getString("estatus_alumno"),
 
                 rs.getString("especialidad"),
 
@@ -227,7 +226,7 @@ public class AlumnoDAO {
 
                 rs.getString("telefono"),
 
-                rs.getInt("codigo_grupo")
+                rs.getInt("grupo_id")
 
         );
 

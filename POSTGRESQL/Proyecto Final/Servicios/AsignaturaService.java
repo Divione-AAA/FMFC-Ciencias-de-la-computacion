@@ -2,7 +2,6 @@ package Servicios;
 
 import DAO.AsignaturaDAO;
 import Modelos.Asignatura;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -27,6 +26,10 @@ public class AsignaturaService {
             throw new IllegalArgumentException(
                     "Nombre obligatorio"
             );
+        }
+
+        if (a.getCodigoAsignatura() == null || a.getCodigoAsignatura().isBlank()) {
+            throw new IllegalArgumentException("Código de asignatura obligatorio");
         }
 
         dao.insertar(a);

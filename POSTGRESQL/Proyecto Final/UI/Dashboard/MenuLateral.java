@@ -8,9 +8,8 @@ import UI.Imparte.PanelImparte;
 import UI.Matricula.PanelMatricula;
 import UI.Profesor.PanelProfesor;
 import UI.Reportes.PanelReportes;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class MenuLateral extends JPanel {
 
@@ -18,69 +17,45 @@ public class MenuLateral extends JPanel {
             Dashboard dash
     ) {
 
-        setPreferredSize(
-                new Dimension(
-                        270,
-                        0
-                )
-        );
+        setPreferredSize(new Dimension(230, 0));
 
-        setLayout(
-                new GridLayout(
-                        10,
-                        1,
-                        10,
-                        10
-                )
-        );
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        setBorder(
-                BorderFactory.createEmptyBorder(
-                        20,
-                        15,
-                        20,
-                        15
-                )
-        );
+        setBorder(BorderFactory.createEmptyBorder(15, 12, 15, 12));
 
         JButton alumnos =
                 crearBoton(
-                        "👨 Alumnos"
+                        "Alumnos"
                 );
 
         JButton profesores =
                 crearBoton(
-                        "👩 Profesores"
+                        "Profesores"
                 );
 
         JButton escuelas =
                 crearBoton(
-                        "🏫 Escuelas"
+                        "Escuelas"
                 );
 
         JButton grupos =
                 crearBoton(
-                        "👥 Grupos"
-                );
-
-        JButton matriculas =
-                crearBoton(
-                        "📝 Matrículas"
+                        "Grupos"
                 );
 
         JButton asignaturas =
                 crearBoton(
-                        "📚 Asignaturas"
+                        "Asignaturas"
                 );
 
         JButton imparte =
                 crearBoton(
-                        "🎓 Imparte"
+                        "Imparte"
                 );
 
         JButton reportes =
                 crearBoton(
-                        "📊 Reportes"
+                        "Reportes"
                 );
 
         alumnos.addActionListener(
@@ -111,13 +86,6 @@ public class MenuLateral extends JPanel {
                         )
         );
 
-        matriculas.addActionListener(
-                e ->
-                        dash.cambiarPanel(
-                                new PanelMatricula()
-                        )
-        );
-
         asignaturas.addActionListener(
                 e ->
                         dash.cambiarPanel(
@@ -139,20 +107,20 @@ public class MenuLateral extends JPanel {
                         )
         );
 
+        add(Box.createVerticalStrut(6));
         add(alumnos);
-
+        add(Box.createVerticalStrut(6));
         add(profesores);
-
+        add(Box.createVerticalStrut(6));
         add(escuelas);
-
+        add(Box.createVerticalStrut(6));
         add(grupos);
-
-        add(matriculas);
-
+        add(Box.createVerticalStrut(6));
+        add(Box.createVerticalStrut(6));
         add(asignaturas);
-
+        add(Box.createVerticalStrut(6));
         add(imparte);
-
+        add(Box.createVerticalStrut(6));
         add(reportes);
 
     }
@@ -178,12 +146,9 @@ public class MenuLateral extends JPanel {
                 false
         );
 
-        boton.setPreferredSize(
-                new Dimension(
-                        230,
-                        55
-                )
-        );
+        boton.setPreferredSize(new Dimension(200, 44));
+        boton.setMaximumSize(new Dimension(200, 44));
+        boton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         boton.putClientProperty(
                 "JButton.arc",

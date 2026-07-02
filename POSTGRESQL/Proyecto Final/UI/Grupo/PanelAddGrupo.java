@@ -7,11 +7,8 @@ import javax.swing.*;
 
 public class PanelAddGrupo extends JPanel {
 
-    private final JTextField campoModalidad = new JTextField();
-    private final JTextField campoAmbito = new JTextField();
-    private final JTextField campoNivel = new JTextField();
-    private final JTextField campoCurso = new JTextField();
     private final JTextField campoGrupo = new JTextField();
+    private final JTextField campoNombre = new JTextField();
     private final JTextField campoCodigoEscuela = new JTextField();
 
     public PanelAddGrupo() {
@@ -25,11 +22,8 @@ public class PanelAddGrupo extends JPanel {
         formulario.setLayout(new BoxLayout(formulario, BoxLayout.Y_AXIS));
         formulario.setBorder(BorderFactory.createEmptyBorder(20, 80, 20, 80));
 
-        formulario.add(crearFila("Modalidad:", campoModalidad));
-        formulario.add(crearFila("Ámbito:", campoAmbito));
-        formulario.add(crearFila("Nivel:", campoNivel));
-        formulario.add(crearFila("Curso:", campoCurso));
-        formulario.add(crearFila("Grupo:", campoGrupo));
+        formulario.add(crearFila("Código grupo:", campoGrupo));
+        formulario.add(crearFila("Nombre:", campoNombre));
         formulario.add(crearFila("Código escuela:", campoCodigoEscuela));
 
         JButton guardar = new JButton("Guardar grupo");
@@ -55,19 +49,16 @@ public class PanelAddGrupo extends JPanel {
 
     private void guardarGrupo() {
         try {
-            String modalidad = campoModalidad.getText().trim();
-            String ambito = campoAmbito.getText().trim();
-            String nivel = campoNivel.getText().trim();
-            String curso = campoCurso.getText().trim();
-            String grupo = campoGrupo.getText().trim();
+            String codigoGrupo = campoGrupo.getText().trim();
+            String nombre = campoNombre.getText().trim();
             int codigoEscuela = Integer.parseInt(campoCodigoEscuela.getText().trim());
 
-            if (modalidad.isEmpty() || ambito.isEmpty() || nivel.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Modalidad, ámbito y nivel son obligatorios.");
+            if (codigoGrupo.isEmpty() || nombre.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Código de grupo y nombre son obligatorios.");
                 return;
             }
 
-            Grupo nuevoGrupo = new Grupo(0, modalidad, ambito, nivel, curso, grupo, codigoEscuela);
+            Grupo nuevoGrupo = new Grupo(0, codigoGrupo, nombre, codigoEscuela);
             new GrupoDAO().insertar(nuevoGrupo);
             JOptionPane.showMessageDialog(this, "Grupo registrado correctamente.");
             limpiar();
@@ -79,11 +70,8 @@ public class PanelAddGrupo extends JPanel {
     }
 
     private void limpiar() {
-        campoModalidad.setText("");
-        campoAmbito.setText("");
-        campoNivel.setText("");
-        campoCurso.setText("");
         campoGrupo.setText("");
+        campoNombre.setText("");
         campoCodigoEscuela.setText("");
     }
 }

@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class PanelAddAsignatura extends JPanel {
 
-    private final JTextField campoNombre;
-    private final JTextArea campoDescripcion;
+    private final JTextField campoCodigoAsignatura = new JTextField();
+    private  JTextField campoNombre = new JTextField();
 
     public PanelAddAsignatura() {
 
@@ -89,14 +89,12 @@ public class PanelAddAsignatura extends JPanel {
                 )
         );
 
-        // DESCRIPCION
-
-        JLabel labelDescripcion =
+        JLabel labelCodigoAsignatura =
                 new JLabel(
-                        "Descripción:"
+                        "Código de asignatura:"
                 );
 
-        labelDescripcion.setFont(
+        labelCodigoAsignatura.setFont(
                 new Font(
                         "Segoe UI",
                         Font.BOLD,
@@ -104,37 +102,15 @@ public class PanelAddAsignatura extends JPanel {
                 )
         );
 
-        campoDescripcion =
-                new JTextArea(
-                        5,
-                        20
-                );
-
-        campoDescripcion.setLineWrap(
-                true
+        campoCodigoAsignatura.setMaximumSize(
+                tam
         );
 
-        campoDescripcion.setWrapStyleWord(
-                true
-        );
-
-        campoDescripcion.setFont(
+        campoCodigoAsignatura.setFont(
                 new Font(
                         "Segoe UI",
                         Font.PLAIN,
                         15
-                )
-        );
-
-        JScrollPane scroll =
-                new JScrollPane(
-                        campoDescripcion
-                );
-
-        scroll.setMaximumSize(
-                new Dimension(
-                        400,
-                        150
                 )
         );
 
@@ -165,11 +141,11 @@ public class PanelAddAsignatura extends JPanel {
         );
 
         formulario.add(
-                labelNombre
+                labelCodigoAsignatura
         );
 
         formulario.add(
-                campoNombre
+                campoCodigoAsignatura
         );
 
         formulario.add(
@@ -179,11 +155,11 @@ public class PanelAddAsignatura extends JPanel {
         );
 
         formulario.add(
-                labelDescripcion
+                labelNombre
         );
 
         formulario.add(
-                scroll
+                campoNombre
         );
 
         formulario.add(
@@ -215,18 +191,18 @@ public class PanelAddAsignatura extends JPanel {
 
         try {
 
+            String codigoAsignatura =
+                    campoCodigoAsignatura
+                            .getText()
+                            .trim();
+
             String nombre =
                     campoNombre
                             .getText()
                             .trim();
 
-            String descripcion =
-                    campoDescripcion
-                            .getText()
-                            .trim();
-
             if (
-                    nombre.isEmpty()
+                    codigoAsignatura.isEmpty() || nombre.isEmpty()
             ) {
 
                 JOptionPane.showMessageDialog(
@@ -240,8 +216,8 @@ public class PanelAddAsignatura extends JPanel {
             Asignatura asignatura =
                     new Asignatura(
                             0,
-                            nombre,
-                            descripcion
+                            codigoAsignatura,
+                            nombre
                     );
 
             AsignaturaDAO dao =
@@ -277,9 +253,9 @@ public class PanelAddAsignatura extends JPanel {
 
     private void limpiar() {
 
-        campoNombre.setText("");
+        campoCodigoAsignatura.setText("");
 
-        campoDescripcion.setText("");
+        campoNombre.setText("");
 
     }
 

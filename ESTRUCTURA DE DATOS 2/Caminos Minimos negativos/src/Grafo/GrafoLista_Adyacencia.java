@@ -4,10 +4,10 @@
  */
 package Grafo;
 
-import java.util.Queue;
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 
 public class GrafoLista_Adyacencia implements Grafo {
@@ -332,8 +332,9 @@ public class GrafoLista_Adyacencia implements Grafo {
         if (verticeOrig == -1) {
             System.out.println("El vértice " + VerticeOrigen + " no existe");
         } else {
+            verticeOrigenActual = VerticeOrigen;
             Queue<Integer> q = new LinkedList<>();
-            limpiarDatos();
+            inicializarCaminos();
             tabla[verticeOrig].setDist(0);
             q.add(verticeOrig);
             Iterator it;
@@ -353,83 +354,84 @@ public class GrafoLista_Adyacencia implements Grafo {
         }
     }
 
-    public boolean caminoMConPesoPositivo(String verticeOrig){//este es Disjktra
-        int v,w;
-        float cvw;
-        limpiarDatos();//se inicializan todos los atributos
-        int verticeOrigen=buscar(verticeOrig);//buscar el vertice origen para saber si existe y ademas para saber su posicion
-        if (verticeOrigen==-1)//si el vértice origen no existe se devuelve falso
+    public boolean caminoMConPesoPositivo(String verticeOrig) {
+        int verticeOrigen = buscar(verticeOrig);
+        if (verticeOrigen == -1) {
             return false;
-        Vertice verO=new Vertice(verticeOrig,0);//se crea objeto Vertice con el nombre del vertice origen y distancia 0
-        PriorityQueue<Vertice>cp=new PriorityQueue<Vertice>();//se crea una cola de prioridad
-        tabla[verticeOrigen].setDist(0);//se pone en 0 la distancia del vertice origen
-        cp.add(verO);//se inserta el objeto verO creado en la cola de prioridad
+        }
+        verticeOrigenActual = verticeOrig;
+        inicializarCaminos();
+        PriorityQueue<Vertice> cp = new PriorityQueue<>();
+        tabla[verticeOrigen].setDist(0);
+        cp.add(new Vertice(verticeOrig, 0));
         Iterator it;
-        while(!cp.isEmpty()) {//mientras la cola no este vacía
-            Vertice ver = cp.remove();//eliminar de la cola
-            v=buscar(ver.getNombre());
-            if (tabla[v].getExtra() == 0){//si no esta marcado
-              tabla[v].setExtra(1);//marcarlo
-              it=tabla[v].getLista().iterator();
-              while (it.hasNext()){ //se recorre la lista de adyacencia del vertice marcado
-                   Arista a= (Arista) it.next();
-                   w = a.getDestino();
-                   cvw = a.getCosto();
-                   if(cvw < 0)  // si el costo es negativo retornar falso
-                     return false;
-                   if (tabla[w].getDist() > tabla[v].getDist()+ cvw) {//si la distancia en el vertice es mas grande que dist(v)+costo, se actualiza todo
-                     tabla[w].setDist(tabla[v].getDist() + cvw);// se actualiza la distancia
-                     tabla[w].setAnt(v);//se actualiza el anterior
-                     Vertice vecino=new Vertice(tabla[w].getNombre(),tabla[w].getDist());//se crea un objeto Vertice con el nombre de w y su nueva distancia
-                     cp.add(vecino);//se inserta en la cola al objeto creado.
-                  }//termina el if
-              }//termino el while que recorre la lista de adyacencia
-            }//termina el if que se ejecutó si el vétice no estaba marcado
-        }//termina el while que pregunta si la cola esta vacía
-       return true;
+        while (!cp.isEmpty()) {
+            Vertice ver = cp.remove();
+            int v = buscar(ver.getNombre());
+            if (tabla[v].getExtra() == 1) {
+                continue;
+            }
+            tabla[v].setExtra(1);
+            it = tabla[v].getLista().iterator();
+            while (it.hasNext()) {
+                Arista a = (Arista) it.next();
+                int w = a.getDestino();
+                float cvw = a.getCosto();
+                if (cvw < 0) {
+                    return false;
+                }
+                if (tabla[w].getDist() > tabla[v].getDist() + cvw) {
+                    tabla[w].setDist(tabla[v].getDist() + cvw);
+                    tabla[w].setAnt(v);
+                    cp.add(new Vertice(tabla[w].getNombre(), tabla[w].getDist()));
+                }
+            }
+        }
+        return true;
     }
-    
+
     public boolean caminoMConPesosNegativos(String VerticeOrigen) {
         int verticeOrig = buscar(VerticeOrigen);
         if (verticeOrig == -1) {
-            System.out.println("El vértice " + VerticeOrigen + " no existe");
             return false;
-        } else {
-            limpiarDatos();
-            int v, w;
-            float cvw;
-            Queue<Integer> q = new LinkedList<Integer>();
-            tabla[verticeOrig].setDist(0);
-            q.add(verticeOrig);
-            tabla[verticeOrig].setExtra(tabla[verticeOrig].getExtra() + 1);
-//            System.out.println("Insertando en la cola a "+tabla[verticeOrig].getNombre()+" con extra "+tabla[verticeOrig].getExtra());
-            Iterator it;
-            while (!q.isEmpty()) {
-                v = q.remove();
-                tabla[v].setExtra(tabla[v].getExtra() + 1);
-//                System.out.println("Sacando de la cola a "+tabla[v].getNombre()+" con extra "+tabla[v].getExtra());
-                if (tabla[v].getExtra() > 2 * numVertices) {
-                    System.out.println("¡Ciclo de costo negativo!");
-                    return false;
+        }
+        verticeOrigenActual = VerticeOrigen;
+        inicializarCaminos();
+        tabla[verticeOrig].setDist(0);
+
+        for (int i = 0; i < numVertices - 1; i++) {
+            boolean cambio = false;
+            for (int v = 0; v < numVertices; v++) {
+                if (tabla[v].getDist() == INFINITO) {
+                    continue;
                 }
-                it = tabla[v].getLista().iterator();
+                Iterator it = tabla[v].getLista().iterator();
                 while (it.hasNext()) {
                     Arista a = (Arista) it.next();
-                    w = a.getDestino();
-                    cvw = a.getCosto();
+                    int w = a.getDestino();
+                    float cvw = a.getCosto();
                     if (tabla[w].getDist() > tabla[v].getDist() + cvw) {
                         tabla[w].setDist(tabla[v].getDist() + cvw);
                         tabla[w].setAnt(v);
-                        if (!q.contains(w)) {
-                            q.add(w);
-                            tabla[w].setExtra(tabla[w].getExtra() + 1);
-//                            System.out.print(tabla[w].getNombre()+ " NO estaba en la cola");
-                        } else {
-                            tabla[w].setExtra(tabla[w].getExtra() + 2);
-//                            System.out.print(tabla[w].getNombre()+ " SI estaba en la cola");
-                        }
-//                        System.out.println(", se inserta con extra "+tabla[w].getExtra());
+                        cambio = true;
                     }
+                }
+            }
+            if (!cambio) {
+                break;
+            }
+        }
+
+        for (int v = 0; v < numVertices; v++) {
+            if (tabla[v].getDist() == INFINITO) {
+                continue;
+            }
+            Iterator it = tabla[v].getLista().iterator();
+            while (it.hasNext()) {
+                Arista a = (Arista) it.next();
+                int w = a.getDestino();
+                if (tabla[w].getDist() > tabla[v].getDist() + a.getCosto()) {
+                    return false;
                 }
             }
         }
@@ -437,88 +439,64 @@ public class GrafoLista_Adyacencia implements Grafo {
     }
 
     public LinkedList<String> ordenamientoTopologico() {
-        int temp;
-        Iterator it;
-        Queue<Integer> q = new LinkedList<Integer>();
-        LinkedList<String> l = new LinkedList<String>();
-        // calcular grados de entrada de todos los vertices
+        int[] gradosEntrada = new int[numVertices];
+        Queue<Integer> q = new LinkedList<>();
+        LinkedList<String> orden = new LinkedList<>();
+
         for (int i = 0; i < numVertices; i++) {
-            temp = 0;   // variable que guarda el grado de entrada
-            for (int j = 0; j < numVertices; j++) {
-                it = tabla[j].getLista().iterator();
-                while (it.hasNext()) {
-                    Arista a = (Arista) it.next();
-                    if (i == a.getDestino()) {
-                        temp++;
-                    }
-                }
+            Iterator it = tabla[i].getLista().iterator();
+            while (it.hasNext()) {
+                Arista a = (Arista) it.next();
+                gradosEntrada[a.getDestino()]++;
             }
-            tabla[i].setExtra(temp);
         }
-        // inicializar un contador (contará todos los vértices que son insertados en la cola)
-        temp = 0;
-        // insertar en la cola los todos los vértices con grado de entrada igual a cero
+
         for (int i = 0; i < numVertices; i++) {
-            if (tabla[i].getExtra() == 0) {
+            if (gradosEntrada[i] == 0) {
                 q.add(i);
             }
         }
-        // mientras la cola no esté vacía
+
         while (!q.isEmpty()) {
-            // se elimina el 1ero de la cola (v) y se visita
-            int p = q.remove();
-            l.add(tabla[p].getNombre());
-            // se incrementa el contador
-            temp++;
-            // para todo vértice w adyacente de v:
-            it = tabla[p].getLista().iterator();
+            int u = q.remove();
+            orden.add(tabla[u].getNombre());
+            Iterator it = tabla[u].getLista().iterator();
             while (it.hasNext()) {
-                // se decrementa el grado de w y si es cero se inserta en la cola.
-                Arista w = (Arista) it.next();
-                tabla[w.getDestino()].setExtra(tabla[w.getDestino()].getExtra() - 1);
-                if (tabla[w.getDestino()].getExtra() == 0) {
-                    q.add(w.getDestino());
+                Arista a = (Arista) it.next();
+                int v = a.getDestino();
+                gradosEntrada[v]--;
+                if (gradosEntrada[v] == 0) {
+                    q.add(v);
                 }
             }
         }
-        // si contador es igual a numvértices entonces terminar. (Se puede devolver un tipo booleano pero si necesitamos el orden topológico entonces devolver  una lista o estructura con el resultado).
-        if (temp == numVertices) {
-            return l;
-        }
-        return null;
+        return orden;
     }
 
     public boolean caminoMAciclico(String verticeO) {
-        int v, dest;
-        Iterator it;
-        LinkedList<String> l = new LinkedList<String>();
-        limpiarDatos();
         int verticeOrig = buscar(verticeO);
         if (verticeOrig == -1) {
-            System.out.println("El vértice " + verticeO + " no existe");
             return false;
         }
+        verticeOrigenActual = verticeO;
+        inicializarCaminos();
+        LinkedList<String> orden = ordenamientoTopologico();
+        if (orden.size() != numVertices) {
+            return false;
+        }
+
         tabla[verticeOrig].setDist(0);
-        l = ordenamientoTopologico();
-        if (l == null) {
-            System.out.println("¡Hay ciclos!");
-            return false;
-        }
-        while (!l.isEmpty()) {
-            String v2 = l.remove();
-            v = buscar(v2);
-            it = tabla[v].getLista().iterator();
+        for (String nombre : orden) {
+            int v = buscar(nombre);
+            if (tabla[v].getDist() == INFINITO) {
+                continue;
+            }
+            Iterator it = tabla[v].getLista().iterator();
             while (it.hasNext()) {
                 Arista w = (Arista) it.next();
-                dest = w.getDestino();
-                
-                if (tabla[v].getDist() == INFINITO) //si el vértice actual v es inalcanzable desde O no se calculan las distancias
-                {
-                    continue;//de lo contrario, se actualizan las distancias, igual que en Dijkstra
-                }
-                float cvw = w.getCosto();
-                if (tabla[dest].getDist() > tabla[v].getDist() + cvw) {
-                    tabla[dest].setDist(tabla[v].getDist() + cvw);
+                int dest = w.getDestino();
+                if (tabla[dest].getDist() > tabla[v].getDist() + w.getCosto()) {
+                    tabla[dest].setDist(tabla[v].getDist() + w.getCosto());
                     tabla[dest].setAnt(v);
                 }
             }
@@ -526,26 +504,4 @@ public class GrafoLista_Adyacencia implements Grafo {
         return true;
     }
 
-    public void imprimirCamino(String verticeDestino) {//para imprimir el camino minimo desde el vértice origen hasta un vértice destino especificado
-        int verticeDest = buscar(verticeDestino);
-        if (verticeDest == -1) {
-            System.out.println("El vértice " + verticeDestino + " no existe");
-        }
-        if (tabla[verticeDest].getDist() == INFINITO) {
-            System.out.println(verticeDestino + " es inalcanzable");
-        } else {
-            imprimirCaminoRec(verticeDest);
-            System.out.println(" (el costo es " + tabla[verticeDest].getDist() + ")");
-        }
-//        System.out.println();
-    }
-
-    private void imprimirCaminoRec(int verticeDest) {
-        if (tabla[verticeDest].getAnt() != -1 && tabla[verticeDest].getDist() != 0) {
-            imprimirCaminoRec(tabla[verticeDest].getAnt());
-            System.out.print(" -> ");
-        }
-        System.out.print(tabla[verticeDest].getNombre());
-    }
-    
 }

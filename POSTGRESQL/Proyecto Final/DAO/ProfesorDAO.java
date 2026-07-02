@@ -37,11 +37,10 @@ public class ProfesorDAO {
                 cargo,
                 nivel_ensenanza,
                 se_supera,
-                ultima_evaluacion_profesional,
-                codigo_escuela
+                ultima_evaluacion_profesional
             )
             VALUES
-            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """;
 
         try (
@@ -99,8 +98,6 @@ public class ProfesorDAO {
             stmt.setBoolean(23, profesor.isSeSupera());
 
             stmt.setString(24, profesor.getUltimaEvaluacionProfesional());
-
-            stmt.setInt(25, profesor.getCodigoEscuela());
 
             stmt.executeUpdate();
 

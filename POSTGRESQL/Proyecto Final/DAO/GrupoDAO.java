@@ -16,23 +16,17 @@ public class GrupoDAO {
         String sql = """
             INSERT INTO grupo
             (
-                modalidad,
-                ambito,
-                nivel,
-                curso,
-                grupo,
-                codigo_escuela
+                codigo_grupo,
+                nombre,
+                escuela_id
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?)
         """;
 
         try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, grupo.getModalidad());
-            stmt.setString(2, grupo.getAmbito());
-            stmt.setString(3, grupo.getNivel());
-            stmt.setString(4, grupo.getCurso());
-            stmt.setString(5, grupo.getGrupo());
-            stmt.setInt(6, grupo.getCodigoEscuela());
+            stmt.setString(1, grupo.getCodigoGrupo());
+            stmt.setString(2, grupo.getNombre());
+            stmt.setInt(3, grupo.getEscuelaId());
             stmt.executeUpdate();
         }
     }
@@ -40,7 +34,7 @@ public class GrupoDAO {
         //BUSCAR
     public Grupo obtenerPorId(int id) throws SQLException {
 
-        String sql = "SELECT * FROM grupo WHERE id_grupo=?";
+        String sql = "SELECT * FROM grupo WHERE id=?";
         try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -79,7 +73,7 @@ public class GrupoDAO {
         String sql = """
                 SELECT *
                 FROM grupo
-                WHERE codigo_escuela=?
+                WHERE escuela_id=?
                 """;
 
         try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -100,24 +94,18 @@ public class GrupoDAO {
         String sql = """
             UPDATE grupo
             SET
-                modalidad=?,
-                ambito=?,
-                nivel=?,
-                curso=?,
-                grupo=?,
-                codigo_escuela=?
-            WHERE id_grupo=?
+                codigo_grupo=?,
+                nombre=?,
+                escuela_id=?
+            WHERE id=?
         """;
 
         try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt= conn.prepareStatement(sql)) {
 
-            stmt.setString(1,grupo.getModalidad());
-            stmt.setString(2,grupo.getAmbito());
-            stmt.setString(3,grupo.getNivel());
-            stmt.setString(4,grupo.getCurso());
-            stmt.setString(5,grupo.getGrupo());
-            stmt.setInt(6,grupo.getCodigoEscuela());
-            stmt.setInt(7,grupo.getIdGrupo());
+            stmt.setString(1,grupo.getCodigoGrupo());
+            stmt.setString(2,grupo.getNombre());
+            stmt.setInt(3,grupo.getEscuelaId());
+            stmt.setInt(4,grupo.getIdGrupo());
 
             return stmt.executeUpdate() > 0;
         }
@@ -126,7 +114,7 @@ public class GrupoDAO {
         //ELIMINAR
     public boolean eliminar(int id) throws SQLException {
 
-        String sql = "DELETE FROM grupo WHERE id_grupo=?";
+        String sql = "DELETE FROM grupo WHERE id=?";
 
         try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1,id);
@@ -138,13 +126,10 @@ public class GrupoDAO {
     private Grupo construirGrupo(ResultSet rs) throws SQLException {
 
         return new Grupo(
-                rs.getInt("id_grupo"),
-                rs.getString("modalidad"),
-                rs.getString("ambito"),
-                rs.getString("nivel"),
-                rs.getString("curso"),
-                rs.getString("grupo"),
-                rs.getInt("codigo_escuela")
+                rs.getInt("id"),
+                rs.getString("codigo_grupo"),
+                rs.getString("nombre"),
+                rs.getInt("escuela_id")
         );
     }
 }

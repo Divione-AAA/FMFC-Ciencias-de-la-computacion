@@ -15,8 +15,8 @@ public class AsignaturaDAO {
         String sql = """
             INSERT INTO asignatura
             (
-                nombre,
-                descripcion
+                codigo_asignatura,
+                nombre
             )
             VALUES
             (
@@ -26,8 +26,8 @@ public class AsignaturaDAO {
         """;
 
         try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
-            stmt.setString(1,asignatura.getNombre());
-            stmt.setString(2,asignatura.getDescripcion());
+            stmt.setString(1, asignatura.getCodigoAsignatura());
+            stmt.setString(2, asignatura.getNombre());
             stmt.executeUpdate();
         }
     }
@@ -40,7 +40,7 @@ public class AsignaturaDAO {
                 """
                 SELECT *
                 FROM asignatura
-                WHERE id_asignatura=?
+                WHERE id=?
                 """;
 
         try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
@@ -86,16 +86,16 @@ public class AsignaturaDAO {
                 """
                 UPDATE asignatura
                 SET
-                    nombre=?,
-                    descripcion=?
+                    codigo_asignatura=?,
+                    nombre=?
                 WHERE
-                    id_asignatura=?
+                    id=?
                 """;
 
         try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
-            stmt.setString(1,asignatura.getNombre());
-            stmt.setString(2,asignatura.getDescripcion());
-            stmt.setInt(3,asignatura.getIdAsignatura());
+            stmt.setString(1, asignatura.getCodigoAsignatura());
+            stmt.setString(2, asignatura.getNombre());
+            stmt.setInt(3, asignatura.getIdAsignatura());
             return stmt.executeUpdate() > 0;
         }
     }
@@ -108,7 +108,7 @@ public class AsignaturaDAO {
                 """
                 DELETE
                 FROM asignatura
-                WHERE id_asignatura=?
+                WHERE id=?
                 """;
 
         try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
@@ -155,9 +155,9 @@ public class AsignaturaDAO {
     private Asignatura construir( ResultSet rs) throws SQLException {
 
         return new Asignatura(
-                rs.getInt("id_asignatura"),
-                rs.getString("nombre"),
-                rs.getString("descripcion")
+                rs.getInt("id"),
+                rs.getString("codigo_asignatura"),
+                rs.getString("nombre")
         );
     }
 }
