@@ -170,7 +170,7 @@ public class GrafoLista_Adyacencia implements Grafo {
         return false;
     }
     
-        private void limpiarDatos() {
+    private void limpiarDatos() {
         for (int i = 0; i < numVertices; i++) {
             tabla[i].setExtra(0);
             tabla[i].setAnt(-1);

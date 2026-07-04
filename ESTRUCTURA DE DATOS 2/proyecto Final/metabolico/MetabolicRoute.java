@@ -10,7 +10,6 @@ import java.util.List;
 public class MetabolicRoute {
 
     private static int nextRouteId = 1;
-
     private final int id;
     private final int sourceId;
     private final int targetId;

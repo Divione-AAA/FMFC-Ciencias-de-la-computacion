@@ -23,9 +23,6 @@ public interface DNAPatternSearch {
     Busca un patron dentro de una secuencia
     */
 
-    SearchResult search(
-            String sequence,
-            String pattern
-    );
+    SearchResult search(String sequence,String pattern);
 
 }

@@ -41,54 +41,26 @@ public class DNADataGenerator {
     Genera secuencia ADN
     */
 
-    public static String generateSequence(
-            int length
-    ){
+    public static String generateSequence(int length){
 
-        StringBuilder dna=
-                new StringBuilder();
+        StringBuilder dna = new StringBuilder();
 
-        for(
-                int i=0;
-                i<length;
-                i++
-        ){
-
-            dna.append(
-                    BASES[
-                            random.nextInt(4)
-                            ]
-            );
-
+        for(int i=0;i<length;i++){
+            dna.append(BASES[random.nextInt(4)]);
         }
 
         return dna.toString();
-
     }
 
     /*
     Extrae un patron existente
     */
 
-    public static String generatePattern(
-            String sequence,
-            int patternLength
-    ){
+    public static String generatePattern(String sequence,int patternLength){
 
-        int start=
-                random.nextInt(
-                        sequence.length()
-                                -
-                                patternLength
-                );
+        int start =random.nextInt(sequence.length()-patternLength);
 
-        return sequence.substring(
-                start,
-                start
-                        +
-                        patternLength
-        );
-
+        return sequence.substring(start,start+patternLength);
     }
 
     /*
@@ -96,45 +68,22 @@ public class DNADataGenerator {
     */
 
     public static String generateExperimentSequence(){
-
-        return generateSequence(
-                1000
-        );
-
+        return generateSequence(1000);
     }
 
     /*
     Genera motivos requeridos
     */
 
-    public static String[] generatePatterns(
-            String sequence
-    ){
+    public static String[] generatePatterns(String sequence){
 
-        String[] patterns=
-                new String[3];
+        String[] patterns = new String[3];
 
-        patterns[0]=
-                generatePattern(
-                        sequence,
-                        4
-                );
-
-        patterns[1]=
-                generatePattern(
-                        sequence,
-                        10
-                );
-
-        patterns[2]=
-                generatePattern(
-                        sequence,
-                        20
-                );
+        patterns[0] = generatePattern(sequence,4);
+        patterns[1] = generatePattern(sequence,10);
+        patterns[2] = generatePattern(sequence,20);
 
         return patterns;
-
     }
-
 }
 

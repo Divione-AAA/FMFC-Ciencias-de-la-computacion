@@ -10,80 +10,36 @@ package Search;
  * O(n*m)
  */
 
-public class BruteForceSearch
-        implements DNAPatternSearch{
+public class BruteForceSearch implements DNAPatternSearch{
 
     @Override
-    public SearchResult search(
-            String T,
-            String P
-    ){
+    public SearchResult search(String T,String P){
 
-        SearchResult r=
-                new SearchResult(
-                        "Fuerza Bruta"
-                );
+        SearchResult r = new SearchResult("Fuerza Bruta");
 
-        if(
-                P.length()
-                        >
-                        T.length()
-        ){
-
+        if(P.length() > T.length()){
             return r;
-
         }
 
-        int n=
-                T.length();
+        int n = T.length();
 
-        int m=
-                P.length();
+        int m = P.length();
 
         int j;
 
-        for(
-                int i=0;
-                i<=n-m;
-                i++
-        ){
-
+        for(int i=0;i<=n-m;i++){
             j=0;
-
-            while(
-                    j<m
-            ){
-
+            while(j<m){
                 r.agregarComparacion();
-
-                if(
-                        T.charAt(i+j)
-                                !=
-                                P.charAt(j)
-                ){
-
+                if(T.charAt(i+j)!=P.charAt(j)){
                     break;
-
                 }
-
                 j++;
-
             }
-
-            if(
-                    j==m
-            ){
-
-                r.agregarPosicion(
-                        i
-                );
-
+            if(j==m){
+                r.agregarPosicion(i);
             }
-
         }
-
         return r;
-
     }
-
 }
