@@ -1,107 +1,205 @@
 package UI.Reportes;
 
-import java.awt.*;
+import Modelos.Alumno;
+import Modelos.Grupo;
+import Servicios.AlumnoService;
+import Servicios.GrupoService;
+import Servicios.ProfesorService;
+import Modelos.Profesor;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.List;
 
 public class PanelListaReportes extends JPanel {
 
     public PanelListaReportes() {
 
-        setLayout(
-                new BorderLayout(
-                        20,
-                        20
-                )
-        );
+        setLayout(new GridLayout(1, 3, 20, 20));
 
-        JPanel panelBotones =
-                new JPanel(
-                        new GridLayout(
-                                1,
-                                3,
-                                20,
-                                20
-                        )
-                );
+        JButton alumnos = crearBoton("📚 Alumnos");
+        JButton profesores = crearBoton("👨 Profesores");
+        JButton grupos = crearBoton("🏫 Grupos");
 
-        JButton alumnos =
-                crearBoton(
-                        "📚 Listado de alumnos"
-                );
+        alumnos.addActionListener(e -> reporteAlumnos());
+        profesores.addActionListener(e -> reporteProfesores());
+        grupos.addActionListener(e -> reporteGrupos());
 
-        JButton profesores =
-                crearBoton(
-                        "👩 Profesores"
-                );
+        add(alumnos);
+        add(profesores);
+        add(grupos);
+    }
 
-        JButton grupos =
-                crearBoton(
-                        "🏫 Grupos"
-                );
+    private JButton crearBoton(String texto) {
 
-        alumnos.addActionListener(
-                e ->
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Pendiente conectar con servicio."
-                        )
-        );
+        JButton boton = new JButton(texto);
 
-        profesores.addActionListener(
-                e ->
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Pendiente conectar con servicio."
-                        )
-        );
+        boton.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        boton.putClientProperty("JButton.arc", 20);
 
-        grupos.addActionListener(
-                e ->
-                        JOptionPane.showMessageDialog(
-                                this,
-                                "Pendiente conectar con servicio."
-                        )
-        );
+        return boton;
+    }
 
-        panelBotones.add(
-                alumnos
-        );
+    //=========================================================
+    // REPORTE DE ALUMNOS
+    //=========================================================
 
-        panelBotones.add(
-                profesores
-        );
+    private void reporteAlumnos() {
 
-        panelBotones.add(
-                grupos
-        );
+        try {
 
-        add(
-                panelBotones,
-                BorderLayout.CENTER
-        );
+            AlumnoService service = new AlumnoService();
+
+            List<Alumno> lista = service.obtenerTodos();
+
+            DefaultTableModel modelo = new DefaultTableModel();
+
+            modelo.addColumn("CI");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Grado");
+            modelo.addColumn("Grupo");
+
+            for (Alumno a : lista) {
+
+                modelo.addRow(new Object[]{
+                        a.getCi(),
+                        a.getNombre1() + " " + a.getApellido1(),
+                        a.getGrado(),
+                        a.getCodigoGrupo()
+                });
+
+            }
+
+            mostrarTabla("Listado de Alumnos", modelo);
+
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+
+        }
 
     }
 
-    private JButton crearBoton(
-            String texto
-    ) {
+    //=========================================================
+// REPORTE DE PROFESORES
+//=========================================================
 
-        JButton b =
-                new JButton(
-                        texto
-                );
+    private void reporteProfesores() {
 
-        b.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        b.setPreferredSize(new Dimension(180, 120));
-        b.setMinimumSize(new Dimension(160, 110));
-        b.setMaximumSize(new Dimension(220, 140));
+        try {
 
-        b.putClientProperty(
-                "JButton.arc",
-                20
-        );
+            ProfesorService service =
+                    new ProfesorService();
 
-        return b;
+            List<Profesor> lista =
+                    service.obtenerTodos();
+
+            DefaultTableModel modelo =
+                    new DefaultTableModel();
+
+            modelo.addColumn("CI");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Categoría");
+            modelo.addColumn("Municipio");
+            modelo.addColumn("Cargo");
+
+            for (Profesor p : lista) {
+
+                modelo.addRow(new Object[]{
+
+                        p.getCi(),
+
+                        p.getNombreCompleto(),
+
+                        p.getCategoriaDocente(),
+
+                        p.getMunicipio(),
+
+                        p.getCargo()
+
+                });
+
+            }
+
+            mostrarTabla(
+                    "Listado de Profesores",
+                    modelo
+            );
+
+        }
+
+        catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    ex.getMessage()
+            );
+
+        }
+
+    }
+
+    //=========================================================
+    // REPORTE DE GRUPOS
+    //=========================================================
+
+    private void reporteGrupos() {
+
+        try {
+
+            GrupoService service = new GrupoService();
+
+            List<Grupo> lista = service.obtenerGrupos();
+
+            DefaultTableModel modelo = new DefaultTableModel();
+
+            modelo.addColumn("ID");
+            modelo.addColumn("Código");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Escuela");
+
+            for (Grupo g : lista) {
+
+                modelo.addRow(new Object[]{
+                        g.getIdGrupo(),
+                        g.getCodigoGrupo(),
+                        g.getNombre(),
+                        g.getEscuelaId()
+                });
+
+            }
+
+            mostrarTabla("Listado de Grupos", modelo);
+
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+
+        }
+
+    }
+
+    //=========================================================
+    // MOSTRAR TABLA
+    //=========================================================
+
+    private void mostrarTabla(String titulo, DefaultTableModel modelo) {
+
+        JTable tabla = new JTable(modelo);
+
+        tabla.setRowHeight(24);
+
+        JScrollPane scroll = new JScrollPane(tabla);
+
+        JFrame ventana = new JFrame(titulo);
+
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ventana.setSize(800, 500);
+        ventana.setLocationRelativeTo(null);
+
+        ventana.add(scroll);
+
+        ventana.setVisible(true);
 
     }
 

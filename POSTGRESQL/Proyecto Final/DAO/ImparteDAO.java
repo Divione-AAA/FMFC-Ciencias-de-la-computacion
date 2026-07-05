@@ -2,23 +2,22 @@ package DAO;
 
 import Database.ConnectionDB;
 import Modelos.Imparte;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImparteDAO {
 
-        //INSERTAR
-
+    // INSERTAR
     public void insertar(Imparte imparte) throws SQLException {
 
-        String sql =
-                """
+        String sql = """
                 INSERT INTO imparte
                 (
-                    profesor_id,
-                    grupo_id,
-                    asignatura_id
+                    id_profesor,
+                    id_grupo,
+                    codigo_asignatura
                 )
                 VALUES
                 (
@@ -28,51 +27,55 @@ public class ImparteDAO {
                 )
                 """;
 
-        try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
-            stmt.setString(1,imparte.getIdProfesor());
-            stmt.setInt(2,imparte.getIdGrupo());
-            stmt.setInt(3,imparte.getIdAsignatura());
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, imparte.getIdProfesor());
+            stmt.setInt(2, imparte.getIdGrupo());
+            stmt.setInt(3, imparte.getIdAsignatura());
+
             stmt.executeUpdate();
         }
     }
 
-        //LISTAR TODO
-
+    // LISTAR TODO
     public List<Imparte> obtenerTodos() throws SQLException {
 
         List<Imparte> lista = new ArrayList<>();
 
-        String sql =
-                """
+        String sql = """
                 SELECT *
                 FROM imparte
+                ORDER BY id_imparte
                 """;
 
-        try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql);ResultSet rs =stmt.executeQuery()){
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 lista.add(construir(rs));
             }
         }
+
         return lista;
     }
 
-        //BUSCAR PROFESOR
-
+    // BUSCAR POR PROFESOR
     public List<Imparte> obtenerPorProfesor(String ciProfesor) throws SQLException {
 
-        List<Imparte> lista =new ArrayList<>();
+        List<Imparte> lista = new ArrayList<>();
 
-        String sql =
-                """
+        String sql = """
                 SELECT *
                 FROM imparte
-                WHERE profesor_id=?
+                WHERE id_profesor=?
                 """;
 
-        try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1,ciProfesor);
+            stmt.setString(1, ciProfesor);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -80,79 +83,80 @@ public class ImparteDAO {
                 lista.add(construir(rs));
             }
         }
+
         return lista;
     }
 
-        //BUSCAR GRUPO
+    // BUSCAR POR GRUPO
+    public List<Imparte> obtenerPorGrupo(int grupo) throws SQLException {
 
-    public List<Imparte> obtenerPorGrupo(
-            int grupo
-    ) throws SQLException {
+        List<Imparte> lista = new ArrayList<>();
 
-        List<Imparte> lista =new ArrayList<>();
-
-        String sql =
-                """
+        String sql = """
                 SELECT *
                 FROM imparte
-                WHERE grupo_id=?
+                WHERE id_grupo=?
                 """;
 
-        try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1,grupo);
+            stmt.setInt(1, grupo);
+
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()){
-                lista.add( construir(rs));
+            while (rs.next()) {
+                lista.add(construir(rs));
             }
         }
+
         return lista;
     }
 
-        //ELIMINAR
+    // ELIMINAR
+    public boolean eliminar(int idImparte) throws SQLException {
 
-    public boolean eliminar(int id) throws SQLException {
-
-        String sql =
-                """
+        String sql = """
                 DELETE
                 FROM imparte
-                WHERE profesor_id=?
+                WHERE id_imparte=?
                 """;
 
-        try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1,id);
+            stmt.setInt(1, idImparte);
+
             return stmt.executeUpdate() > 0;
         }
     }
 
-        //CONSULTA COMPLETA
+    // CONSULTA COMPLETA
+    public List<String> obtenerVistaCompleta() throws SQLException {
 
-    public List<String> obtenerVistaCompleta()throws SQLException {
+        List<String> lista = new ArrayList<>();
 
-        List<String> lista =new ArrayList<>();
-
-        String sql =
-                """
+        String sql = """
                 SELECT
-                    p.nombre1 || ' ' || p.apellido1 AS profesor,
+                    p.nombre1ro || ' ' || p.apellido1ro AS profesor,
                     a.nombre AS asignatura,
-                    g.codigo_grupo AS grupo
+                    g.nombre AS grupo
                 FROM imparte i
-                JOIN profesor p
-                    ON i.profesor_id = p.id
-                JOIN asignatura a
-                    ON i.asignatura_id = a.id
-                JOIN grupo g
-                    ON i.grupo_id = g.id
+                INNER JOIN profesor p
+                    ON i.id_profesor = p.ci
+                INNER JOIN asignatura a
+                    ON i.codigo_asignatura = a.codigo_asignatura
+                INNER JOIN grupo g
+                    ON i.id_grupo = g.codigo_grupo
+                ORDER BY profesor
                 """;
 
-        try (Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql);ResultSet rs =stmt.executeQuery()
-        ){
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+
                 lista.add(
                         rs.getString("profesor")
                                 + " → "
@@ -164,15 +168,20 @@ public class ImparteDAO {
         }
 
         return lista;
-
     }
 
-    private Imparte construir( ResultSet rs) throws SQLException {
+    // CONSTRUCTOR
+    private Imparte construir(ResultSet rs) throws SQLException {
+
         return new Imparte(
-                0,
-                rs.getString("profesor_id"),
-                rs.getInt("grupo_id"),
-                rs.getInt("asignatura_id")
+
+                rs.getInt("id_imparte"),
+
+                rs.getString("id_profesor"),
+
+                rs.getInt("id_grupo"),
+
+                rs.getInt("codigo_asignatura")
         );
     }
 }

@@ -2,6 +2,7 @@ package Servicios;
 
 import DAO.ProfesorDAO;
 import Modelos.Profesor;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,8 +12,7 @@ public class ProfesorService {
 
     public ProfesorService() {
 
-        profesorDAO =
-                new ProfesorDAO();
+        profesorDAO = new ProfesorDAO();
 
     }
 
@@ -24,14 +24,9 @@ public class ProfesorService {
             Profesor profesor
     ) throws Exception {
 
-        validarProfesor(
-                profesor
-        );
+        validarProfesor(profesor);
 
-        profesorDAO
-                .insertar(
-                        profesor
-                );
+        profesorDAO.insertar(profesor);
 
     }
 
@@ -39,11 +34,11 @@ public class ProfesorService {
         LISTAR
      */
 
-    public List<String> obtenerTodos()
+    public List<Profesor> obtenerTodos()
             throws SQLException {
 
-        return profesorDAO
-                .obtenerTodos();
+        return profesorDAO.obtenerTodos();
+
     }
 
     /*
@@ -54,9 +49,7 @@ public class ProfesorService {
             String ci
     ) throws Exception {
 
-        boolean eliminado =
-                profesorDAO
-                        .eliminar(ci);
+        boolean eliminado = profesorDAO.eliminar(ci);
 
         if (!eliminado) {
 
@@ -88,8 +81,8 @@ public class ProfesorService {
         }
 
         if (
-                profesor.getNombre1()
-                        .isBlank()
+                profesor.getNombre1() == null ||
+                        profesor.getNombre1().isBlank()
         ) {
 
             throw new Exception(
