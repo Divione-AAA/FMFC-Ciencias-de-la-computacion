@@ -1,7 +1,7 @@
 package UI.Asignatura;
 
-import DAO.AsignaturaDAO;
 import Modelos.Asignatura;
+import Servicios.AsignaturaService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,126 +14,73 @@ public class PanelEliminarAsignatura extends JPanel {
 
     public PanelEliminarAsignatura() {
 
-        setLayout(
-                new BorderLayout(
-                        15,
-                        15
+        setLayout(new BorderLayout(15, 15));
+
+        JLabel titulo = new JLabel(
+                "Eliminar Asignatura",
+                SwingConstants.CENTER
+        );
+
+        titulo.setFont(new Font(
+                "Segoe UI",
+                Font.BOLD,
+                24
+        ));
+
+        add(titulo, BorderLayout.NORTH);
+
+        modelo = new DefaultListModel<>();
+
+        lista = new JList<>(modelo);
+
+        lista.setFont(new Font(
+                "Segoe UI",
+                Font.PLAIN,
+                15
+        ));
+
+        JScrollPane scroll = new JScrollPane(lista);
+
+        add(scroll, BorderLayout.CENTER);
+
+        JPanel inferior = new JPanel(
+                new FlowLayout(
+                        FlowLayout.CENTER,
+                        20,
+                        10
                 )
         );
 
-        JLabel titulo =
-                new JLabel(
-                        "Eliminar Asignatura",
-                        SwingConstants.CENTER
-                );
+        JButton eliminar = crearBoton("Eliminar");
+        JButton refrescar = crearBoton("Actualizar");
 
-        titulo.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        24
-                )
-        );
+        eliminar.addActionListener(e -> eliminar());
+        refrescar.addActionListener(e -> cargar());
 
-        add(
-                titulo,
-                BorderLayout.NORTH
-        );
+        inferior.add(eliminar);
+        inferior.add(refrescar);
 
-        modelo =
-                new DefaultListModel<>();
-
-        lista =
-                new JList<>(
-                        modelo
-                );
-
-        lista.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.PLAIN,
-                        15
-                )
-        );
-
-        JScrollPane scroll =
-                new JScrollPane(
-                        lista
-                );
-
-        add(
-                scroll,
-                BorderLayout.CENTER
-        );
-
-        JPanel inferior =
-                new JPanel(
-                        new FlowLayout(
-                                FlowLayout.CENTER,
-                                20,
-                                10
-                        )
-                );
-
-        JButton eliminar =
-                crearBoton(
-                        "Eliminar"
-                );
-
-        JButton refrescar =
-                crearBoton(
-                        "Actualizar"
-                );
-
-        eliminar.addActionListener(
-                e ->
-                        eliminar()
-        );
-
-        refrescar.addActionListener(
-                e ->
-                        cargar()
-        );
-
-        inferior.add(
-                eliminar
-        );
-
-        inferior.add(
-                refrescar
-        );
-
-        add(
-                inferior,
-                BorderLayout.SOUTH
-        );
+        add(inferior, BorderLayout.SOUTH);
 
         cargar();
     }
 
-    private JButton crearBoton(
-            String texto
-    ) {
+    private JButton crearBoton(String texto) {
 
-        JButton b =
-                new JButton(
-                        texto
-                );
+        JButton boton = new JButton(texto);
 
-        b.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        15
-                )
-        );
+        boton.setFont(new Font(
+                "Segoe UI",
+                Font.BOLD,
+                15
+        ));
 
-        b.putClientProperty(
+        boton.putClientProperty(
                 "JButton.arc",
                 20
         );
 
-        return b;
+        return boton;
     }
 
     private void cargar() {
@@ -142,37 +89,39 @@ public class PanelEliminarAsignatura extends JPanel {
 
             modelo.clear();
 
-            AsignaturaDAO dao =
-                    new AsignaturaDAO();
+            AsignaturaService service =
+                    new AsignaturaService();
 
             List<Asignatura> listaDatos =
-                    dao.obtenerTodas();
+                    service.obtenerTodas();
 
-            for (
-                    Asignatura a
-                    :
-                    listaDatos
-            ) {
+            if (listaDatos.isEmpty()) {
 
                 modelo.addElement(
-                        a.getIdAsignatura()
-                                +
-                                " - "
-                                +
-                                a.getNombre()
+                        "No existen asignaturas registradas."
+                );
+
+                return;
+            }
+
+            for (Asignatura a : listaDatos) {
+
+                modelo.addElement(
+                        a.getCodigoAsignatura()
+                                + " - "
+                                + a.getNombre()
                 );
 
             }
 
-        }
-
-        catch (
-                Exception ex
-        ) {
+        } catch (Exception ex) {
 
             JOptionPane.showMessageDialog(
                     this,
-                    ex.getMessage()
+                    "Error al cargar las asignaturas.\n"
+                            + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
 
         }
@@ -186,70 +135,55 @@ public class PanelEliminarAsignatura extends JPanel {
             String seleccionado =
                     lista.getSelectedValue();
 
-            if (
-                    seleccionado == null
-            ) {
+            if (seleccionado == null ||
+                    seleccionado.startsWith("No existen")) {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Selecciona una asignatura."
+                        "Seleccione una asignatura."
                 );
 
                 return;
-
             }
 
             int confirmar =
                     JOptionPane.showConfirmDialog(
                             this,
-                            "¿Eliminar asignatura?",
-                            "Confirmar",
-                            JOptionPane.YES_NO_OPTION
+                            "¿Está seguro de eliminar la asignatura?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE
                     );
 
-            if (
-                    confirmar
-                            !=
-                            JOptionPane.YES_OPTION
-            ) {
-
+            if (confirmar != JOptionPane.YES_OPTION) {
                 return;
-
             }
 
-            int id =
+            int codigo =
                     Integer.parseInt(
                             seleccionado.split(" - ")[0]
                     );
 
-            AsignaturaDAO dao =
-                    new AsignaturaDAO();
+            AsignaturaService service =
+                    new AsignaturaService();
 
-            boolean ok =
-                    dao.eliminar(
-                            id
-                    );
+            service.eliminar(codigo);
 
             JOptionPane.showMessageDialog(
                     this,
-                    ok
-                            ?
-                            "Asignatura eliminada."
-                            :
-                            "No se pudo eliminar."
+                    "Asignatura eliminada correctamente."
             );
 
             cargar();
 
-        }
-
-        catch (
-                Exception ex
-        ) {
+        } catch (Exception ex) {
 
             JOptionPane.showMessageDialog(
                     this,
-                    ex.getMessage()
+                    "Error al eliminar la asignatura.\n"
+                            + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
 
         }

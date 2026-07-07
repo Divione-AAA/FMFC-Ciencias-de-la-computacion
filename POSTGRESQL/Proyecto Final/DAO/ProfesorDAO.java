@@ -208,5 +208,48 @@ public class ProfesorDAO {
                 rs.getString("ultima_evaluacion_profesional")
         );
     }
+    public boolean actualizar(Profesor profesor) throws SQLException {
+        String sql = """
+        UPDATE profesor
+        SET
+            nombre1ro=?, nombre2do=?, apellido1ro=?, apellido2do=?, edad=?, sexo=?, color_piel=?,
+            direccion_particular=?, telefono_particular=?, municipio=?, integracion_politica=?,
+            centro_graduacion=?, anio_graduacion=?, anio_inicio_trabajo=?, procedencia=?,
+            categoria_docente=?, categoria_cientifica=?, mision_internacionalista=?, es_cuadro=?,
+            cargo=?, nivel_ensenanza=?, se_supera=?, ultima_evaluacion_profesional=?
+        WHERE ci=?
+        """;
+
+        try (Connection conn = Database.ConnectionDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, profesor.getNombre1());
+            stmt.setString(2, profesor.getNombre2());
+            stmt.setString(3, profesor.getApellido1());
+            stmt.setString(4, profesor.getApellido2());
+            stmt.setInt(5, profesor.getEdad());
+            stmt.setString(6, profesor.getSexo());
+            stmt.setString(7, profesor.getColorPiel());
+            stmt.setString(8, profesor.getDireccionParticular());
+            stmt.setString(9, profesor.getTelefonoParticular());
+            stmt.setString(10, profesor.getMunicipio());
+            stmt.setString(11, profesor.getIntegracionPolitica());
+            stmt.setString(12, profesor.getCentroGraduacion());
+            stmt.setInt(13, profesor.getAnioGraduacion());
+            stmt.setInt(14, profesor.getAnioInicioTrabajo());
+            stmt.setString(15, profesor.getProcedencia());
+            stmt.setString(16, profesor.getCategoriaDocente());
+            stmt.setString(17, profesor.getCategoriaCientifica());
+            stmt.setBoolean(18, profesor.isMisionInternacionalista());
+            stmt.setBoolean(19, profesor.isEsCuadro());
+            stmt.setString(20, profesor.getCargo());
+            stmt.setString(21, profesor.getNivelEnsenanza());
+            stmt.setBoolean(22, profesor.isSeSupera());
+            stmt.setString(23, profesor.getUltimaEvaluacionProfesional());
+            stmt.setString(24, profesor.getCi());
+
+            return stmt.executeUpdate() > 0;
+        }
+    }
 
 }

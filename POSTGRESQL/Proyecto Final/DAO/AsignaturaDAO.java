@@ -2,162 +2,168 @@ package DAO;
 
 import Database.ConnectionDB;
 import Modelos.Asignatura;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AsignaturaDAO {
 
-        //INSERTAR
-
-    public void insertar( Asignatura asignatura) throws SQLException {
+    // INSERTAR
+    public void insertar(Asignatura asignatura) throws SQLException {
 
         String sql = """
-            INSERT INTO asignatura
-            (
-                codigo_asignatura,
-                nombre
-            )
-            VALUES
-            (
-                ?,
-                ?
-            )
-        """;
+                INSERT INTO asignatura(nombre)
+                VALUES(?)
+                """;
 
-        try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
-            stmt.setString(1, asignatura.getCodigoAsignatura());
-            stmt.setString(2, asignatura.getNombre());
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setString(1, asignatura.getNombre());
+
             stmt.executeUpdate();
         }
     }
 
-        //OBTENER POR ID
+    /*
+     * BUSCAR POR CÓDIGO
+     */
+    public Asignatura obtenerPorCodigo(int codigoAsignatura)
+            throws SQLException {
 
-    public Asignatura obtenerPorId(int id) throws SQLException {
+        String sql = """
+            SELECT *
+            FROM asignatura
+            WHERE codigo_asignatura = ?
+            """;
 
-        String sql =
-                """
-                SELECT *
-                FROM asignatura
-                WHERE id=?
-                """;
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
 
-        try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
+            stmt.setInt(1, codigoAsignatura);
 
-            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()){
-                return construir(
-                        rs
-                );
+            if (rs.next()) {
+                return construir(rs);
             }
+
         }
+
         return null;
     }
 
-        //LISTAR
+    // LISTAR
+    public List<Asignatura> obtenerTodas() throws SQLException {
 
-    public List<Asignatura> obtenerTodas()throws SQLException {
+        List<Asignatura> lista = new ArrayList<>();
 
-        List<Asignatura> lista =new ArrayList<>();
-
-        String sql =
-                """
+        String sql = """
                 SELECT *
                 FROM asignatura
                 ORDER BY nombre
                 """;
 
-        try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql);ResultSet rs =stmt.executeQuery()){
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
+
             while (rs.next()) {
                 lista.add(construir(rs));
             }
+
         }
+
         return lista;
     }
 
-        //ACTUALIZAR
-
+    // ACTUALIZAR
     public boolean actualizar(Asignatura asignatura) throws SQLException {
 
-        String sql =
-                """
+        String sql = """
                 UPDATE asignatura
-                SET
-                    codigo_asignatura=?,
-                    nombre=?
-                WHERE
-                    id=?
+                SET nombre = ?
+                WHERE codigo_asignatura = ?
                 """;
 
-        try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
-            stmt.setString(1, asignatura.getCodigoAsignatura());
-            stmt.setString(2, asignatura.getNombre());
-            stmt.setInt(3, asignatura.getIdAsignatura());
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setString(1, asignatura.getNombre());
+            stmt.setInt(2, asignatura.getCodigoAsignatura());
+
             return stmt.executeUpdate() > 0;
         }
     }
 
-        //ELIMINAR
+    // ELIMINAR
+    public boolean eliminar(int codigo) throws SQLException {
 
-    public boolean eliminar(int id) throws SQLException {
-
-        String sql =
-                """
+        String sql = """
                 DELETE
                 FROM asignatura
-                WHERE id=?
+                WHERE codigo_asignatura = ?
                 """;
 
-        try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
-                stmt.setInt(1,id);
-                return stmt.executeUpdate() > 0;
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setInt(1, codigo);
+
+            return stmt.executeUpdate() > 0;
         }
     }
 
-        //BUSCAR POR NOMBRE
+    // BUSCAR POR NOMBRE
+    public List<Asignatura> buscar(String texto) throws SQLException {
 
-    public List<Asignatura> buscar(
-            String texto
-    ) throws SQLException {
+        List<Asignatura> lista = new ArrayList<>();
 
-        List<Asignatura> lista =
-                new ArrayList<>();
-
-        String sql =
-                """
+        String sql = """
                 SELECT *
                 FROM asignatura
-                WHERE LOWER(nombre)
-                LIKE LOWER(?)
+                WHERE LOWER(nombre) LIKE LOWER(?)
+                ORDER BY nombre
                 """;
 
-        try(Connection conn =ConnectionDB.getConnection();PreparedStatement stmt =conn.prepareStatement(sql)){
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
 
-            stmt.setString(
-                    1,
-                    "%" + texto + "%"
-            );
+            stmt.setString(1, "%" + texto + "%");
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 lista.add(construir(rs));
             }
+
         }
+
         return lista;
     }
 
-        //MAPPER
-
-    private Asignatura construir( ResultSet rs) throws SQLException {
+    // MAPPER
+    private Asignatura construir(ResultSet rs) throws SQLException {
 
         return new Asignatura(
-                rs.getInt("id"),
-                rs.getString("codigo_asignatura"),
+                rs.getInt("codigo_asignatura"),
                 rs.getString("nombre")
         );
     }
+
+
+
 }

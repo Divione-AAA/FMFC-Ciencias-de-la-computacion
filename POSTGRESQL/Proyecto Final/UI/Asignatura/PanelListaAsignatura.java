@@ -1,10 +1,11 @@
 package UI.Asignatura;
 
-import DAO.AsignaturaDAO;
 import Modelos.Asignatura;
+import Servicios.AsignaturaService;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import javax.swing.*;
 
 public class PanelListaAsignatura extends JPanel {
 
@@ -12,18 +13,12 @@ public class PanelListaAsignatura extends JPanel {
 
     public PanelListaAsignatura() {
 
-        setLayout(
-                new BorderLayout(
-                        15,
-                        15
-                )
-        );
+        setLayout(new BorderLayout(15, 15));
 
-        JLabel titulo =
-                new JLabel(
-                        "Listado de Asignaturas",
-                        SwingConstants.CENTER
-                );
+        JLabel titulo = new JLabel(
+                "Listado de Asignaturas",
+                SwingConstants.CENTER
+        );
 
         titulo.setFont(
                 new Font(
@@ -33,18 +28,11 @@ public class PanelListaAsignatura extends JPanel {
                 )
         );
 
-        add(
-                titulo,
-                BorderLayout.NORTH
-        );
+        add(titulo, BorderLayout.NORTH);
 
-        modelo =
-                new DefaultListModel<>();
+        modelo = new DefaultListModel<>();
 
-        JList<String> lista =
-                new JList<>(
-                        modelo
-                );
+        JList<String> lista = new JList<>(modelo);
 
         lista.setFont(
                 new Font(
@@ -54,20 +42,11 @@ public class PanelListaAsignatura extends JPanel {
                 )
         );
 
-        JScrollPane scroll =
-                new JScrollPane(
-                        lista
-                );
+        JScrollPane scroll = new JScrollPane(lista);
 
-        add(
-                scroll,
-                BorderLayout.CENTER
-        );
+        add(scroll, BorderLayout.CENTER);
 
-        JButton refrescar =
-                new JButton(
-                        "Actualizar"
-                );
+        JButton refrescar = new JButton("Actualizar");
 
         refrescar.setFont(
                 new Font(
@@ -82,22 +61,13 @@ public class PanelListaAsignatura extends JPanel {
                 20
         );
 
-        refrescar.addActionListener(
-                e ->
-                        cargar()
-        );
+        refrescar.addActionListener(e -> cargar());
 
-        JPanel inferior =
-                new JPanel();
+        JPanel inferior = new JPanel();
 
-        inferior.add(
-                refrescar
-        );
+        inferior.add(refrescar);
 
-        add(
-                inferior,
-                BorderLayout.SOUTH
-        );
+        add(inferior, BorderLayout.SOUTH);
 
         cargar();
     }
@@ -108,52 +78,41 @@ public class PanelListaAsignatura extends JPanel {
 
             modelo.clear();
 
-            AsignaturaDAO dao =
-                    new AsignaturaDAO();
+            AsignaturaService service =
+                    new AsignaturaService();
 
             List<Asignatura> lista =
-                    dao.obtenerTodas();
+                    service.obtenerTodas();
 
-            if (
-                    lista.isEmpty()
-            ) {
+            if (lista.isEmpty()) {
 
                 modelo.addElement(
                         "No existen asignaturas registradas."
                 );
 
                 return;
+
             }
 
-            for (
-                    Asignatura a
-                    :
-                    lista
-            ) {
+            for (Asignatura a : lista) {
 
                 modelo.addElement(
-                        "ID: "
-                                +
-                                a.getIdAsignatura()
-                                +
-                                " | "
-                                +
-                                a.getNombre()
+                        "Código: "
+                                + a.getCodigoAsignatura()
+                                + " | Nombre: "
+                                + a.getNombre()
                 );
 
             }
 
-        }
-
-        catch (
-                Exception ex
-        ) {
+        } catch (Exception ex) {
 
             JOptionPane.showMessageDialog(
                     this,
                     "Error cargando asignaturas:\n"
-                            +
-                            ex.getMessage()
+                            + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
 
         }

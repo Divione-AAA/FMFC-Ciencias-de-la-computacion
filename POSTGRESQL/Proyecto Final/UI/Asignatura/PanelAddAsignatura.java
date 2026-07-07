@@ -1,41 +1,33 @@
 package UI.Asignatura;
 
-import DAO.AsignaturaDAO;
 import Modelos.Asignatura;
+import Servicios.AsignaturaService;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelAddAsignatura extends JPanel {
 
-    private final JTextField campoCodigoAsignatura = new JTextField();
-    private  JTextField campoNombre = new JTextField();
+    private JTextField campoNombre;
 
     public PanelAddAsignatura() {
 
         setLayout(new BorderLayout());
 
-        JLabel titulo =
-                new JLabel(
-                        "Registrar Asignatura",
-                        SwingConstants.CENTER
-                );
-
-        titulo.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        24
-                )
+        JLabel titulo = new JLabel(
+                "Registrar Asignatura",
+                SwingConstants.CENTER
         );
 
-        add(
-                titulo,
-                BorderLayout.NORTH
-        );
+        titulo.setFont(new Font(
+                "Segoe UI",
+                Font.BOLD,
+                24
+        ));
 
-        JPanel formulario =
-                new JPanel();
+        add(titulo, BorderLayout.NORTH);
+
+        JPanel formulario = new JPanel();
 
         formulario.setLayout(
                 new BoxLayout(
@@ -53,18 +45,14 @@ public class PanelAddAsignatura extends JPanel {
                 )
         );
 
-        Dimension tam =
-                new Dimension(
-                        400,
-                        40
-                );
+        Dimension tam = new Dimension(
+                400,
+                40
+        );
 
-        // NOMBRE
-
-        JLabel labelNombre =
-                new JLabel(
-                        "Nombre:"
-                );
+        JLabel labelNombre = new JLabel(
+                "Nombre:"
+        );
 
         labelNombre.setFont(
                 new Font(
@@ -74,12 +62,9 @@ public class PanelAddAsignatura extends JPanel {
                 )
         );
 
-        campoNombre =
-                new JTextField();
+        campoNombre = new JTextField();
 
-        campoNombre.setMaximumSize(
-                tam
-        );
+        campoNombre.setMaximumSize(tam);
 
         campoNombre.setFont(
                 new Font(
@@ -89,35 +74,9 @@ public class PanelAddAsignatura extends JPanel {
                 )
         );
 
-        JLabel labelCodigoAsignatura =
-                new JLabel(
-                        "Código de asignatura:"
-                );
-
-        labelCodigoAsignatura.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        15
-                )
+        JButton guardar = new JButton(
+                "Guardar"
         );
-
-        campoCodigoAsignatura.setMaximumSize(
-                tam
-        );
-
-        campoCodigoAsignatura.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.PLAIN,
-                        15
-                )
-        );
-
-        JButton guardar =
-                new JButton(
-                        "Guardar"
-                );
 
         guardar.setFont(
                 new Font(
@@ -140,46 +99,20 @@ public class PanelAddAsignatura extends JPanel {
                 e -> guardarAsignatura()
         );
 
-        formulario.add(
-                labelCodigoAsignatura
-        );
+        formulario.add(labelNombre);
+        formulario.add(campoNombre);
 
         formulario.add(
-                campoCodigoAsignatura
+                Box.createVerticalStrut(25)
         );
 
-        formulario.add(
-                Box.createVerticalStrut(
-                        20
-                )
+        formulario.add(guardar);
+
+        JPanel wrapper = new JPanel(
+                new GridBagLayout()
         );
 
-        formulario.add(
-                labelNombre
-        );
-
-        formulario.add(
-                campoNombre
-        );
-
-        formulario.add(
-                Box.createVerticalStrut(
-                        25
-                )
-        );
-
-        formulario.add(
-                guardar
-        );
-
-        JPanel wrapper =
-                new JPanel(
-                        new GridBagLayout()
-                );
-
-        wrapper.add(
-                formulario
-        );
+        wrapper.add(formulario);
 
         add(
                 wrapper,
@@ -191,23 +124,16 @@ public class PanelAddAsignatura extends JPanel {
 
         try {
 
-            String codigoAsignatura =
-                    campoCodigoAsignatura
-                            .getText()
-                            .trim();
-
             String nombre =
                     campoNombre
                             .getText()
                             .trim();
 
-            if (
-                    codigoAsignatura.isEmpty() || nombre.isEmpty()
-            ) {
+            if (nombre.isEmpty()) {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Debe introducir el nombre."
+                        "Debe introducir el nombre de la asignatura."
                 );
 
                 return;
@@ -216,16 +142,13 @@ public class PanelAddAsignatura extends JPanel {
             Asignatura asignatura =
                     new Asignatura(
                             0,
-                            codigoAsignatura,
                             nombre
                     );
 
-            AsignaturaDAO dao =
-                    new AsignaturaDAO();
+            AsignaturaService service =
+                    new AsignaturaService();
 
-            dao.insertar(
-                    asignatura
-            );
+            service.registrar(asignatura);
 
             JOptionPane.showMessageDialog(
                     this,
@@ -234,17 +157,13 @@ public class PanelAddAsignatura extends JPanel {
 
             limpiar();
 
-        }
-
-        catch (
-                Exception ex
-        ) {
+        } catch (Exception ex) {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Error: "
-                            +
-                            ex.getMessage()
+                    "Error: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
 
         }
@@ -252,8 +171,6 @@ public class PanelAddAsignatura extends JPanel {
     }
 
     private void limpiar() {
-
-        campoCodigoAsignatura.setText("");
 
         campoNombre.setText("");
 

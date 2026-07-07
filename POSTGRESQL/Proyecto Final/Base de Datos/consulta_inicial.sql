@@ -1,6 +1,3 @@
--- ======================================================
--- ELIMINAR TABLAS ANTERIORES SI EXISTEN (LIMPIEZA TOTAL)
--- ======================================================
 DROP TABLE IF EXISTS imparte CASCADE;
 DROP TABLE IF EXISTS matricula CASCADE;
 DROP TABLE IF EXISTS alumno CASCADE;
@@ -9,9 +6,6 @@ DROP TABLE IF EXISTS asignatura CASCADE;
 DROP TABLE IF EXISTS grupo CASCADE;
 DROP TABLE IF EXISTS escuela CASCADE;
 
--- ======================================================
--- ENTIDAD: ESCUELA
--- ======================================================
 CREATE TABLE escuela (
     codigo_escuela SERIAL PRIMARY KEY,
     nombre VARCHAR(120) NOT NULL,
@@ -20,14 +14,9 @@ CREATE TABLE escuela (
     tipo VARCHAR(60)
 );
 
--- ======================================================
--- ENTIDAD: GRUPO
--- ======================================================
 CREATE TABLE grupo (
     codigo_grupo SERIAL PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL, -- Atributo explícito en el diagrama
-    
-    -- Relación PERTENECE (1,1) con Escuela
+    nombre VARCHAR(50) NOT NULL,
     codigo_escuela INTEGER NOT NULL,
     CONSTRAINT fk_grupo_escuela
         FOREIGN KEY (codigo_escuela)
@@ -36,9 +25,6 @@ CREATE TABLE grupo (
         ON DELETE RESTRICT
 );
 
--- ======================================================
--- ENTIDAD: ALUMNO
--- ======================================================
 CREATE TABLE alumno (
     ci VARCHAR(11) PRIMARY KEY,
     nombre1ro VARCHAR(40) NOT NULL,
@@ -53,14 +39,12 @@ CREATE TABLE alumno (
     grado VARCHAR(30),
     regimen VARCHAR(30),
     sesion VARCHAR(30),
-    estatus_alumno VARCHAR(50), -- Corregido según diagrama (antes estado_alumno)
+    estatus_alumno VARCHAR(50),
     especialidad VARCHAR(80),
     procedencia_social_padre VARCHAR(80),
     procedencia_social_madre VARCHAR(80),
     direccion VARCHAR(200),
     telefono VARCHAR(20),
-    
-    -- Relación INTEGRA (1,1) con Grupo
     codigo_grupo INTEGER NOT NULL,
     CONSTRAINT fk_alumno_grupo
         FOREIGN KEY (codigo_grupo)
@@ -69,9 +53,6 @@ CREATE TABLE alumno (
         ON DELETE RESTRICT
 );
 
--- ======================================================
--- ENTIDAD: PROFESOR
--- ======================================================
 CREATE TABLE profesor (
     ci VARCHAR(11) PRIMARY KEY,
     nombre1ro VARCHAR(40) NOT NULL,
@@ -97,40 +78,28 @@ CREATE TABLE profesor (
     nivel_ensenanza VARCHAR(60),
     se_supera BOOLEAN,
     ultima_evaluacion_profesional VARCHAR(80)
-    
-    -- Se elimina 'codigo_escuela' ya que PROFESOR no conecta directamente 
-    -- con ESCUELA en el diagrama de la imagen_34d9fe.jpg.
 );
 
--- ======================================================
--- ENTIDAD: ASIGNATURA
--- ======================================================
 CREATE TABLE asignatura (
-    codigo_asignatura SERIAL PRIMARY KEY, -- Corregido según diagrama (antes id_asignatura)
+    codigo_asignatura SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE
 );
 
--- ======================================================
--- RELACIÓN TERNARIA: IMPARTE (PROFESOR - GRUPO - ASIGNATURA)
--- ======================================================
 CREATE TABLE imparte (
     id_imparte SERIAL PRIMARY KEY,
     id_profesor VARCHAR(11) NOT NULL,
     id_grupo INTEGER NOT NULL,
-    codigo_asignatura INTEGER NOT NULL, -- Actualizado por el cambio en la tabla asignatura
-
+    codigo_asignatura INTEGER NOT NULL,
     CONSTRAINT fk_imparte_profesor
         FOREIGN KEY (id_profesor)
         REFERENCES profesor (ci)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-
     CONSTRAINT fk_imparte_grupo
         FOREIGN KEY (id_grupo)
         REFERENCES grupo (codigo_grupo)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-
     CONSTRAINT fk_imparte_asignatura
         FOREIGN KEY (codigo_asignatura)
         REFERENCES asignatura (codigo_asignatura)
@@ -138,9 +107,6 @@ CREATE TABLE imparte (
         ON DELETE CASCADE
 );
 
--- ======================================================
--- ÍNDICES OPTIMIZADOS PARA LAS RELACIONES
--- ======================================================
 CREATE INDEX idx_alumno_grupo ON alumno (codigo_grupo);
 CREATE INDEX idx_grupo_escuela ON grupo (codigo_escuela);
 CREATE INDEX idx_imparte_profesor ON imparte (id_profesor);

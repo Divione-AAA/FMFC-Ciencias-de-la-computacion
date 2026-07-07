@@ -1,46 +1,34 @@
 package UI.Asignatura;
 
-import DAO.AsignaturaDAO;
 import Modelos.Asignatura;
-import java.awt.*;
+import Servicios.AsignaturaService;
+
 import javax.swing.*;
+import java.awt.*;
 
 public class PanelEditarAsignatura extends JPanel {
 
-    private final JTextField campoId;
-    private final JTextField campoCodigoAsignatura;
+    private final JTextField campoCodigo;
     private final JTextField campoNombre;
 
     public PanelEditarAsignatura() {
 
-        setLayout(
-                new BorderLayout(
-                        15,
-                        15
-                )
+        setLayout(new BorderLayout(15, 15));
+
+        JLabel titulo = new JLabel(
+                "Editar Asignatura",
+                SwingConstants.CENTER
         );
 
-        JLabel titulo =
-                new JLabel(
-                        "Editar Asignatura",
-                        SwingConstants.CENTER
-                );
+        titulo.setFont(new Font(
+                "Segoe UI",
+                Font.BOLD,
+                24
+        ));
 
-        titulo.setFont(
-                new Font(
-                        "Segoe UI",
-                        Font.BOLD,
-                        24
-                )
-        );
+        add(titulo, BorderLayout.NORTH);
 
-        add(
-                titulo,
-                BorderLayout.NORTH
-        );
-
-        JPanel centro =
-                new JPanel();
+        JPanel centro = new JPanel();
 
         centro.setLayout(
                 new BoxLayout(
@@ -58,107 +46,38 @@ public class PanelEditarAsignatura extends JPanel {
                 )
         );
 
-        campoId =
-                crearCampo();
+        campoCodigo = crearCampo();
+        campoNombre = crearCampo();
 
-        campoCodigoAsignatura =
-                crearCampo();
+        JButton buscar = crearBoton("Buscar");
+        JButton guardar = crearBoton("Guardar Cambios");
 
-        campoNombre =
-                crearCampo();
+        buscar.addActionListener(e -> buscar());
+        guardar.addActionListener(e -> guardar());
 
-        JButton buscar =
-                crearBoton(
-                        "Buscar"
-                );
+        centro.add(etiqueta("Código"));
+        centro.add(campoCodigo);
 
-        JButton guardar =
-                crearBoton(
-                        "Guardar Cambios"
-                );
+        centro.add(Box.createVerticalStrut(15));
 
-        buscar.addActionListener(
-                e ->
-                        buscar()
-        );
+        centro.add(buscar);
 
-        guardar.addActionListener(
-                e ->
-                        guardar()
-        );
+        centro.add(Box.createVerticalStrut(25));
 
-        centro.add(
-                etiqueta(
-                        "ID"
-                )
-        );
+        centro.add(etiqueta("Nombre"));
+        centro.add(campoNombre);
 
-        centro.add(
-                campoId
-        );
+        centro.add(Box.createVerticalStrut(25));
 
-        centro.add(
-                Box.createVerticalStrut(
-                        10
-                )
-        );
+        centro.add(guardar);
 
-        centro.add(
-                buscar
-        );
+        add(centro, BorderLayout.CENTER);
 
-        centro.add(
-                Box.createVerticalStrut(
-                        20
-                )
-        );
-
-        centro.add(
-                etiqueta(
-                        "Código"
-                )
-        );
-
-        centro.add(
-                campoCodigoAsignatura
-        );
-
-        centro.add(
-                Box.createVerticalStrut(
-                        20
-                )
-        );
-
-        centro.add(
-                etiqueta(
-                        "Nombre"
-                )
-        );
-
-        centro.add(
-                campoNombre
-        );
-
-        centro.add(
-                Box.createVerticalStrut(
-                        20
-                )
-        );
-
-        centro.add(
-                guardar
-        );
-
-        add(
-                centro,
-                BorderLayout.CENTER
-        );
     }
 
     private JTextField crearCampo() {
 
-        JTextField t =
-                new JTextField();
+        JTextField t = new JTextField();
 
         t.setMaximumSize(
                 new Dimension(
@@ -168,79 +87,79 @@ public class PanelEditarAsignatura extends JPanel {
         );
 
         return t;
+
     }
 
-    private JLabel etiqueta(
-            String txt
-    ) {
+    private JLabel etiqueta(String texto) {
 
-        return new JLabel(
-                txt
+        JLabel l = new JLabel(texto);
+
+        l.setFont(
+                new Font(
+                        "Segoe UI",
+                        Font.BOLD,
+                        15
+                )
         );
 
+        return l;
+
     }
 
-    private JButton crearBoton(
-            String txt
-    ) {
+    private JButton crearBoton(String texto) {
 
-        JButton b =
-                new JButton(
-                        txt
-                );
+        JButton b = new JButton(texto);
 
         b.putClientProperty(
                 "JButton.arc",
                 20
         );
 
+        b.setAlignmentX(
+                Component.CENTER_ALIGNMENT
+        );
+
         return b;
+
     }
 
     private void buscar() {
 
         try {
 
-            int id =
-                    Integer.parseInt(
-                            campoId.getText()
-                    );
+            int codigo = Integer.parseInt(
+                    campoCodigo.getText().trim()
+            );
 
-            AsignaturaDAO dao =
-                    new AsignaturaDAO();
+            AsignaturaService service =
+                    new AsignaturaService();
 
-            Asignatura a =
-                    dao.obtenerPorId(
-                            id
-                    );
+            Asignatura asignatura =
+                    service.buscarPorCodigo(codigo);
 
-            if (
-                    a == null
-            ) {
+            if (asignatura == null) {
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "No encontrada"
+                        "Asignatura no encontrada."
                 );
 
                 return;
+
             }
 
-            campoCodigoAsignatura.setText(
-                    a.getCodigoAsignatura()
-            );
-
             campoNombre.setText(
-                    a.getNombre()
+                    asignatura.getNombre()
             );
 
+        } catch (NumberFormatException ex) {
 
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Código inválido."
+            );
 
-        }
-
-        catch (
-                Exception ex
-        ) {
+        } catch (Exception ex) {
 
             JOptionPane.showMessageDialog(
                     this,
@@ -255,35 +174,48 @@ public class PanelEditarAsignatura extends JPanel {
 
         try {
 
-            Asignatura a =
+            int codigo = Integer.parseInt(
+                    campoCodigo.getText().trim()
+            );
+
+            String nombre =
+                    campoNombre.getText().trim();
+
+            if (nombre.isBlank()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Debe escribir el nombre."
+                );
+
+                return;
+
+            }
+
+            Asignatura asignatura =
                     new Asignatura(
-                            Integer.parseInt(
-                                    campoId.getText()
-                            ),
-                            campoCodigoAsignatura.getText(),
-                            campoNombre.getText()
+                            codigo,
+                            nombre
                     );
 
-            AsignaturaDAO dao =
-                    new AsignaturaDAO();
+            AsignaturaService service =
+                    new AsignaturaService();
 
-            boolean ok =
-                    dao.actualizar(
-                            a
-                    );
+            service.actualizar(asignatura);
 
             JOptionPane.showMessageDialog(
                     this,
-                    ok
-                            ? "Actualizada"
-                            : "No se pudo actualizar"
+                    "Asignatura actualizada correctamente."
             );
 
-        }
+        } catch (NumberFormatException ex) {
 
-        catch (
-                Exception ex
-        ) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Código inválido."
+            );
+
+        } catch (Exception ex) {
 
             JOptionPane.showMessageDialog(
                     this,

@@ -92,5 +92,17 @@ public class ProfesorService {
         }
 
     }
+    public void actualizar(Profesor profesor) throws Exception {
+        validarProfesor(profesor);
+        boolean actualizado = profesorDAO.actualizar(profesor);
+        if (!actualizado) {
+            throw new Exception("Profesor no encontrado.");
+        }
+    }
+
+    // Agregar también este método puente que faltaba en el servicio original
+    public Profesor buscarPorCI(String ci) throws SQLException {
+        return profesorDAO.obtenerPorCI(ci);
+    }
 
 }

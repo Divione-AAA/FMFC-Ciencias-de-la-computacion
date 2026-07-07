@@ -2,134 +2,224 @@ package DAO;
 
 import Database.ConnectionDB;
 import Modelos.Grupo;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GrupoDAO {
 
-        //INSERTAR
-    public void insertar(
-            Grupo grupo
-    ) throws SQLException {
+    //====================================================
+    // INSERTAR
+    //====================================================
+
+    public void insertar(Grupo grupo) throws SQLException {
 
         String sql = """
-            INSERT INTO grupo
-            (
-                codigo_grupo,
-                nombre,
-                escuela_id
-            )
-            VALUES (?, ?, ?)
-        """;
+                INSERT INTO grupo
+                (
+                    nombre,
+                    codigo_escuela
+                )
+                VALUES (?,?)
+                """;
 
-        try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, grupo.getCodigoGrupo());
-            stmt.setString(2, grupo.getNombre());
-            stmt.setInt(3, grupo.getEscuelaId());
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setString(1, grupo.getNombre());
+            stmt.setInt(2, grupo.getEscuelaId());
+
             stmt.executeUpdate();
+
         }
+
     }
 
-        //BUSCAR
-    public Grupo obtenerPorId(int id) throws SQLException {
+    //====================================================
+    // BUSCAR
+    //====================================================
 
-        String sql = "SELECT * FROM grupo WHERE id=?";
-        try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public Grupo obtenerPorId(int codigoGrupo)
+            throws SQLException {
 
-            stmt.setInt(1, id);
+        String sql = """
+                SELECT *
+                FROM grupo
+                WHERE codigo_grupo = ?
+                """;
+
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setInt(1, codigoGrupo);
+
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 return construirGrupo(rs);
             }
+
         }
+
         return null;
-    }
-
-        //LISTAR
-    public List<Grupo> obtenerTodos() throws SQLException {
-
-        List<Grupo> lista = new ArrayList<>();
-        String sql = "SELECT * FROM grupo";
-
-        try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                lista.add(
-                        construirGrupo(rs)
-                );
-            }
-        }
-
-        return lista;
 
     }
 
-        //LISTAR POR ESCUELA
-    public List<Grupo> obtenerPorEscuela(int escuela) throws SQLException {
+    //====================================================
+    // LISTAR
+    //====================================================
+
+    public List<Grupo> obtenerTodos()
+            throws SQLException {
 
         List<Grupo> lista = new ArrayList<>();
 
         String sql = """
                 SELECT *
                 FROM grupo
-                WHERE escuela_id=?
+                ORDER BY codigo_grupo
                 """;
 
-        try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
 
-            stmt.setInt(1, escuela);
-
-            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                lista.add(construirGrupo(rs));
+
+                lista.add(
+                        construirGrupo(rs)
+                );
+
             }
+
         }
+
         return lista;
+
     }
 
-        //ACTUALIZAR
-    public boolean actualizar(Grupo grupo) throws SQLException {
+    //====================================================
+    // LISTAR POR ESCUELA
+    //====================================================
+
+    public List<Grupo> obtenerPorEscuela(int codigoEscuela)
+            throws SQLException {
+
+        List<Grupo> lista = new ArrayList<>();
 
         String sql = """
-            UPDATE grupo
-            SET
-                codigo_grupo=?,
-                nombre=?,
-                escuela_id=?
-            WHERE id=?
-        """;
+                SELECT *
+                FROM grupo
+                WHERE codigo_escuela = ?
+                ORDER BY codigo_grupo
+                """;
 
-        try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt= conn.prepareStatement(sql)) {
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
 
-            stmt.setString(1,grupo.getCodigoGrupo());
-            stmt.setString(2,grupo.getNombre());
-            stmt.setInt(3,grupo.getEscuelaId());
-            stmt.setInt(4,grupo.getIdGrupo());
+            stmt.setInt(1, codigoEscuela);
 
-            return stmt.executeUpdate() > 0;
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                lista.add(
+                        construirGrupo(rs)
+                );
+
+            }
+
         }
+
+        return lista;
+
     }
 
-        //ELIMINAR
-    public boolean eliminar(int id) throws SQLException {
+    //====================================================
+    // ACTUALIZAR
+    //====================================================
 
-        String sql = "DELETE FROM grupo WHERE id=?";
+    public boolean actualizar(Grupo grupo)
+            throws SQLException {
 
-        try (Connection conn = ConnectionDB.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1,id);
+        String sql = """
+                UPDATE grupo
+                SET
+                    nombre = ?,
+                    codigo_escuela = ?
+                WHERE codigo_grupo = ?
+                """;
+
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setString(1, grupo.getNombre());
+            stmt.setInt(2, grupo.getEscuelaId());
+            stmt.setInt(3, grupo.getIdGrupo());
+
             return stmt.executeUpdate() > 0;
+
         }
+
     }
 
-        //MAPPER
-    private Grupo construirGrupo(ResultSet rs) throws SQLException {
+    //====================================================
+    // ELIMINAR
+    //====================================================
+
+    public boolean eliminar(int codigoGrupo)
+            throws SQLException {
+
+        String sql = """
+                DELETE FROM grupo
+                WHERE codigo_grupo = ?
+                """;
+
+        try (
+                Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setInt(1, codigoGrupo);
+
+            return stmt.executeUpdate() > 0;
+
+        }
+
+    }
+
+    //====================================================
+    // MAPPER
+    //====================================================
+
+    private Grupo construirGrupo(ResultSet rs)
+            throws SQLException {
 
         return new Grupo(
-                rs.getInt("id"),
-                rs.getString("codigo_grupo"),
+
+                rs.getInt("codigo_grupo"),
+
+                String.valueOf(
+                        rs.getInt("codigo_grupo")
+                ),
+
                 rs.getString("nombre"),
-                rs.getInt("escuela_id")
+
+                rs.getInt("codigo_escuela")
+
         );
+
     }
+
 }

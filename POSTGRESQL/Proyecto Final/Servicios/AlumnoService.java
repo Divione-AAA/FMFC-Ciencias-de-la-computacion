@@ -132,5 +132,27 @@ public class AlumnoService {
         }
 
     }
+    /*
+    ACTUALIZAR
+ */
+
+    public void actualizarAlumno(
+            Alumno alumno
+    ) throws Exception {
+
+        validarAlumno(alumno);
+
+        boolean actualizado =
+                alumnoDAO.actualizar(alumno);
+
+        if (!actualizado) {
+
+            throw new Exception(
+                    "Alumno no encontrado."
+            );
+
+        }
+
+    }
 
 }

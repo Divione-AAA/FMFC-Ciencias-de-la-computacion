@@ -2,29 +2,19 @@ package Modelos;
 
 public class Asignatura {
 
-    private int idAsignatura;
-    private String codigoAsignatura;
+    private int codigoAsignatura;
     private String nombre;
 
-    public Asignatura(int idAsignatura, String codigoAsignatura, String nombre) {
-        this.idAsignatura = idAsignatura;
+    public Asignatura(int codigoAsignatura, String nombre) {
         this.codigoAsignatura = codigoAsignatura;
         this.nombre = nombre;
     }
 
-    public int getIdAsignatura() {
-        return idAsignatura;
-    }
-
-    public void setIdAsignatura(int idAsignatura) {
-        this.idAsignatura = idAsignatura;
-    }
-
-    public String getCodigoAsignatura() {
+    public int getCodigoAsignatura() {
         return codigoAsignatura;
     }
 
-    public void setCodigoAsignatura(String codigoAsignatura) {
+    public void setCodigoAsignatura(int codigoAsignatura) {
         this.codigoAsignatura = codigoAsignatura;
     }
 
@@ -34,5 +24,10 @@ public class Asignatura {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }
