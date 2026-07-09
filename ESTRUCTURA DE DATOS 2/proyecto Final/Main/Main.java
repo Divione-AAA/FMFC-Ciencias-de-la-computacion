@@ -4,11 +4,6 @@ import Search.*;
 import java.util.List;
 import metabolico.*;
 
-/**
- * CLASE PRINCIPAL DE CONTROL: Main
- * * Ejecuta de forma modular el flujo experimental para el "Analizador de rutas metabólicas".
- * Valida los requisitos R1, R2, R3 y R4 mediante métodos independientes.
- */
 public class Main {
 
     public static void main(String[] args) {
